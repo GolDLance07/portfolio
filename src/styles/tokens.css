@@ -1,0 +1,33 @@
+:root {
+  /* Core Design Tokens from DESIGN.md */
+  --color-twilight: #17152F;
+  --color-nebula: #302B59;
+  --color-violet: #7774C8;
+  --color-moonlight: #C8B9F0;
+  --color-starlight: #E9E4F5;
+  --color-pink: #F2A9C8;
+  --color-muted: #AAA5C7;
+
+  /* Supplemental depth & surface tokens */
+  --color-twilight-deep: #0B091A;
+  --color-twilight-haze: #231C42;
+  --color-panel-bg: rgba(48, 43, 89, 0.42);
+  --color-panel-border: rgba(200, 185, 240, 0.16);
+  --color-panel-border-hover: rgba(242, 169, 200, 0.35);
+
+  /* Space-Inspired Typography System */
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-tech: 'Orbitron', 'Space Grotesk', sans-serif;
+  --font-mono: 'Orbitron', 'Space Grotesk', monospace;
+
+  /* Layout */
+  --max-content-width: 1280px;
+  --nav-height: 72px;
+
+  /* Transitions */
+  --ease-out-quad: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+}
+

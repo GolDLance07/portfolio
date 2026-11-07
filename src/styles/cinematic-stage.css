@@ -1,0 +1,137 @@
+/* ==========================================================================
+   CINEMATIC CELESTIAL DOME & SCENE TRANSITION STAGE
+   Scroll-driven 3D spherical dome rotation connecting All 5 Scenes
+   ========================================================================== */
+
+.cinematic-stage-track {
+  position: relative;
+  width: 100%;
+  background: var(--color-twilight-deep);
+}
+
+/* Precision anchors for native browser navigation (#home, #about, #skills, #projects, #contact) */
+.stage-anchor-marker {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.stage-anchor-marker.anchor-home {
+  top: 0;
+}
+
+/* Pinned 100vh Sticky Viewport (Drives native scroll with zero hijacking) */
+.cinematic-sticky-viewport {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   1. SHARED CELESTIAL DOME CANVAS
+   ========================================================================== */
+.celestial-dome-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.celestial-dome-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. SCENE PLANES OVERLAY (GLIDE ACROSS THE CELESTIAL ENVIRONMENT)
+   ========================================================================== */
+.dome-landscape-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.landscape-plane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.plane-observatory {
+  z-index: 3;
+}
+
+.plane-horizon {
+  z-index: 4;
+}
+
+.plane-skills {
+  z-index: 5;
+}
+
+.plane-projects {
+  z-index: 6;
+}
+
+.plane-frontier {
+  z-index: 7;
+}
+
+.plane-contact {
+  z-index: 8;
+}
+
+/* Ensure scene containers are transparent when hosted in the Celestial Dome */
+.observatory-hero.is-in-celestial-stage,
+.horizon-scene.is-in-celestial-stage,
+.constellations-scene.is-in-celestial-stage,
+.archive-scene.is-in-celestial-stage,
+.frontier-scene.is-in-celestial-stage,
+.signal-scene.is-in-celestial-stage {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Carrier translating content smoothly */
+.horizon-scroll-carrier {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .landscape-plane {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .horizon-scroll-carrier {
+    will-change: auto;
+  }
+}

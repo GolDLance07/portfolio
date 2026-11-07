@@ -1,0 +1,458 @@
+.observatory-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-twilight-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   SCENE LAYERS (INDEPENDENT SVG/CSS PARALLAX PLANES)
+   ========================================================================== */
+.layer-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   COSMIC SKY REFINEMENT (HIGH-DENSITY STARFIELD & MULTILAYER NEBULA)
+   ========================================================================== */
+.cosmic-sky-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #05030e;
+}
+
+.cosmic-starfield-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.cosmic-nebula-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hero Diffraction Stars Shimmer */
+@keyframes hero-star-shimmer-cycle {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.hero-star-shimmer {
+  animation: hero-star-shimmer-cycle 4.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Beacon pulse on the observatory antenna */
+@keyframes beacon-pulse-cycle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 6px #f2a9c8);
+  }
+}
+
+.beacon-pulse {
+  animation: beacon-pulse-cycle 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ==========================================================================
+   ENHANCED TEXT SCRIM / VIGNETTE OVERLAY
+   Guarantees absolute editorial text readability over rich cosmic clouds
+   ========================================================================== */
+.layer-text-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 22% 48%,
+      rgba(5, 3, 14, 0.94) 0%,
+      rgba(9, 7, 22, 0.86) 38%,
+      rgba(15, 12, 32, 0.52) 65%,
+      rgba(23, 21, 47, 0) 90%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 3, 14, 0.85) 0%,
+      rgba(7, 5, 18, 0.65) 32%,
+      rgba(11, 8, 25, 0.3) 55%,
+      transparent 82%
+    );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* When in Celestial Dome: optimize scrim so the rotating dome stars shine through */
+.observatory-hero.is-in-celestial-stage .layer-text-scrim {
+  background:
+    radial-gradient(
+      circle at 22% 48%,
+      rgba(5, 3, 14, 0.92) 0%,
+      rgba(9, 7, 22, 0.8) 36%,
+      rgba(15, 12, 32, 0.38) 60%,
+      rgba(23, 21, 47, 0) 85%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 3, 14, 0.85) 0%,
+      rgba(7, 5, 18, 0.6) 30%,
+      rgba(11, 8, 25, 0.15) 52%,
+      transparent 78%
+    );
+}
+.mountains-distant-svg,
+.mountains-mid-svg,
+.foreground-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   HERO EDITORIAL CONTENT
+   ========================================================================== */
+.hero-content-container {
+  position: relative;
+  z-index: 10;
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 1.5rem) 2rem 4rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Stagger entrance default state (Anime.js handles animation when active) */
+.hero-stagger-item {
+  will-change: transform, opacity;
+}
+
+/* Eyebrow & Badge */
+.hero-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-pink);
+  background: rgba(242, 169, 200, 0.12);
+  border: 1px solid rgba(242, 169, 200, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.badge-sparkle {
+  color: var(--color-pink);
+}
+
+.hero-eyebrow-text {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--color-moonlight);
+  text-transform: uppercase;
+}
+
+/* Name */
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 7.5vw, 6.2rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.02;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 4px 30px rgba(119, 116, 200, 0.35);
+}
+
+/* Headline */
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.8vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-moonlight);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+/* Intro & Supporting lines */
+.hero-intro {
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.65;
+  color: var(--color-starlight);
+  opacity: 0.94;
+  margin-bottom: 0.75rem;
+  max-width: 540px;
+}
+
+.hero-supporting {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-pink);
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+/* Action Buttons */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.78rem 1.6rem;
+  border-radius: 8px;
+  transition: all 0.22s var(--ease-out-quad);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--color-pink);
+  color: #151229;
+  box-shadow: 0 4px 18px rgba(242, 169, 200, 0.32);
+  border: 1px solid var(--color-pink);
+}
+
+.btn-primary:hover {
+  background: #f7bbd4;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(242, 169, 200, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(48, 43, 89, 0.45);
+  color: var(--color-starlight);
+  border: 1px solid rgba(200, 185, 240, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(119, 116, 200, 0.22);
+  border-color: var(--color-moonlight);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Navigation Feedback Toast */
+.action-feedback-toast {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-moonlight);
+  background: rgba(30, 26, 56, 0.85);
+  border-left: 2px solid var(--color-pink);
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  animation: notice-fade-in 0.2s ease-out;
+}
+
+/* ==========================================================================
+   SCROLL CUE
+   ========================================================================== */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.scroll-cue-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.scroll-cue-text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.scroll-cue-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 185, 240, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 26, 56, 0.4);
+}
+
+@keyframes cue-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.cue-arrow {
+  animation: cue-bob 2.2s ease-in-out infinite;
+  color: var(--color-pink);
+}
+
+.scroll-cue-link:hover {
+  color: var(--color-starlight);
+}
+
+.scroll-cue-link:hover .scroll-cue-icon {
+  border-color: var(--color-pink);
+  background: rgba(119, 116, 200, 0.25);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-content {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .observatory-hero {
+    height: auto;
+    min-height: 100svh;
+    padding-bottom: 5rem;
+  }
+
+  .hero-content-container {
+    padding: calc(var(--nav-height) + 2rem) 1.5rem 3rem 1.5rem;
+  }
+
+  .layer-text-scrim {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(5, 3, 14, 0.95) 0%,
+      rgba(10, 8, 24, 0.9) 60%,
+      rgba(16, 13, 34, 0.65) 100%
+    );
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 12vw, 4.2rem);
+  }
+
+  .hero-headline {
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+
+  .hero-scroll-cue {
+    bottom: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero-star-shimmer,
+  .beacon-pulse,
+  .cue-arrow {
+    animation: none !important;
+  }
+
+  .layer-base,
+  .cosmic-starfield-canvas,
+  .cosmic-nebula-svg {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .hero-stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

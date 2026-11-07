@@ -1,0 +1,253 @@
+/* ==========================================================================
+   ORION THE HUNTER CELESTIAL SVG VISUALIZATION
+   Recognizable heroic silhouette, dynamic warrior pose, faceted armor planes,
+   diffraction cross flares, and luminous constellation lines
+   ========================================================================== */
+
+.orion-constellation-container {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.orion-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 0 36px rgba(119, 116, 200, 0.28));
+}
+
+/* ==============================================================
+   1. HUNTER SILHOUETTE, FACETED ARMOR & WEAPON CONTROLS
+   ============================================================== */
+.orion-figure-base {
+  filter: drop-shadow(0 8px 30px rgba(5, 3, 16, 0.85));
+}
+
+/* Spartan Helmet Visor Glow */
+.orion-visor-glow {
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px rgba(242, 169, 200, 0.6));
+}
+
+/* Overhead Starlight Sword Blade */
+.orion-blade-glow {
+  filter: drop-shadow(0 0 8px rgba(200, 185, 240, 0.8)) drop-shadow(0 0 16px rgba(147, 197, 253, 0.5));
+}
+
+/* Hoplite 3D Round Shield */
+.orion-shield-rim {
+  filter: drop-shadow(0 0 14px rgba(119, 116, 200, 0.45));
+}
+
+.orion-pauldron {
+  filter: drop-shadow(0 2px 8px rgba(23, 21, 47, 0.6));
+}
+
+/* ==============================================================
+   2. CONSTELLATION CONNECTING LINES (CRISP, LUMINOUS ASTRONOMY)
+   ============================================================== */
+.orion-constellation-line {
+  stroke: rgba(200, 185, 240, 0.65);
+  stroke-width: 1.35px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 0 3px rgba(200, 185, 240, 0.45));
+  transition: stroke 0.3s ease;
+}
+
+.orion-belt-line {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 1.6px;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+}
+
+.orion-sword-line {
+  stroke: rgba(242, 169, 200, 0.68);
+  stroke-width: 1.2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.orion-arm-line {
+  stroke: rgba(200, 185, 240, 0.42);
+  stroke-width: 1.05px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.orion-strut-line {
+  stroke: rgba(119, 116, 200, 0.3);
+  stroke-width: 0.85px;
+  stroke-dasharray: 2 4;
+  fill: none;
+}
+
+/* ==============================================================
+   3. STAR HALOS, CORONAS & DIFFRACTION FLARES
+   ============================================================== */
+.orion-halo {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.orion-supergiant-glow {
+  opacity: 0.92;
+  pointer-events: none;
+  animation: orion-supergiant-pulse 5.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.orion-supergiant-core {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 16px rgba(200, 185, 240, 0.6));
+}
+
+/* 4-point Diamond Cross Diffraction Flare Shimmer */
+.orion-spike-shimmer {
+  animation: orion-spike-breathe 4.6s ease-in-out infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.orion-nebula-pulse {
+  animation: orion-nebula-breathe 6.5s ease-in-out infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.orion-twinkle {
+  animation: orion-star-twinkle 3.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ==============================================================
+   4. NON-OVERLAPPING ASTRONOMICAL LABELS
+   ============================================================== */
+.orion-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  fill: rgba(230, 230, 245, 0.85);
+  pointer-events: none;
+  alignment-baseline: middle;
+  text-shadow: 0 1px 8px rgba(5, 3, 14, 0.95), 0 0 4px rgba(5, 3, 14, 0.9);
+}
+
+.orion-label-prominent {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: #ffffff;
+  text-shadow: 0 1px 8px rgba(5, 3, 14, 0.98), 0 0 6px rgba(119, 116, 200, 0.4);
+}
+
+.orion-label-belt {
+  font-size: 11px;
+  font-weight: 500;
+  fill: #ffffff;
+}
+
+/* Central Orion Constellation Title across cuirass */
+.orion-label-hero-title {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  fill: rgba(255, 255, 255, 0.88);
+  alignment-baseline: middle;
+  pointer-events: none;
+  text-shadow: 0 0 12px rgba(200, 185, 240, 0.7), 0 0 24px rgba(119, 116, 200, 0.4);
+}
+
+/* ==============================================================
+   5. ASTRONOMICAL TELEMETRY CAPTION
+   ============================================================== */
+.orion-telemetry-tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  margin-top: 1rem;
+  padding: 0.5rem 0.9rem;
+  border-top: 1px solid rgba(200, 185, 240, 0.16);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+}
+
+.orion-tag-name {
+  color: var(--color-pink);
+  text-transform: uppercase;
+}
+
+.orion-tag-coords {
+  color: var(--color-moonlight);
+  opacity: 0.88;
+}
+
+/* ==============================================================
+   ANIMATIONS & ACCESSIBILITY
+   ============================================================== */
+@keyframes orion-star-twinkle {
+  0%, 100% {
+    opacity: 0.82;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes orion-supergiant-pulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes orion-spike-breathe {
+  0%, 100% {
+    opacity: 0.75;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes orion-nebula-breathe {
+  0%, 100% {
+    opacity: 0.42;
+    transform: rotate(-22deg) scale(0.96);
+  }
+  50% {
+    opacity: 0.75;
+    transform: rotate(-22deg) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orion-supergiant-glow,
+  .orion-spike-shimmer,
+  .orion-nebula-pulse,
+  .orion-twinkle {
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,309 @@
+/* ==========================================================================
+   SCENE 02: THE HORIZON (ABOUT) STYLES
+   Quiet, expansive twilight landscape with two-column editorial & Orion
+   ========================================================================== */
+
+.horizon-scene {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--nav-height) + 2.5rem) 2rem 4.5rem 2rem;
+  box-sizing: border-box;
+  background-color: var(--color-twilight-deep);
+  color: var(--color-starlight);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.horizon-scene.is-in-celestial-stage {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Landscape Vector Layers */
+.horizon-layer-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.horizon-sky-svg,
+.horizon-distant-svg,
+.horizon-plateau-svg,
+.horizon-foreground-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Subtle Horizon Glow Breathing */
+@keyframes horizon-glow-cycle {
+  0%, 100% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1.05;
+    transform: scale(1.03);
+  }
+}
+
+.horizon-glow-pulse {
+  animation: horizon-glow-cycle 8s ease-in-out infinite;
+  transform-origin: 50% 88%;
+}
+
+/* Atmospheric Vignette Scrim behind text */
+.horizon-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(8, 6, 22, 0.45) 0%,
+      rgba(14, 11, 33, 0.25) 45%,
+      transparent 75%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(8, 6, 22, 0.2) 20%,
+      rgba(18, 14, 38, 0.5) 60%,
+      rgba(8, 5, 20, 0.88) 100%
+    );
+}
+
+/* ==============================================================
+   CONTENT LAYOUT & TWO-COLUMN EDITORIAL COMPOSITION
+   ============================================================== */
+.horizon-content-container {
+  position: relative;
+  z-index: 10;
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Eyebrow & Station Metadata */
+.horizon-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.horizon-station-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-pink);
+  background: rgba(242, 169, 200, 0.12);
+  border: 1px solid rgba(242, 169, 200, 0.3);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.horizon-station-badge .badge-icon {
+  color: var(--color-pink);
+}
+
+.horizon-coordinates {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--color-moonlight);
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+/* Two-Column Stage Grid */
+.about-stage-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+/* Left Column: Editorial & Narrative */
+.about-editorial-column {
+  display: flex;
+  flex-direction: column;
+  max-width: 680px;
+}
+
+.horizon-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 0.85rem 0;
+  text-shadow: 0 4px 28px rgba(119, 116, 200, 0.22);
+}
+
+.about-name-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 1.75rem;
+}
+
+.about-name-sparkle {
+  color: var(--color-pink);
+}
+
+.about-body-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1.75rem;
+}
+
+.about-narrative-p {
+  font-family: var(--font-sans);
+  font-size: clamp(0.96rem, 1.2vw, 1.06rem);
+  line-height: 1.75;
+  color: rgba(230, 230, 245, 0.92);
+  margin: 0;
+}
+
+.about-closing-line {
+  margin: 0;
+  padding: 1.1rem 1.4rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 1.5vw, 1.28rem);
+  font-style: italic;
+  line-height: 1.55;
+  color: #ffffff;
+  background: rgba(23, 21, 47, 0.45);
+  border-left: 2px solid var(--color-pink);
+  border-radius: 0 8px 8px 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-shadow: 0 0 24px rgba(242, 169, 200, 0.22);
+}
+
+/* Right Column: Orion Constellation */
+.about-constellation-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Telemetry Bar / Horizon Marker */
+.horizon-telemetry-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1.1rem 1.6rem;
+  border-radius: 8px;
+  background: rgba(18, 14, 38, 0.65);
+  border: 1px solid rgba(200, 185, 240, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.telemetry-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+  opacity: 0.75;
+}
+
+.telemetry-value {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-starlight);
+  letter-spacing: 0.06em;
+}
+
+.telemetry-separator {
+  color: var(--color-violet);
+  opacity: 0.5;
+}
+
+/* ==============================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ============================================================== */
+@media (max-width: 960px) {
+  .horizon-scene {
+    padding: calc(var(--nav-height) + 1.5rem) 1.5rem 3.5rem 1.5rem;
+  }
+
+  .about-stage-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-constellation-column {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .horizon-telemetry-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .telemetry-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .horizon-title {
+    font-size: 2.2rem;
+  }
+
+  .about-constellation-column {
+    max-width: 300px;
+  }
+
+  .about-closing-line {
+    padding: 0.85rem 1rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* ==============================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ============================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .horizon-glow-pulse {
+    animation: none !important;
+  }
+}

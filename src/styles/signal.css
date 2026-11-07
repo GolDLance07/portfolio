@@ -1,0 +1,526 @@
+/* ==========================================================================
+   SCENE 06: THE SIGNAL / CONTACT
+   Deep-space communications terminal with functional EmailJS console
+   ========================================================================== */
+
+.signal-scene {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 2rem) 2rem 4rem 2rem;
+  color: var(--color-starlight);
+  box-sizing: border-box;
+}
+
+.signal-scene.is-in-celestial-stage {
+  background: transparent !important;
+}
+
+.signal-container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.signal-header {
+  margin-bottom: 2.25rem;
+  max-width: 720px;
+}
+
+.signal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.75rem;
+}
+
+.signal-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--color-starlight);
+  margin-bottom: 0.75rem;
+}
+
+.signal-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* Two-column Layout: Telemetry Antenna Card (Left) & Transmission Form (Right) */
+.signal-main-stage {
+  display: grid;
+  grid-template-columns: 1fr 1.18fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Left: Telemetry Station Info Card */
+.signal-station-card {
+  background: rgba(18, 14, 38, 0.65);
+  border: 1px solid rgba(200, 185, 240, 0.16);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Antenna Graphic Frame */
+.signal-antenna-frame {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.signal-pulse-ring {
+  stroke: rgba(242, 169, 200, 0.4);
+  fill: none;
+  animation: pulseBeacon 3s infinite ease-out;
+}
+
+@keyframes pulseBeacon {
+  0% {
+    r: 8;
+    opacity: 0.9;
+    stroke-width: 1.5;
+  }
+  100% {
+    r: 45;
+    opacity: 0;
+    stroke-width: 0.5;
+  }
+}
+
+.station-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(119, 116, 200, 0.16);
+  border: 1px solid rgba(242, 169, 200, 0.25);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-pink);
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.status-dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #39e58c;
+  box-shadow: 0 0 8px #39e58c;
+}
+
+.station-meta-coords {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-moonlight);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Channels List */
+.signal-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.signal-channel-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: rgba(30, 26, 56, 0.4);
+  border: 1px solid rgba(200, 185, 240, 0.12);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-out-quad);
+}
+
+.signal-channel-item:hover {
+  background: rgba(48, 43, 89, 0.55);
+  border-color: rgba(242, 169, 200, 0.35);
+  transform: translateX(4px);
+}
+
+.channel-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-pink);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+}
+
+.channel-value {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-starlight);
+}
+
+.channel-icon {
+  color: var(--color-moonlight);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.channel-icon:hover {
+  color: var(--color-pink);
+  transform: scale(1.1);
+}
+
+/* Right: Transmission Form Card */
+.transmission-form-card {
+  background: rgba(18, 14, 38, 0.72);
+  border: 1px solid rgba(200, 185, 240, 0.18);
+  border-radius: 18px;
+  padding: 2.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.form-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-moonlight);
+  letter-spacing: 0.12em;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed rgba(200, 185, 240, 0.16);
+}
+
+/* Error Alert Banner */
+.transmission-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.transmission-alert-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fecaca;
+}
+
+.transmission-alert .alert-icon {
+  color: #f87171;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.transmission-alert .alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.transmission-alert .alert-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fca5a5;
+}
+
+.transmission-alert .alert-text {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: rgba(254, 202, 202, 0.95);
+}
+
+.transmission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--color-starlight);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.field-required {
+  color: var(--color-pink);
+  font-weight: bold;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(10, 8, 22, 0.72);
+  border: 1px solid rgba(200, 185, 240, 0.2);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: #ffffff;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--color-pink);
+  outline: none;
+  box-shadow: 0 0 14px rgba(242, 169, 200, 0.28);
+  background: rgba(20, 16, 42, 0.88);
+}
+
+.form-input.is-invalid,
+.form-textarea.is-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+  background: rgba(26, 12, 20, 0.8);
+}
+
+.form-input:disabled,
+.form-textarea:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-error-msg {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #fca5a5;
+  letter-spacing: 0.03em;
+}
+
+/* Submit Button */
+.form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.75rem;
+  background: var(--color-pink);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #0b091a;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out-quad);
+  margin-top: 0.5rem;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background: #ffffff;
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.55);
+  transform: translateY(-2px);
+}
+
+.form-submit-btn:disabled,
+.form-submit-btn.is-submitting {
+  opacity: 0.75;
+  cursor: wait;
+  transform: none;
+}
+
+.btn-spinner {
+  animation: spinLoader 1s linear infinite;
+}
+
+@keyframes spinLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fallback Mailto Row */
+.transmission-fallback-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200, 185, 240, 0.1);
+}
+
+.fallback-divider-text {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+  opacity: 0.65;
+}
+
+.fallback-mailto-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--color-moonlight);
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: rgba(119, 116, 200, 0.08);
+  border: 1px solid rgba(200, 185, 240, 0.14);
+}
+
+.fallback-mailto-link:hover {
+  color: #ffffff;
+  border-color: var(--color-pink);
+  background: rgba(242, 169, 200, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Success Confirmation State */
+.form-status-box {
+  padding: 2.25rem 1.75rem;
+  border-radius: 14px;
+  background: rgba(30, 26, 56, 0.65);
+  border: 1px solid rgba(242, 169, 200, 0.45);
+  box-shadow: 0 0 35px rgba(242, 169, 200, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: center;
+  align-items: center;
+}
+
+.status-success-icon {
+  filter: drop-shadow(0 0 10px rgba(242, 169, 200, 0.5));
+}
+
+.form-status-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.form-status-desc {
+  font-size: 0.95rem;
+  color: var(--color-starlight);
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0;
+}
+
+.status-receipt-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.75rem 1.25rem;
+  margin: 0.5rem 0;
+  background: rgba(14, 11, 30, 0.7);
+  border: 1px solid rgba(200, 185, 240, 0.15);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+
+.form-reset-btn {
+  padding: 0.65rem 1.4rem;
+  background: rgba(119, 116, 200, 0.25);
+  border: 1px solid rgba(200, 185, 240, 0.35);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-starlight);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.form-reset-btn:hover {
+  border-color: var(--color-pink);
+  color: #ffffff;
+  background: rgba(242, 169, 200, 0.2);
+}
+
+/* ==========================================================================
+   RESPONSIVE ADAPTATIONS
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .signal-main-stage {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .signal-scene {
+    padding: calc(var(--nav-height) + 1rem) 1rem 3rem 1rem;
+  }
+
+  .transmission-form-card,
+  .signal-station-card {
+    padding: 1.5rem;
+  }
+}
