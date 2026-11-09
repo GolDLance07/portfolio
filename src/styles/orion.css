@@ -1,13 +1,13 @@
 /* ==========================================================================
-   ORION THE HUNTER CELESTIAL SVG VISUALIZATION
-   Recognizable heroic silhouette, dynamic warrior pose, faceted armor planes,
-   diffraction cross flares, and luminous constellation lines
+   ORION THE HUNTER — MYTHOLOGICAL CELESTIAL ARTWORK
+   Classical, graceful astronomical illustration emerging from the starfield
+   with flowing contours, delicate lavender linework, and embedded stars
    ========================================================================== */
 
 .orion-constellation-container {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -21,74 +21,61 @@
   height: auto;
   display: block;
   overflow: visible;
-  filter: drop-shadow(0 0 36px rgba(119, 116, 200, 0.28));
+  filter: drop-shadow(0 0 40px rgba(119, 116, 200, 0.25));
 }
 
 /* ==============================================================
-   1. HUNTER SILHOUETTE, FACETED ARMOR & WEAPON CONTROLS
+   1. FLOWING SILHOUETTE & DELICATE CELESTIAL CONTOURS
    ============================================================== */
-.orion-figure-base {
-  filter: drop-shadow(0 8px 30px rgba(5, 3, 16, 0.85));
+.orion-myth-silhouette {
+  transition: opacity 0.4s ease;
 }
 
-/* Spartan Helmet Visor Glow */
-.orion-visor-glow {
-  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px rgba(242, 169, 200, 0.6));
-}
-
-/* Overhead Starlight Sword Blade */
-.orion-blade-glow {
-  filter: drop-shadow(0 0 8px rgba(200, 185, 240, 0.8)) drop-shadow(0 0 16px rgba(147, 197, 253, 0.5));
-}
-
-/* Hoplite 3D Round Shield */
-.orion-shield-rim {
-  filter: drop-shadow(0 0 14px rgba(119, 116, 200, 0.45));
-}
-
-.orion-pauldron {
-  filter: drop-shadow(0 2px 8px rgba(23, 21, 47, 0.6));
-}
-
-/* ==============================================================
-   2. CONSTELLATION CONNECTING LINES (CRISP, LUMINOUS ASTRONOMY)
-   ============================================================== */
-.orion-constellation-line {
-  stroke: rgba(200, 185, 240, 0.65);
-  stroke-width: 1.35px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-  filter: drop-shadow(0 0 3px rgba(200, 185, 240, 0.45));
+/* Delicate, Glowing Lavender Contours */
+.orion-contour-line {
+  filter: drop-shadow(0 0 6px rgba(200, 185, 240, 0.4));
   transition: stroke 0.3s ease;
 }
 
+/* Ethereal Helmet Crest Feathers */
+.orion-crest-plume {
+  filter: drop-shadow(0 0 8px rgba(242, 169, 200, 0.35));
+  transition: opacity 0.3s ease;
+}
+
+/* Slender Starlight Blade */
+.orion-starlight-blade {
+  filter: drop-shadow(0 0 8px rgba(200, 185, 240, 0.8)) drop-shadow(0 0 16px rgba(147, 197, 253, 0.5));
+}
+
+/* Classical Ethereal Shield Buckler */
+.orion-buckler-rim {
+  filter: drop-shadow(0 0 12px rgba(119, 116, 200, 0.4));
+}
+
+/* ==============================================================
+   2. CLEAN, UNCLUTTERED CONSTELLATION CONNECTING LINES
+   ============================================================== */
+.orion-astro-line {
+  stroke: rgba(200, 185, 240, 0.55);
+  stroke-width: 1.15px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 0 3px rgba(200, 185, 240, 0.4));
+}
+
 .orion-belt-line {
-  stroke: rgba(255, 255, 255, 0.95);
-  stroke-width: 1.6px;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 1.4px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
 }
 
-.orion-sword-line {
-  stroke: rgba(242, 169, 200, 0.68);
-  stroke-width: 1.2px;
+.orion-sword-astro-line {
+  stroke: rgba(242, 169, 200, 0.6);
+  stroke-width: 1.1px;
   stroke-linecap: round;
   stroke-linejoin: round;
-  fill: none;
-}
-
-.orion-arm-line {
-  stroke: rgba(200, 185, 240, 0.42);
-  stroke-width: 1.05px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-
-.orion-strut-line {
-  stroke: rgba(119, 116, 200, 0.3);
-  stroke-width: 0.85px;
-  stroke-dasharray: 2 4;
   fill: none;
 }
 
@@ -130,7 +117,7 @@
 }
 
 /* ==============================================================
-   4. NON-OVERLAPPING ASTRONOMICAL LABELS
+   4. UNDERSTATED, NON-OVERLAPPING ASTRONOMICAL LABELS
    ============================================================== */
 .orion-label {
   font-family: var(--font-mono);
@@ -153,18 +140,6 @@
   font-size: 11px;
   font-weight: 500;
   fill: #ffffff;
-}
-
-/* Central Orion Constellation Title across cuirass */
-.orion-label-hero-title {
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  fill: rgba(255, 255, 255, 0.88);
-  alignment-baseline: middle;
-  pointer-events: none;
-  text-shadow: 0 0 12px rgba(200, 185, 240, 0.7), 0 0 24px rgba(119, 116, 200, 0.4);
 }
 
 /* ==============================================================
@@ -234,11 +209,11 @@
 @keyframes orion-nebula-breathe {
   0%, 100% {
     opacity: 0.42;
-    transform: rotate(-22deg) scale(0.96);
+    transform: rotate(-18deg) scale(0.96);
   }
   50% {
     opacity: 0.75;
-    transform: rotate(-22deg) scale(1.08);
+    transform: rotate(-18deg) scale(1.08);
   }
 }
 
