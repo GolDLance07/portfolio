@@ -14,656 +14,661 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
   const cleanId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
 
   const lineGlowId = `orion-line-glow-${cleanId}`;
-  const figureGradId = `orion-figure-grad-${cleanId}`;
-  const figureGlowId = `orion-figure-glow-${cleanId}`;
-  const shieldGradId = `orion-shield-grad-${cleanId}`;
-  const bladeGradId = `orion-blade-grad-${cleanId}`;
   const betelgeuseCoronaId = `betelgeuse-corona-${cleanId}`;
   const rigelCoronaId = `rigel-corona-${cleanId}`;
   const alnilamCoronaId = `alnilam-corona-${cleanId}`;
-  const starCoronaId = `star-corona-${cleanId}`;
+  const blueStarCoronaId = `blue-star-corona-${cleanId}`;
+  const amberStarCoronaId = `amber-star-corona-${cleanId}`;
   const m42NebulaId = `m42-nebula-${cleanId}`;
-
-  // Anatomical and astronomical coordinates mapped across the 500 x 700 celestial canvas
-  const stars = {
-    // Shoulders
-    betelgeuse: { x: 165, y: 225, r: 5.6, name: 'Betelgeuse', labelX: 138, labelY: 228, anchor: 'end' },
-    bellatrix: { x: 295, y: 210, r: 4.8, name: 'Bellatrix', labelX: 318, labelY: 214, anchor: 'start' },
-
-    // The Three Belt Stars (Crisp, aligned diagonal line across the waist)
-    alnitak: { x: 218, y: 350, r: 4.0, name: 'Alnitak', labelX: 192, labelY: 354, anchor: 'end' },
-    alnilam: { x: 252, y: 336, r: 4.6, name: 'Alnilam', labelX: 252, labelY: 316, anchor: 'middle' },
-    mintaka: { x: 286, y: 322, r: 4.0, name: 'Mintaka', labelX: 308, labelY: 326, anchor: 'start' },
-
-    // The Sword (Hanging gently beneath the belt)
-    swordUpper: { x: 250, y: 375, r: 2.2 },
-    swordMiddle: { x: 252, y: 398, r: 3.4, name: 'M42', labelX: 268, labelY: 401, anchor: 'start' },
-    swordLower: { x: 254, y: 422, r: 2.4 },
-
-    // The Legs & Knees (Dynamic celestial stance)
-    saiph: { x: 215, y: 495, r: 4.4, name: 'Saiph', labelX: 188, labelY: 499, anchor: 'end' },
-    rigel: { x: 355, y: 435, r: 6.0, name: 'Rigel', labelX: 382, labelY: 439, anchor: 'start' },
-
-    // Arm and Weapon Anchor Stars
-    handRight: { x: 105, y: 68, r: 2.4 },
-    handLeft: { x: 388, y: 180, r: 2.4 },
-  };
+  const shieldGradId = `shield-grad-${cleanId}`;
+  const bladeGradId = `blade-grad-${cleanId}`;
 
   return (
     <div
       className={`orion-constellation-container ${className}`}
-      aria-label="Orion the Hunter Mythological Celestial Illustration"
+      aria-label="Orion the Hunter Constellation & Celestial Silhouette"
     >
       <svg
         className="orion-svg"
-        viewBox="0 0 500 700"
+        viewBox="0 0 384 640"
         preserveAspectRatio="xMidYMid meet"
         role="img"
-        aria-label="Classical celestial artwork of Orion the Hunter emerging gracefully from the twilight starfield."
+        aria-label="Celestial reconstruction of Orion the Hunter emerging from the starfield, exactly mapped to astronomical coordinates."
       >
         <defs>
           {/* Subtle line glow filter */}
           <filter id={lineGlowId} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="1.5" result="blur" />
+            <feGaussianBlur stdDeviation="1.2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-
-          {/* Ethereal body glow filter */}
-          <filter id={figureGlowId} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          {/* Ethereal semi-transparent silhouette gradient (Nebula Violet & Indigo) */}
-          <linearGradient id={figureGradId} x1="20%" y1="0%" x2="80%" y2="100%">
-            <stop offset="0%" stopColor="#7774C8" stopOpacity="0.32" />
-            <stop offset="35%" stopColor="#302B59" stopOpacity="0.48" />
-            <stop offset="70%" stopColor="#1E1942" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#0F0C24" stopOpacity="0.25" />
-          </linearGradient>
-
-          {/* Classical shield translucent gradient */}
-          <radialGradient id={shieldGradId} cx="45%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#C8B9F0" stopOpacity="0.28" />
-            <stop offset="45%" stopColor="#7774C8" stopOpacity="0.2" />
-            <stop offset="85%" stopColor="#251F4A" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#120E28" stopOpacity="0.1" />
-          </radialGradient>
-
-          {/* Slender starlight blade gradient */}
-          <linearGradient id={bladeGradId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#C8B9F0" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#93C5FD" stopOpacity="0.4" />
-          </linearGradient>
 
           {/* Betelgeuse Amber Red-Supergiant Corona */}
           <radialGradient id={betelgeuseCoronaId} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFF2D6" stopOpacity="1" />
-            <stop offset="28%" stopColor="#F59E0B" stopOpacity="0.75" />
-            <stop offset="65%" stopColor="#D97706" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#7774C8" stopOpacity="0" />
+            <stop offset="0%" stopColor="#FFF7E6" stopOpacity="1" />
+            <stop offset="25%" stopColor="#F59E0B" stopOpacity="0.85" />
+            <stop offset="60%" stopColor="#D97706" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#B45309" stopOpacity="0" />
           </radialGradient>
 
           {/* Rigel Brilliant Blue-White Corona */}
           <radialGradient id={rigelCoronaId} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-            <stop offset="25%" stopColor="#BAE6FD" stopOpacity="0.85" />
-            <stop offset="60%" stopColor="#3B82F6" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#17152F" stopOpacity="0" />
+            <stop offset="22%" stopColor="#BAE6FD" stopOpacity="0.9" />
+            <stop offset="55%" stopColor="#38BDF8" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#0284C7" stopOpacity="0" />
           </radialGradient>
 
           {/* Alnilam Center Belt Corona */}
           <radialGradient id={alnilamCoronaId} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-            <stop offset="35%" stopColor="#C8B9F0" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#7774C8" stopOpacity="0" />
+            <stop offset="30%" stopColor="#BFDBFE" stopOpacity="0.75" />
+            <stop offset="70%" stopColor="#60A5FA" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#1E40AF" stopOpacity="0" />
           </radialGradient>
 
-          {/* Standard Star Halo */}
-          <radialGradient id={starCoronaId} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-            <stop offset="40%" stopColor="#C8B9F0" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#7774C8" stopOpacity="0" />
+          {/* Blue-White Star Halo */}
+          <radialGradient id={blueStarCoronaId} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
+            <stop offset="35%" stopColor="#C7D2FE" stopOpacity="0.7" />
+            <stop offset="75%" stopColor="#818CF8" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#312E81" stopOpacity="0" />
           </radialGradient>
 
-          {/* M42 Great Orion Nebula diffuse emission cloud */}
+          {/* Amber Star Halo (Aldebaran) */}
+          <radialGradient id={amberStarCoronaId} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#FFFBEB" stopOpacity="1" />
+            <stop offset="35%" stopColor="#FCD34D" stopOpacity="0.8" />
+            <stop offset="75%" stopColor="#F59E0B" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#78350F" stopOpacity="0" />
+          </radialGradient>
+
+          {/* M42 Great Orion Nebula diffuse cloud */}
           <radialGradient id={m42NebulaId} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F2A9C8" stopOpacity="0.65" />
-            <stop offset="45%" stopColor="#C8B9F0" stopOpacity="0.3" />
-            <stop offset="80%" stopColor="#7774C8" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#17152F" stopOpacity="0" />
+            <stop offset="0%" stopColor="#F472B6" stopOpacity="0.55" />
+            <stop offset="45%" stopColor="#A855F7" stopOpacity="0.25" />
+            <stop offset="80%" stopColor="#6366F1" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#0B0F19" stopOpacity="0" />
           </radialGradient>
+
+          {/* Shield Concave Shading Gradient */}
+          <radialGradient id={shieldGradId} cx="52%" cy="48%" r="58%">
+            <stop offset="0%" stopColor="#1e2c42" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#141e2e" stopOpacity="0.85" />
+            <stop offset="85%" stopColor="#0d1420" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#182538" stopOpacity="0.8" />
+          </radialGradient>
+
+          {/* Sword Blade Starlight Gradient */}
+          <linearGradient id={bladeGradId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#E2E8F0" stopOpacity="0.9" />
+            <stop offset="60%" stopColor="#94A3B8" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.4" />
+          </linearGradient>
         </defs>
 
         {/* ============================================================== */}
         {/* 1. FAINT CELESTIAL BACKGROUND STARS & GUIDE RETICLE            */}
         {/* ============================================================== */}
-        <g className="orion-ambient-stars" opacity="0.4" aria-hidden="true">
-          {/* Subtle guide arc curving above the blade */}
-          <path
-            d="M 60 55 C 150 25, 260 25, 330 50"
-            fill="none"
-            stroke="var(--color-moonlight)"
-            strokeWidth="0.75"
-            strokeDasharray="3 5"
-            opacity="0.35"
-          />
-          <circle cx="55" cy="105" r="1.1" fill="#E9E4F5" opacity="0.4" />
-          <circle cx="115" cy="35" r="1.3" fill="#E9E4F5" opacity="0.5" />
-          <circle cx="145" cy="70" r="1.0" fill="#E9E4F5" opacity="0.35" />
-          <circle cx="45" cy="195" r="1.2" fill="#E9E4F5" opacity="0.45" />
-          <circle cx="340" cy="85" r="1.4" fill="#E9E4F5" opacity="0.55" />
-          <circle cx="455" cy="105" r="1.1" fill="#E9E4F5" opacity="0.4" />
-          <circle cx="465" cy="265" r="1.2" fill="#E9E4F5" opacity="0.45" />
-          <circle cx="440" cy="350" r="1.0" fill="#E9E4F5" opacity="0.35" />
-          <circle cx="130" cy="425" r="1.1" fill="#E9E4F5" opacity="0.4" />
-          <circle cx="165" cy="570" r="1.0" fill="#E9E4F5" opacity="0.35" />
-          <circle cx="410" cy="510" r="1.3" fill="#E9E4F5" opacity="0.5" />
-          <circle cx="390" cy="595" r="1.1" fill="#E9E4F5" opacity="0.4" />
-          <circle cx="265" cy="670" r="1.2" fill="#E9E4F5" opacity="0.45" />
-        </g>
-
-        {/* ============================================================== */}
-        {/* 2. THE RECOGNIZABLE HUNTER SILHOUETTE (FLOWING CELESTIAL ART)  */}
-        {/* ============================================================== */}
-        <g className="orion-hunter-artwork" aria-hidden="true">
-          {/* Main Flowing Silhouette Base with Soft Nebular Fill */}
-          <path
-            className="orion-myth-silhouette"
-            d={`
-              M 226 108
-              C 238 92, 230 68, 208 50
-              C 222 68, 226 88, 226 108
-              C 236 108, 248 118, 252 135
-              C 255 145, 253 158, 248 168
-              C 242 178, 235 186, 238 198
-              C 255 198, 275 204, 295 210
-              C 320 212, 345 224, 355 240
-              C 368 226, 382 205, 388 180
-              C 392 185, 396 195, 386 215
-              C 375 235, 358 255, 345 260
-              C 330 262, 310 252, 292 245
-              C 285 275, 278 305, 272 330
-              C 282 342, 292 360, 290 380
-              C 285 410, 275 425, 268 435
-              C 295 435, 328 438, 355 435
-              C 370 445, 362 468, 348 495
-              C 332 525, 320 545, 315 565
-              C 310 578, 302 585, 298 580
-              C 295 572, 304 555, 308 535
-              C 315 505, 332 468, 338 450
-              C 315 448, 285 445, 260 445
-              C 250 455, 238 465, 230 475
-              C 224 495, 220 535, 218 575
-              C 216 615, 212 642, 206 655
-              C 200 668, 190 668, 188 660
-              C 186 648, 194 625, 198 595
-              C 204 545, 208 510, 212 495
-              C 205 470, 200 445, 196 425
-              C 190 405, 185 375, 186 350
-              C 182 315, 175 275, 165 225
-              C 150 220, 132 205, 118 185
-              C 105 168, 92 152, 88 142
-              C 84 132, 92 115, 102 85
-              C 104 78, 105 72, 105 68
-              C 108 68, 114 74, 115 85
-              C 118 108, 126 130, 138 152
-              C 150 175, 162 198, 168 215
-              C 178 208, 195 200, 214 195
-              C 210 180, 206 160, 206 142
-              C 206 122, 214 108, 226 108
-              Z
-            `}
-            fill={`url(#${figureGradId})`}
-            filter={`url(#${figureGlowId})`}
-          />
-
-          {/* Delicate, Flowing Lavender Contours (Graceful, Not Polygonal) */}
-          {/* Head, Noble Profile & Visor Brow */}
-          <path
-            d="
-              M 226 108 
-              C 236 108, 248 118, 252 135 
-              C 255 145, 253 158, 248 168 
-              C 242 178, 235 186, 238 198
-            "
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.25"
-            strokeLinecap="round"
-            fill="none"
-            className="orion-contour-line"
-          />
-          {/* Helmet Dome & Crown Curve */}
-          <path
-            d="
-              M 252 135 
-              C 248 116, 236 106, 222 106 
-              C 210 106, 204 122, 206 142 
-              C 208 165, 212 182, 216 196
-            "
-            stroke="var(--color-violet)"
-            strokeWidth="0.9"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.75"
-          />
-          {/* Ethereal Helmet Crest Feathers (3 Flowing Strands) */}
-          <path
-            d="M 224 108 C 218 88, 202 68, 180 50 C 195 68, 205 88, 216 110 Z"
-            fill="rgba(242, 169, 200, 0.22)"
-            stroke="var(--color-pink)"
-            strokeWidth="0.85"
-            className="orion-crest-plume"
-          />
-          <path
-            d="M 226 108 C 235 88, 222 62, 195 40 C 210 60, 218 84, 222 110 Z"
-            fill="rgba(200, 185, 240, 0.3)"
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.0"
-            className="orion-crest-plume"
-          />
-          <path
-            d="M 228 110 C 242 90, 236 68, 212 48 C 226 68, 230 90, 228 112 Z"
-            fill="rgba(119, 116, 200, 0.2)"
-            stroke="var(--color-violet)"
-            strokeWidth="0.85"
-            className="orion-crest-plume"
-          />
-
-          {/* Upraised Right Arm & Slender Starlight Blade */}
-          <path
-            d="
-              M 165 225 
-              C 148 215, 130 195, 116 172 
-              C 104 152, 92 135, 88 125 
-              C 85 115, 92 98, 102 75 
-              C 104 70, 105 68, 105 68
-            "
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.15"
-            strokeLinecap="round"
-            fill="none"
-            className="orion-contour-line"
-          />
-          {/* Slender Starlight Blade (Horizontal across top) */}
-          <g className="orion-sword-group">
-            <line
-              x1="110"
-              y1="68"
-              x2="270"
-              y2="42"
-              stroke={`url(#${bladeGradId})`}
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              className="orion-starlight-blade"
-            />
-            {/* Fine Blade Fuller Core */}
-            <line
-              x1="112"
-              y1="68"
-              x2="268"
-              y2="42"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              strokeLinecap="round"
-              opacity="0.95"
-            />
-            {/* Delicate Crossguard & Pommel */}
-            <line x1="110" y1="58" x2="110" y2="78" stroke="var(--color-pink)" strokeWidth="1.8" strokeLinecap="round" />
-            <circle cx="94" cy="71" r="2.8" fill="var(--color-pink)" />
-            <line x1="94" y1="71" x2="110" y2="68" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />
-          </g>
-
-          {/* Forward Left Arm & Classical Ethereal Buckler */}
-          <path
-            d="
-              M 295 210 
-              C 320 215, 345 228, 355 240 
-              C 368 226, 382 205, 388 180
-            "
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.15"
-            strokeLinecap="round"
-            fill="none"
-            className="orion-contour-line"
-          />
-          {/* Classical Oval Celestial Buckler (Smooth & Elegant, NOT a satellite dish) */}
-          <g transform="rotate(10 398 175)" className="orion-celestial-buckler">
-            {/* Outer Ethereal Shield Dish */}
-            <ellipse
-              cx="398"
-              cy="175"
-              rx="50"
-              ry="74"
-              fill={`url(#${shieldGradId})`}
-              stroke="var(--color-moonlight)"
-              strokeWidth="1.3"
-              className="orion-buckler-rim"
-            />
-            {/* Delicate Inner Inscription Arc */}
-            <ellipse
-              cx="398"
-              cy="175"
-              rx="38"
-              ry="56"
-              fill="none"
-              stroke="var(--color-pink)"
-              strokeWidth="0.75"
-              strokeDasharray="4 6"
-              opacity="0.6"
-            />
-            {/* Central Star Boss */}
-            <circle
-              cx="398"
-              cy="175"
-              r="7"
-              fill="rgba(200, 185, 240, 0.4)"
-              stroke="#FFFFFF"
-              strokeWidth="1.0"
-            />
-            <circle cx="398" cy="175" r="2.2" fill="#FFFFFF" />
-          </g>
-
-          {/* Graceful Torso, Chest Arc & Waist Contours */}
-          <path
-            d="
-              M 165 225 
-              C 200 240, 255 235, 295 210
-            "
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.0"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.7"
-          />
-          {/* Subtle Sternal Line */}
+        <g className="orion-ambient-stars" aria-hidden="true">
+          {/* Dashed Celestial Coordinate Line (Top-Left) */}
           <line
-            x1="235"
-            y1="236"
-            x2="242"
-            y2="330"
-            stroke="var(--color-violet)"
-            strokeWidth="0.75"
-            strokeLinecap="round"
-            opacity="0.5"
-          />
-          {/* Torso Flanks */}
-          <path
-            d="M 165 225 C 172 260, 185 295, 202 342"
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.0"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.7"
-          />
-          <path
-            d="M 295 210 C 288 250, 280 290, 272 330"
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.0"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.7"
+            x1="12"
+            y1="50"
+            x2="78"
+            y2="24"
+            stroke="#64748b"
+            strokeWidth="0.8"
+            strokeDasharray="4 5"
+            opacity="0.45"
           />
 
-          {/* The Belt Sash (Gentle drapery across waist) */}
+          {/* Taurus / Aldebaran in Upper Right */}
+          <circle cx="292" cy="28" r="14" fill={`url(#${amberStarCoronaId})`} opacity="0.65" />
+          <line x1="277" y1="28" x2="307" y2="28" stroke="#fde68a" strokeWidth="0.8" opacity="0.8" />
+          <line x1="292" y1="13" x2="292" y2="43" stroke="#fde68a" strokeWidth="0.8" opacity="0.8" />
+          <circle cx="292" cy="28" r="2.2" fill="#fffbeb" />
+
+          {/* Background Field Stars */}
+          <circle cx="113" cy="40" r="1.3" fill="#e2e8f0" opacity="0.75" />
+          <circle cx="340" cy="48" r="1.0" fill="#cbd5e1" opacity="0.5" />
+          <circle cx="22" cy="115" r="0.9" fill="#94a3b8" opacity="0.45" />
+          <circle cx="370" cy="130" r="1.1" fill="#cbd5e1" opacity="0.5" />
+          <circle cx="365" cy="245" r="0.9" fill="#94a3b8" opacity="0.45" />
+          <circle cx="25" cy="270" r="1.1" fill="#cbd5e1" opacity="0.55" />
+          <circle cx="115" cy="365" r="0.8" fill="#94a3b8" opacity="0.4" />
+          <circle cx="355" cy="390" r="1.0" fill="#cbd5e1" opacity="0.5" />
+          <circle cx="360" cy="515" r="1.1" fill="#cbd5e1" opacity="0.45" />
+          <circle cx="295" cy="580" r="0.9" fill="#94a3b8" opacity="0.4" />
+          <circle cx="70" cy="610" r="1.0" fill="#cbd5e1" opacity="0.5" />
+
+          {/* Orion's Head Stars (Meissa Lambda Ori, Phi1, Phi2) */}
+          <circle cx="168" cy="77" r="1.4" fill="#ffffff" opacity="0.85" />
+          <circle cx="178" cy="74" r="1.2" fill="#cbd5e1" opacity="0.75" />
+          <circle cx="183" cy="77" r="1.2" fill="#cbd5e1" opacity="0.75" />
+          <line x1="168" y1="77" x2="178" y2="74" stroke="#64748b" strokeWidth="0.6" opacity="0.4" />
+          <line x1="178" y1="74" x2="183" y2="77" stroke="#64748b" strokeWidth="0.6" opacity="0.4" />
+
+          {/* Orion's Sword Stars & M42 Nebula below belt */}
+          <circle cx="204" cy="303" r="14" fill={`url(#${m42NebulaId})`} />
+          <circle cx="202" cy="289" r="1.3" fill="#e2e8f0" opacity="0.8" />
+          <circle cx="204" cy="303" r="1.8" fill="#ffffff" opacity="0.95" />
+          <circle cx="216" cy="315" r="1.4" fill="#e2e8f0" opacity="0.8" />
+          <line x1="202" y1="289" x2="204" y2="303" stroke="#cbd5e1" strokeWidth="0.65" opacity="0.5" />
+          <line x1="204" y1="303" x2="216" y2="315" stroke="#cbd5e1" strokeWidth="0.65" opacity="0.5" />
+
+          {/* Shield Arc Stars (Pi 1 to Pi 6 Orionis) */}
+          <circle cx="256" cy="75" r="1.2" fill="#cbd5e1" opacity="0.7" />
+          <circle cx="249" cy="87" r="1.3" fill="#e2e8f0" opacity="0.8" />
+          <circle cx="266" cy="123" r="1.4" fill="#ffffff" opacity="0.85" />
+          <circle cx="282" cy="132" r="1.3" fill="#e2e8f0" opacity="0.8" />
+          <circle cx="292" cy="168" r="1.4" fill="#ffffff" opacity="0.85" />
+          <circle cx="287" cy="216" r="1.3" fill="#e2e8f0" opacity="0.8" />
+          <circle cx="245" cy="218" r="1.2" fill="#cbd5e1" opacity="0.7" />
+
+          {/* Lepus Constellation below stepping leg */}
+          <g className="orion-lepus-asterism">
+            <line x1="254" y1="448" x2="272" y2="443" stroke="#475569" strokeWidth="0.7" opacity="0.6" />
+            <line x1="272" y1="443" x2="292" y2="473" stroke="#475569" strokeWidth="0.7" opacity="0.6" />
+            <line x1="254" y1="448" x2="258" y2="506" stroke="#475569" strokeWidth="0.7" opacity="0.6" />
+            <line x1="258" y1="506" x2="272" y2="505" stroke="#475569" strokeWidth="0.7" opacity="0.6" />
+            <circle cx="254" cy="448" r="1.8" fill="#ffffff" opacity="0.9" />
+            <circle cx="272" cy="443" r="1.5" fill="#e2e8f0" opacity="0.85" />
+            <circle cx="292" cy="473" r="1.4" fill="#e2e8f0" opacity="0.85" />
+            <circle cx="258" cy="506" r="1.3" fill="#cbd5e1" opacity="0.8" />
+            <circle cx="272" cy="505" r="1.3" fill="#cbd5e1" opacity="0.8" />
+          </g>
+
+          {/* Canis Major Stars (Sirius & Murzim) in Lower Left */}
+          <g className="orion-canis-major">
+            <line x1="88" y1="503" x2="148" y2="492" stroke="#475569" strokeWidth="0.7" opacity="0.5" />
+            {/* Sirius (Alpha Canis Majoris) */}
+            <circle cx="88" cy="503" r="18" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
+            <line x1="75" y1="503" x2="101" y2="503" stroke="#bae6fd" strokeWidth="0.9" opacity="0.85" />
+            <line x1="88" y1="490" x2="88" y2="516" stroke="#bae6fd" strokeWidth="0.9" opacity="0.85" />
+            <circle cx="88" cy="503" r="2.4" fill="#ffffff" />
+            {/* Murzim (Beta Canis Majoris) */}
+            <circle cx="148" cy="492" r="12" fill={`url(#${blueStarCoronaId})`} opacity="0.6" />
+            <line x1="139" y1="492" x2="157" y2="492" stroke="#bae6fd" strokeWidth="0.7" opacity="0.75" />
+            <line x1="148" y1="483" x2="148" y2="501" stroke="#bae6fd" strokeWidth="0.7" opacity="0.75" />
+            <circle cx="148" cy="492" r="1.9" fill="#ffffff" />
+          </g>
+        </g>
+
+        {/* ============================================================== */}
+        {/* 2. MASTER HUNTER BASE SILHOUETTE                               */}
+        {/* ============================================================== */}
+        <g className="orion-hunter-silhouette" aria-hidden="true">
           <path
+            className="orion-silhouette-base"
             d="
-              M 198 355 
-              C 230 350, 265 338, 290 322 
-              L 292 334 
-              C 265 350, 230 362, 196 368 
-              Z
+              M 49 49 L 27 66 L 49 70 L 34 141 L 38 159 L 53 167 L 58 151
+              L 71 152 L 74 166 L 66 167 L 83 185 L 55 171 L 110 209 L 95 223
+              L 128 226 L 160 259 L 158 276 L 173 288 L 161 348 L 171 360
+              L 160 510 L 174 504 L 177 523 L 183 510 L 175 497 L 193 426
+              L 169 421 L 170 408 L 183 405 L 186 389 L 195 391 L 194 407
+              L 209 389 L 225 397 L 228 362 L 250 354 L 283 383 L 260 399
+              L 250 439 L 225 466 L 246 481 L 258 506 L 273 504 L 277 497
+              L 260 468 L 283 445 L 286 424 L 261 411 L 290 389 L 291 419
+              L 315 381 L 291 317 L 239 277 L 229 207 L 258 206 L 289 235
+              L 319 230 L 340 204 L 349 159 L 340 109 L 313 76 L 287 73
+              L 264 89 L 251 114 L 248 170 L 236 177 L 185 149 L 195 141
+              L 204 97 L 157 41 L 171 64 L 138 52 L 175 73 L 181 68
+              L 180 78 L 128 75 L 159 77 L 147 98 L 149 129 L 138 134
+              L 155 152 L 134 170 L 112 169 L 67 149 L 63 87 L 69 70
+              L 87 63 L 75 63 L 70 48 Z
             "
-            fill="rgba(119, 116, 200, 0.28)"
-            stroke="var(--color-pink)"
-            strokeWidth="0.9"
-            opacity="0.85"
+            fill="#090e17"
+            stroke="#131c2c"
+            strokeWidth="0.8"
+          />
+        </g>
+
+        {/* ============================================================== */}
+        {/* 3. SHADED ARMOR PLATE FACETS & 3D ANATOMICAL REGIONS           */}
+        {/* ============================================================== */}
+        <g className="orion-armor-facets" aria-hidden="true">
+          {/* --- HELMET & CREST --- */}
+          {/* Crest Plume Feathers (curving gracefully backward) */}
+          <path
+            d="M 155 78 C 144 65, 134 54, 125 48 C 132 58, 142 68, 153 80 Z"
+            fill="#1c2a3d"
+          />
+          <path
+            d="M 163 74 C 153 58, 145 48, 138 42 C 145 54, 154 66, 161 77 Z"
+            fill="#273950"
+          />
+          <path
+            d="M 170 75 C 164 60, 158 50, 152 46 C 158 56, 165 67, 168 77 Z"
+            fill="#1f2e42"
           />
 
-          {/* Flowing Classical Tunic Folds (Soft, mythological, not leather flaps) */}
-          <path
-            d="
-              M 196 368 
-              C 192 395, 190 420, 196 430 
-              C 215 435, 238 438, 268 435 
-              C 275 422, 285 400, 292 334
-            "
-            fill="rgba(48, 43, 89, 0.35)"
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.05"
-            strokeLinecap="round"
-            className="orion-contour-line"
+          {/* Helmet Skull Cap & Dome */}
+          <polygon
+            points="148,98 156,82 170,76 186,80 198,94 198,108 180,108 162,104"
+            fill="#141f2e"
           />
-          {/* Soft interior drape fold */}
-          <path
-            d="M 226 362 C 224 388, 224 415, 228 434"
-            stroke="var(--color-violet)"
-            strokeWidth="0.75"
-            strokeLinecap="round"
-            opacity="0.6"
+          {/* Visor Brow Highlight */}
+          <polygon
+            points="168,104 198,108 206,116 196,124 170,118"
+            fill="#2b3e58"
           />
-          <path
-            d="M 260 350 C 258 380, 255 410, 254 434"
-            stroke="var(--color-violet)"
-            strokeWidth="0.75"
-            strokeLinecap="round"
-            opacity="0.6"
+          {/* T-Visor Eye Slit Shadow */}
+          <polygon
+            points="172,120 195,125 192,136 170,132"
+            fill="#080c14"
+          />
+          {/* Cheek Guard & Chin Plate */}
+          <polygon
+            points="165,130 192,136 188,154 174,154 162,142"
+            fill="#1a273a"
+          />
+          {/* Throat & Neck Gorget */}
+          <polygon
+            points="164,152 188,154 182,170 166,168"
+            fill="#111a28"
           />
 
-          {/* Celestial Scabbard / Sword hanging in center */}
-          <path
-            d="M 248 350 L 253 430 L 257 430 L 252 350 Z"
-            fill="rgba(242, 169, 200, 0.22)"
-            stroke="var(--color-pink)"
-            strokeWidth="0.85"
-            opacity="0.8"
+          {/* --- SWORD & RAISED ARM --- */}
+          {/* Sword Blade (extending horizontally overhead) */}
+          <polygon
+            points="56,75 56,71 208,42 210,46"
+            fill={`url(#${bladeGradId})`}
+          />
+          {/* Sword Hilt & Crossguard */}
+          <polygon
+            points="48,72 58,70 56,85 46,87"
+            fill="#1e2c3f"
+          />
+          {/* Pommel */}
+          <polygon
+            points="44,86 48,85 46,92 42,93"
+            fill="#293c54"
+          />
+          {/* Raised Forearm */}
+          <polygon
+            points="52,79 63,86 66,120 63,142 50,140 45,105"
+            fill="#1b283b"
+          />
+          {/* Forearm Light Facet */}
+          <polygon
+            points="52,79 58,85 53,138 48,138 45,105"
+            fill="#26374e"
+          />
+          {/* Elbow Joint Facet */}
+          <polygon
+            points="50,140 63,142 72,152 58,158"
+            fill="#23344b"
+          />
+          {/* Bicep & Tricep */}
+          <polygon
+            points="63,142 80,155 104,175 124,209 105,215 76,185 58,158"
+            fill="#152132"
+          />
+          {/* Bicep Inner Highlight Plane */}
+          <polygon
+            points="76,155 98,172 118,206 105,213 74,180"
+            fill="#223349"
           />
 
-          {/* Standing Firm Left Leg (Saiph at knee) */}
-          <path
-            d="
-              M 196 430 
-              C 202 460, 208 485, 215 495 
-              C 220 525, 218 565, 216 615 
-              C 214 635, 210 655, 204 662 
-              C 198 668, 190 668, 188 660 
-              C 186 648, 194 625, 198 595 
-              C 204 545, 208 510, 212 495
-            "
-            stroke="var(--color-moonlight)"
-            strokeWidth="1.15"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            className="orion-contour-line"
+          {/* --- TORSO CUIRASS & ARMOR --- */}
+          {/* Clavicle & Collar Plate */}
+          <polygon
+            points="124,209 165,172 182,170 203,193 175,196 145,205"
+            fill="#1e2c3e"
+          />
+          {/* Right Pectoral Plate (under Betelgeuse) */}
+          <polygon
+            points="124,209 145,205 175,196 180,232 150,236 128,224"
+            fill="#273a52"
+          />
+          {/* Left Pectoral Plate (under Bellatrix) */}
+          <polygon
+            points="175,196 203,193 218,215 206,235 180,232"
+            fill="#172335"
+          />
+          {/* Sternum Dividing Ridge Line */}
+          <line
+            x1="178"
+            y1="196"
+            x2="180"
+            y2="232"
+            stroke="#344a68"
+            strokeWidth="1"
+          />
+          {/* Upper Abdominal Armor Plate */}
+          <polygon
+            points="145,236 180,232 206,235 200,256 175,258 150,252"
+            fill="#22334a"
+          />
+          {/* Lower Abdominal Armor Plate */}
+          <polygon
+            points="150,252 175,258 200,256 216,258 220,275 187,280 160,278"
+            fill="#192537"
+          />
+          {/* Waist Belt (Cingulum across Alnitak - Alnilam - Mintaka) */}
+          <polygon
+            points="160,278 187,280 220,275 226,288 188,294 162,290"
+            fill="#121b29"
+            stroke="#263850"
+            strokeWidth="0.8"
           />
 
-          {/* Dynamic Stepping Right Leg (Rigel at bent knee, trailing foot) */}
-          <path
-            d="
-              M 268 435 
-              C 295 435, 328 438, 355 435 
-              C 370 445, 362 468, 348 495 
-              C 332 525, 320 545, 315 565 
-              C 310 578, 302 585, 298 580 
-              C 295 572, 304 555, 308 535 
-              C 315 505, 332 468, 338 450
+          {/* --- PTERUGES (ROMAN/GREEK SKIRT STRIPS) --- */}
+          <g className="orion-pteruges">
+            {/* Flap 1 (Rightmost viewer left) */}
+            <polygon points="162,290 174,292 170,348 160,346" fill="#182436" />
+            {/* Flap 2 */}
+            <polygon points="174,292 186,294 184,352 170,348" fill="#24354c" />
+            {/* Flap 3 (Center) */}
+            <polygon points="186,294 198,293 196,348 184,352" fill="#1b283b" />
+            {/* Flap 4 */}
+            <polygon points="198,293 212,290 218,335 208,325" fill="#25374e" />
+            {/* Flap 5 (Leftmost viewer right) */}
+            <polygon points="212,290 226,288 246,336 232,342 218,335" fill="#192639" />
+          </g>
+
+          {/* --- SHIELD ARM & HOPLITE ASPIS SHIELD --- */}
+          {/* Left Deltoid (Bellatrix joint) */}
+          <polygon
+            points="203,193 225,190 235,202 228,218 208,222"
+            fill="#23344b"
+          />
+          {/* Left Bicep */}
+          <polygon
+            points="228,218 235,202 262,208 258,224"
+            fill="#172436"
+          />
+          {/* Left Forearm entering shield */}
+          <polygon
+            points="258,224 262,208 291,153 284,150"
+            fill="#1f2d41"
+          />
+
+          {/* 12-Sided Hoplite Shield Outer Rim */}
+          <polygon
+            points="
+              297,71 320,80 340,107 350,154
+              340,204 321,229 297,237 273,229
+              254,204 244,154 254,104 273,80
             "
-            stroke="var(--color-moonlight)"
+            fill="#131c2a"
+            stroke="#263852"
             strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          />
+          {/* Shield Inner Dish Facet */}
+          <polygon
+            points="
+              297,85 315,93 330,115 338,154
+              330,193 315,215 297,223 279,215
+              264,193 256,154 264,115 279,93
+            "
+            fill={`url(#${shieldGradId})`}
+          />
+          {/* Shield Outer Rim Highlight Facets */}
+          <polygon points="297,71 320,80 315,93 297,85" fill="#2d405a" />
+          <polygon points="320,80 340,107 330,115 315,93" fill="#24344c" />
+          <polygon points="340,107 350,154 338,154 330,115" fill="#1b283b" />
+          <polygon points="340,204 321,229 315,215 330,193" fill="#273850" />
+          <polygon points="321,229 297,237 297,223 315,215" fill="#2d415d" />
+          <polygon points="273,80 297,71 297,85 279,93" fill="#293b54" />
+          {/* Central Shield Boss / Hand Grip */}
+          <polygon
+            points="288,146 298,146 302,156 296,164 286,160"
+            fill="#364e6f"
+          />
+
+          {/* --- STANDING LEG (RIGHT LEG / VIEWER'S LEFT) --- */}
+          {/* Upper Thigh */}
+          <polygon
+            points="175,352 195,348 208,325 212,365 175,372"
+            fill="#172336"
+          />
+          {/* Lower Thigh Ridge */}
+          <polygon
+            points="175,372 212,365 205,384 188,384 172,380"
+            fill="#23344a"
+          />
+          {/* Knee Cap (Saiph star joint) */}
+          <polygon
+            points="188,384 205,384 206,405 190,405"
+            fill="#2a3d56"
+          />
+          {/* Greave / Shin Upper */}
+          <polygon
+            points="190,405 206,405 200,445 182,445"
+            fill="#1c2a3e"
+          />
+          {/* Shin Ridge Highlight */}
+          <polygon
+            points="190,405 196,405 192,445 186,445"
+            fill="#2c3f59"
+          />
+          {/* Greave / Shin Lower */}
+          <polygon
+            points="182,445 200,445 192,490 174,490 178,455"
+            fill="#152030"
+          />
+          {/* Ankle & Planted Foot */}
+          <polygon
+            points="174,490 192,490 188,545 178,548 172,520"
+            fill="#101926"
+            stroke="#1c2b3e"
+            strokeWidth="0.8"
+          />
+
+          {/* --- STEPPING / BENT LEG (LEFT LEG / VIEWER'S RIGHT) --- */}
+          {/* Upper Thigh */}
+          <polygon
+            points="226,288 248,335 272,325 255,305"
+            fill="#1c2b3e"
+          />
+          {/* Lower Thigh towards Rigel */}
+          <polygon
+            points="248,335 278,330 284,336 268,355 255,350"
+            fill="#2a3c54"
+          />
+          {/* Knee Apex Plate (Rigel star joint) */}
+          <polygon
+            points="278,330 284,336 275,355 266,350"
+            fill="#324764"
+          />
+          {/* Bent Calf / Upper Shin angling down-left */}
+          <polygon
+            points="268,355 284,336 298,385 280,405 265,385"
+            fill="#213146"
+          />
+          {/* Shin Ridge Highlight */}
+          <polygon
+            points="280,350 284,336 295,385 288,388"
+            fill="#304461"
+          />
+          {/* Lower Shin to Ankle */}
+          <polygon
+            points="280,405 298,385 278,435 255,442 260,415"
+            fill="#182537"
+          />
+          {/* Poised Stepping Foot (flexed in mid-air over Lepus) */}
+          <polygon
+            points="255,442 278,435 275,455 248,465 226,485 238,470"
+            fill="#121c2a"
+            stroke="#213247"
+            strokeWidth="0.8"
+          />
+        </g>
+
+        {/* ============================================================== */}
+        {/* 4. INTERNAL CONTOUR HIGHLIGHTS (SUBTLE CELESTIAL EDGES)        */}
+        {/* ============================================================== */}
+        <g className="orion-highlights-contours" aria-hidden="true">
+          {/* Raised Arm Highlight */}
+          <line x1="45" y1="105" x2="50" y2="140" stroke="#364e6f" strokeWidth="0.9" opacity="0.6" />
+          <line x1="63" y1="142" x2="104" y2="175" stroke="#2d425f" strokeWidth="0.8" opacity="0.5" />
+          {/* Helmet Visor Brow Line */}
+          <line x1="168" y1="104" x2="206" y2="116" stroke="#48648c" strokeWidth="1" opacity="0.75" />
+          {/* Shield Outer Edge Highlight */}
+          <path
+            d="M 273 80 L 297 71 L 320 80 L 340 107"
             fill="none"
-            className="orion-contour-line"
+            stroke="#3b5478"
+            strokeWidth="0.9"
+            opacity="0.65"
           />
+          {/* Rigel Knee Apex Highlight */}
+          <line x1="278" y1="330" x2="284" y2="336" stroke="#52749e" strokeWidth="1.2" opacity="0.85" />
+          {/* Standing Shin Crest Line */}
+          <line x1="188" y1="384" x2="182" y2="445" stroke="#374f70" strokeWidth="0.9" opacity="0.55" />
         </g>
 
         {/* ============================================================== */}
-        {/* 3. M42 GREAT ORION NEBULA DIFFUSE EMISSION                     */}
+        {/* 5. CRISP CONSTELLATION CONNECTING LINES (1PX STARLIGHT)        */}
         {/* ============================================================== */}
-        <g className="orion-m42-glow" aria-hidden="true">
-          <ellipse
-            cx={stars.swordMiddle.x}
-            cy={stars.swordMiddle.y}
-            rx="22"
-            ry="14"
-            fill={`url(#${m42NebulaId})`}
-            transform={`rotate(-18 ${stars.swordMiddle.x} ${stars.swordMiddle.y})`}
-            className="orion-nebula-pulse"
-          />
+        <g className="orion-constellation-lines" filter={`url(#${lineGlowId})`} aria-hidden="true">
+          {/* Torso & Shoulder Hexagon/Hourglass */}
+          <line x1="124" y1="209" x2="203" y2="193" className="orion-astro-line" />
+          <line x1="124" y1="209" x2="205" y2="268" className="orion-astro-line" />
+          <line x1="203" y1="193" x2="205" y2="268" className="orion-astro-line" />
+
+          {/* The Belt of Orion (Alnitak -> Alnilam -> Mintaka) */}
+          <line x1="187" y1="275" x2="205" y2="268" className="orion-belt-line" />
+          <line x1="205" y1="268" x2="218" y2="260" className="orion-belt-line" />
+
+          {/* Lower Body (Belt to Knees) */}
+          <line x1="205" y1="268" x2="201" y2="384" className="orion-astro-line" />
+          <line x1="205" y1="268" x2="280" y2="332" className="orion-astro-line" />
+          <line x1="201" y1="384" x2="280" y2="332" className="orion-astro-line" />
+
+          {/* Raised Arm & Sword Lines */}
+          <line x1="124" y1="209" x2="63" y2="142" className="orion-astro-line" />
+          <line x1="63" y1="142" x2="52" y2="79" className="orion-astro-line" />
+          <line x1="124" y1="209" x2="74" y2="168" className="orion-astro-line" opacity="0.5" />
+          <line x1="56" y1="75" x2="208" y2="42" className="orion-sword-astro-line" opacity="0.65" />
+
+          {/* Shield Arm Line */}
+          <line x1="203" y1="193" x2="291" y2="153" className="orion-astro-line" />
         </g>
 
         {/* ============================================================== */}
-        {/* 4. CONSTELLATION CONNECTING LINES (CLEAN, SUBTLE, UNCLUTTERED) */}
+        {/* 6. DIFFRACTION SPIKES & FLARES (AUTHENTIC 4-POINT CROSS)       */}
         {/* ============================================================== */}
-        <g className="orion-constellation-lines" filter={`url(#${lineGlowId})`}>
-          {/* Shoulders to Chest */}
-          <line x1={stars.betelgeuse.x} y1={stars.betelgeuse.y} x2={stars.bellatrix.x} y2={stars.bellatrix.y} className="orion-astro-line" />
+        <g className="orion-diffraction-spikes" aria-hidden="true">
+          {/* Betelgeuse Amber Flare Cross */}
+          <g className="orion-spike-shimmer">
+            <line x1="104" y1="209" x2="144" y2="209" stroke="#fcd34d" strokeWidth="1.1" opacity="0.85" />
+            <line x1="124" y1="189" x2="124" y2="229" stroke="#fcd34d" strokeWidth="1.1" opacity="0.85" />
+            <line x1="112" y1="209" x2="136" y2="209" stroke="#fffbeb" strokeWidth="1.6" opacity="0.95" />
+            <line x1="124" y1="197" x2="124" y2="221" stroke="#fffbeb" strokeWidth="1.6" opacity="0.95" />
+          </g>
 
-          {/* Shoulders to Belt */}
-          <line x1={stars.betelgeuse.x} y1={stars.betelgeuse.y} x2={stars.alnitak.x} y2={stars.alnitak.y} className="orion-astro-line" />
-          <line x1={stars.bellatrix.x} y1={stars.bellatrix.y} x2={stars.mintaka.x} y2={stars.mintaka.y} className="orion-astro-line" />
+          {/* Rigel Brilliant Cyan-White Flare Cross */}
+          <g className="orion-spike-shimmer">
+            <line x1="258" y1="332" x2="302" y2="332" stroke="#7dd3fc" strokeWidth="1.2" opacity="0.9" />
+            <line x1="280" y1="310" x2="280" y2="354" stroke="#7dd3fc" strokeWidth="1.2" opacity="0.9" />
+            <line x1="267" y1="332" x2="293" y2="332" stroke="#ffffff" strokeWidth="1.8" opacity="0.98" />
+            <line x1="280" y1="319" x2="280" y2="345" stroke="#ffffff" strokeWidth="1.8" opacity="0.98" />
+          </g>
 
-          {/* The Belt (Crisp continuous diagonal) */}
-          <line x1={stars.alnitak.x} y1={stars.alnitak.y} x2={stars.alnilam.x} y2={stars.alnilam.y} className="orion-astro-line orion-belt-line" />
-          <line x1={stars.alnilam.x} y1={stars.alnilam.y} x2={stars.mintaka.x} y2={stars.mintaka.y} className="orion-astro-line orion-belt-line" />
+          {/* Alnilam Center Belt Star Spike */}
+          <g className="orion-spike-shimmer">
+            <line x1="192" y1="268" x2="218" y2="268" stroke="#bae6fd" strokeWidth="0.9" opacity="0.75" />
+            <line x1="205" y1="255" x2="205" y2="281" stroke="#bae6fd" strokeWidth="0.9" opacity="0.75" />
+          </g>
 
-          {/* Belt down to Standing Leg (Saiph) & Bent Leg (Rigel) */}
-          <line x1={stars.alnitak.x} y1={stars.alnitak.y} x2={stars.saiph.x} y2={stars.saiph.y} className="orion-astro-line" />
-          <line x1={stars.mintaka.x} y1={stars.mintaka.y} x2={stars.rigel.x} y2={stars.rigel.y} className="orion-astro-line" />
+          {/* Bellatrix Spike */}
+          <g className="orion-spike-shimmer">
+            <line x1="192" y1="193" x2="214" y2="193" stroke="#bfdbfe" strokeWidth="0.85" opacity="0.7" />
+            <line x1="203" y1="182" x2="203" y2="204" stroke="#bfdbfe" strokeWidth="0.85" opacity="0.7" />
+          </g>
 
-          {/* Diagonal Connection between Knees (Saiph <-> Rigel) */}
-          <line x1={stars.saiph.x} y1={stars.saiph.y} x2={stars.rigel.x} y2={stars.rigel.y} className="orion-astro-line" />
-
-          {/* Slender Sword hanging downward */}
-          <line x1={stars.alnilam.x} y1={stars.alnilam.y + 8} x2={stars.swordUpper.x} y2={stars.swordUpper.y} className="orion-sword-astro-line" />
-          <line x1={stars.swordUpper.x} y1={stars.swordUpper.y} x2={stars.swordMiddle.x} y2={stars.swordMiddle.y} className="orion-sword-astro-line" />
-          <line x1={stars.swordMiddle.x} y1={stars.swordMiddle.y} x2={stars.swordLower.x} y2={stars.swordLower.y} className="orion-sword-astro-line" />
+          {/* Saiph Spike */}
+          <g className="orion-spike-shimmer">
+            <line x1="191" y1="384" x2="211" y2="384" stroke="#bfdbfe" strokeWidth="0.85" opacity="0.7" />
+            <line x1="201" y1="374" x2="201" y2="394" stroke="#bfdbfe" strokeWidth="0.85" opacity="0.7" />
+          </g>
         </g>
 
         {/* ============================================================== */}
-        {/* 5. STAR DIFFRACTION SPIKES & LUMINOUS HALO CORONAS             */}
+        {/* 7. CONSTELLATION STARS & HALOS                                 */}
         {/* ============================================================== */}
-        <g className="orion-star-diffraction" aria-hidden="true">
-          {/* Betelgeuse Amber Red-Supergiant Glow & 4-Point Starlight Flare */}
-          <circle
-            cx={stars.betelgeuse.x}
-            cy={stars.betelgeuse.y}
-            r={stars.betelgeuse.r * 4.4}
-            fill={`url(#${betelgeuseCoronaId})`}
-            className="orion-supergiant-glow"
-          />
-          <path
-            d={`
-              M ${stars.betelgeuse.x} ${stars.betelgeuse.y - 20}
-              Q ${stars.betelgeuse.x} ${stars.betelgeuse.y} ${stars.betelgeuse.x + 20} ${stars.betelgeuse.y}
-              Q ${stars.betelgeuse.x} ${stars.betelgeuse.y} ${stars.betelgeuse.x} ${stars.betelgeuse.y + 20}
-              Q ${stars.betelgeuse.x} ${stars.betelgeuse.y} ${stars.betelgeuse.x - 20} ${stars.betelgeuse.y}
-              Z
-            `}
-            fill="#FFE8C2"
-            opacity="0.82"
-            className="orion-spike-shimmer"
-          />
+        <g className="orion-stars" aria-hidden="true">
+          {/* Betelgeuse (Alpha Orionis) */}
+          <g className="orion-star-betelgeuse">
+            <circle cx="124" cy="209" r="16" fill={`url(#${betelgeuseCoronaId})`} className="orion-supergiant-glow" />
+            <circle cx="124" cy="209" r="4.2" fill="#F59E0B" />
+            <circle cx="124" cy="209" r="2.2" fill="#FFF7ED" className="orion-supergiant-core" />
+          </g>
 
-          {/* Rigel Brilliant Blue-White Glow & 4-Point Starlight Flare */}
-          <circle
-            cx={stars.rigel.x}
-            cy={stars.rigel.y}
-            r={stars.rigel.r * 4.6}
-            fill={`url(#${rigelCoronaId})`}
-            className="orion-supergiant-glow"
-          />
-          <path
-            d={`
-              M ${stars.rigel.x} ${stars.rigel.y - 24}
-              Q ${stars.rigel.x} ${stars.rigel.y} ${stars.rigel.x + 24} ${stars.rigel.y}
-              Q ${stars.rigel.x} ${stars.rigel.y} ${stars.rigel.x} ${stars.rigel.y + 24}
-              Q ${stars.rigel.x} ${stars.rigel.y} ${stars.rigel.x - 24} ${stars.rigel.y}
-              Z
-            `}
-            fill="#E0F2FE"
-            opacity="0.88"
-            className="orion-spike-shimmer"
-          />
+          {/* Bellatrix (Gamma Orionis) */}
+          <g className="orion-star-bellatrix">
+            <circle cx="203" cy="193" r="10" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
+            <circle cx="203" cy="193" r="3.2" fill="#BAE6FD" />
+            <circle cx="203" cy="193" r="1.8" fill="#FFFFFF" />
+          </g>
 
-          {/* Alnilam Center Belt Star Corona & Starlight Flare */}
-          <circle
-            cx={stars.alnilam.x}
-            cy={stars.alnilam.y}
-            r={stars.alnilam.r * 3.4}
-            fill={`url(#${alnilamCoronaId})`}
-            className="orion-halo"
-          />
-          <path
-            d={`
-              M ${stars.alnilam.x} ${stars.alnilam.y - 14}
-              Q ${stars.alnilam.x} ${stars.alnilam.y} ${stars.alnilam.x + 14} ${stars.alnilam.y}
-              Q ${stars.alnilam.x} ${stars.alnilam.y} ${stars.alnilam.x} ${stars.alnilam.y + 14}
-              Q ${stars.alnilam.x} ${stars.alnilam.y} ${stars.alnilam.x - 14} ${stars.alnilam.y}
-              Z
-            `}
-            fill="#FFFFFF"
-            opacity="0.75"
-          />
+          {/* The Belt Stars */}
+          {/* Alnitak (Zeta Orionis) */}
+          <g className="orion-star-alnitak">
+            <circle cx="187" cy="275" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
+            <circle cx="187" cy="275" r="2.8" fill="#CBD5E1" />
+            <circle cx="187" cy="275" r="1.6" fill="#FFFFFF" />
+          </g>
 
-          {/* Bellatrix, Alnitak, Mintaka, Saiph Halos */}
-          <circle cx={stars.bellatrix.x} cy={stars.bellatrix.y} r={stars.bellatrix.r * 3.0} fill={`url(#${starCoronaId})`} className="orion-halo" />
-          <circle cx={stars.alnitak.x} cy={stars.alnitak.y} r={stars.alnitak.r * 2.8} fill={`url(#${starCoronaId})`} className="orion-halo" />
-          <circle cx={stars.mintaka.x} cy={stars.mintaka.y} r={stars.mintaka.r * 2.8} fill={`url(#${starCoronaId})`} className="orion-halo" />
-          <circle cx={stars.saiph.x} cy={stars.saiph.y} r={stars.saiph.r * 3.0} fill={`url(#${starCoronaId})`} className="orion-halo" />
+          {/* Alnilam (Epsilon Orionis) */}
+          <g className="orion-star-alnilam">
+            <circle cx="205" cy="268" r="12" fill={`url(#${alnilamCoronaId})`} className="orion-supergiant-glow" />
+            <circle cx="205" cy="268" r="3.4" fill="#BFDBFE" />
+            <circle cx="205" cy="268" r="2.0" fill="#FFFFFF" />
+          </g>
+
+          {/* Mintaka (Delta Orionis) */}
+          <g className="orion-star-mintaka">
+            <circle cx="218" cy="260" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
+            <circle cx="218" cy="260" r="2.8" fill="#CBD5E1" />
+            <circle cx="218" cy="260" r="1.6" fill="#FFFFFF" />
+          </g>
+
+          {/* Saiph (Kappa Orionis) */}
+          <g className="orion-star-saiph">
+            <circle cx="201" cy="384" r="11" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
+            <circle cx="201" cy="384" r="3.2" fill="#BAE6FD" />
+            <circle cx="201" cy="384" r="1.8" fill="#FFFFFF" />
+          </g>
+
+          {/* Rigel (Beta Orionis) */}
+          <g className="orion-star-rigel">
+            <circle cx="280" cy="332" r="18" fill={`url(#${rigelCoronaId})`} className="orion-supergiant-glow" />
+            <circle cx="280" cy="332" r="4.6" fill="#38BDF8" />
+            <circle cx="280" cy="332" r="2.4" fill="#FFFFFF" className="orion-supergiant-core" />
+          </g>
+
+          {/* Weapon / Limb Anchor Stars */}
+          <circle cx="52" cy="79" r="2.2" fill="#E2E8F0" opacity="0.9" />
+          <circle cx="63" cy="142" r="2.0" fill="#CBD5E1" opacity="0.8" />
+          <circle cx="291" cy="153" r="2.2" fill="#E2E8F0" opacity="0.9" />
         </g>
 
         {/* ============================================================== */}
-        {/* 6. STAR NODES (SHARP LUMINOUS EMBEDDED CORES)                  */}
-        {/* ============================================================== */}
-        <g className="orion-star-nodes">
-          {/* Hand Star Nodes */}
-          <circle cx={stars.handRight.x} cy={stars.handRight.y} r={stars.handRight.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '0.4s' }} />
-          <circle cx={stars.handLeft.x} cy={stars.handLeft.y} r={stars.handLeft.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '1.2s' }} />
-
-          {/* Sword Stars */}
-          <circle cx={stars.swordUpper.x} cy={stars.swordUpper.y} r={stars.swordUpper.r} fill="#E2E8F0" opacity="0.85" />
-          <circle cx={stars.swordMiddle.x} cy={stars.swordMiddle.y} r={stars.swordMiddle.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '1.5s' }} />
-          <circle cx={stars.swordLower.x} cy={stars.swordLower.y} r={stars.swordLower.r} fill="#E2E8F0" opacity="0.85" />
-
-          {/* Betelgeuse (Warm Golden Core + Pure White Center) */}
-          <circle cx={stars.betelgeuse.x} cy={stars.betelgeuse.y} r={stars.betelgeuse.r} fill="#FFD29D" className="orion-supergiant-core" />
-          <circle cx={stars.betelgeuse.x} cy={stars.betelgeuse.y} r={stars.betelgeuse.r * 0.45} fill="#FFFFFF" />
-
-          {/* Bellatrix (Icy Lavender-White Core) */}
-          <circle cx={stars.bellatrix.x} cy={stars.bellatrix.y} r={stars.bellatrix.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '0.8s' }} />
-
-          {/* The Belt Stars (Alnitak - Alnilam - Mintaka) */}
-          <circle cx={stars.alnitak.x} cy={stars.alnitak.y} r={stars.alnitak.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '1.4s' }} />
-          <circle cx={stars.alnilam.x} cy={stars.alnilam.y} r={stars.alnilam.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '0.2s' }} />
-          <circle cx={stars.mintaka.x} cy={stars.mintaka.y} r={stars.mintaka.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '1.8s' }} />
-
-          {/* Saiph (White Core) */}
-          <circle cx={stars.saiph.x} cy={stars.saiph.y} r={stars.saiph.r} fill="#FFFFFF" className="orion-twinkle" style={{ animationDelay: '0.6s' }} />
-
-          {/* Rigel (Brilliant Icy Blue-White Core) */}
-          <circle cx={stars.rigel.x} cy={stars.rigel.y} r={stars.rigel.r} fill="#F0F9FF" className="orion-supergiant-core" />
-          <circle cx={stars.rigel.x} cy={stars.rigel.y} r={stars.rigel.r * 0.5} fill="#FFFFFF" />
-        </g>
-
-        {/* ============================================================== */}
-        {/* 7. UNDERSTATED, NON-OVERLAPPING ASTRONOMICAL LABELS            */}
+        {/* 8. CELESTIAL TYPOGRAPHY & STAR LABELS                          */}
         {/* ============================================================== */}
         {showLabels && (
           <g className="orion-labels" aria-hidden="true">
+            {/* Prominent Constellation Title */}
+            <text
+              x="185"
+              y="246"
+              textAnchor="middle"
+              className="orion-title-label"
+            >
+              ORION
+            </text>
+
             {/* Betelgeuse */}
             <text
-              x={stars.betelgeuse.labelX}
-              y={stars.betelgeuse.labelY}
-              textAnchor={stars.betelgeuse.anchor as any}
+              x="115"
+              y="230"
+              textAnchor="end"
               className="orion-label orion-label-prominent"
             >
               Betelgeuse
@@ -671,67 +676,79 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
 
             {/* Bellatrix */}
             <text
-              x={stars.bellatrix.labelX}
-              y={stars.bellatrix.labelY}
-              textAnchor={stars.bellatrix.anchor as any}
+              x="203"
+              y="213"
+              textAnchor="middle"
               className="orion-label orion-label-prominent"
             >
               Bellatrix
             </text>
 
-            {/* Belt: Alnitak (left), Alnilam (center above), Mintaka (right) */}
+            {/* Alnilam */}
             <text
-              x={stars.alnitak.labelX}
-              y={stars.alnitak.labelY}
-              textAnchor={stars.alnitak.anchor as any}
-              className="orion-label"
-            >
-              Alnitak
-            </text>
-            <text
-              x={stars.alnilam.labelX}
-              y={stars.alnilam.labelY}
-              textAnchor={stars.alnilam.anchor as any}
+              x="205"
+              y="286"
+              textAnchor="middle"
               className="orion-label orion-label-belt"
             >
               Alnilam
             </text>
+
+            {/* Rigel */}
             <text
-              x={stars.mintaka.labelX}
-              y={stars.mintaka.labelY}
-              textAnchor={stars.mintaka.anchor as any}
-              className="orion-label"
+              x="280"
+              y="348"
+              textAnchor="middle"
+              className="orion-label orion-label-prominent"
             >
-              Mintaka
+              Rigel
             </text>
 
             {/* Saiph */}
             <text
-              x={stars.saiph.labelX}
-              y={stars.saiph.labelY}
-              textAnchor={stars.saiph.anchor as any}
-              className="orion-label orion-label-prominent"
+              x="201"
+              y="398"
+              textAnchor="middle"
+              className="orion-label"
             >
               Saiph
             </text>
 
-            {/* Rigel */}
+            {/* Lepus */}
             <text
-              x={stars.rigel.labelX}
-              y={stars.rigel.labelY}
-              textAnchor={stars.rigel.anchor as any}
-              className="orion-label orion-label-prominent"
+              x="255"
+              y="452"
+              textAnchor="middle"
+              className="orion-label orion-label-faint"
             >
-              Rigel
+              LEPUS
+            </text>
+
+            {/* Canis Major Stars: Murzim & Sirius */}
+            <text
+              x="148"
+              y="504"
+              textAnchor="middle"
+              className="orion-label orion-label-faint"
+            >
+              Murzim
+            </text>
+            <text
+              x="88"
+              y="514"
+              textAnchor="middle"
+              className="orion-label orion-label-faint"
+            >
+              Sirius
             </text>
           </g>
         )}
       </svg>
 
-      {/* Refined Astronomical Telemetry Caption */}
+      {/* Astronomical Telemetry Caption */}
       <div className="orion-telemetry-tag" aria-hidden="true">
-        <span className="orion-tag-name">ORION &bull; THE HUNTER</span>
-        <span className="orion-tag-coords">RA 05h 35m &bull; DEC +00&deg; 00&prime;</span>
+        <span className="orion-telemetry-item">RA 05h 35m &bull; Dec +09&deg; 56&prime;</span>
+        <span className="orion-telemetry-item">Star Walk Reference &bull; Exact 2D Vector Geometry</span>
       </div>
     </div>
   );
