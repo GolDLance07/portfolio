@@ -1,6 +1,6 @@
 /* ==========================================================================
-   SCENE 02: THE HORIZON (ABOUT) STYLES
-   Editorial split composition with typography-led hierarchy & Orion artwork
+   SCENE 02: THE HORIZON (ABOUT)
+   Astronomical editorial layout floating in 3D deep space
    ========================================================================== */
 
 .horizon-scene {
@@ -8,80 +8,17 @@
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-  padding: calc(var(--nav-height) + 1.25rem) 2rem 2.25rem 2rem;
-  box-sizing: border-box;
-  background-color: var(--color-twilight-deep);
-  color: var(--color-starlight);
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.horizon-scene.is-in-celestial-stage {
+  box-sizing: border-box;
   background: transparent !important;
-  background-color: transparent !important;
+  color: var(--color-starlight);
+  padding: calc(var(--nav-height) + 2rem) clamp(1.5rem, 4vw, 3.5rem) 3.5rem clamp(1.5rem, 4vw, 3.5rem);
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+  overflow: visible;
 }
 
-/* Landscape Vector Layers */
-.horizon-layer-base {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  user-select: none;
-}
-
-.horizon-sky-svg,
-.horizon-distant-svg,
-.horizon-plateau-svg,
-.horizon-foreground-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Subtle Horizon Glow Breathing */
-@keyframes horizon-glow-cycle {
-  0%, 100% {
-    opacity: 0.78;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1.05;
-    transform: scale(1.03);
-  }
-}
-
-.horizon-glow-pulse {
-  animation: horizon-glow-cycle 8s ease-in-out infinite;
-  transform-origin: 50% 88%;
-}
-
-/* Atmospheric Vignette Scrim behind text */
-.horizon-scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(8, 6, 22, 0.45) 0%,
-      rgba(14, 11, 33, 0.25) 45%,
-      transparent 75%
-    ),
-    linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(8, 6, 22, 0.2) 20%,
-      rgba(18, 14, 38, 0.5) 60%,
-      rgba(8, 5, 20, 0.88) 100%
-    );
-}
-
-/* ==============================================================
-   CONTENT LAYOUT & EDITORIAL TWO-COLUMN COMPOSITION
-   ============================================================== */
 .horizon-content-container {
   position: relative;
   z-index: 10;
@@ -90,149 +27,147 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  opacity: 1;
-  visibility: visible;
 }
 
-/* Eyebrow & Station Metadata */
+/* Eyebrow & Station Metadata HUD */
 .horizon-eyebrow-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: clamp(0.75rem, 1.8vh, 1.25rem);
+  margin-bottom: clamp(1rem, 2vh, 1.75rem);
   flex-wrap: wrap;
   font-family: var(--font-mono);
   font-size: 0.74rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .horizon-meta-station {
-  color: var(--color-pink);
+  color: var(--color-muted-blue);
   font-weight: 600;
 }
 
 .horizon-meta-divider {
-  color: var(--color-violet);
-  opacity: 0.6;
+  color: var(--color-stellar-blue);
+  opacity: 0.8;
 }
 
 .horizon-meta-sector {
-  color: var(--color-moonlight);
+  color: var(--color-starlight);
   opacity: 0.9;
 }
 
 .horizon-coordinates {
-  color: var(--color-moonlight);
-  opacity: 0.7;
+  color: var(--color-muted-blue);
+  opacity: 0.8;
 }
 
 /* Two-Column Stage Grid */
 .about-stage-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(2rem, 4vw, 4.5rem);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
-  margin-bottom: clamp(1rem, 2vh, 1.75rem);
+  margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
 }
 
 /* Left Column: Editorial & Narrative */
 .about-editorial-column {
   display: flex;
   flex-direction: column;
-  max-width: 660px;
+  max-width: 680px;
 }
 
 .about-header-group {
-  margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
-  border-bottom: 1px solid rgba(200, 185, 240, 0.14);
-  padding-bottom: clamp(0.6rem, 1.2vh, 1rem);
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+  border-bottom: 1px solid rgba(121, 150, 186, 0.18);
+  padding-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
 }
 
 .horizon-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
   line-height: 1.05;
+  letter-spacing: -0.025em;
   color: #ffffff;
   margin: 0 0 0.5rem 0;
-  text-shadow: 0 4px 28px rgba(119, 116, 200, 0.22);
+  text-shadow: 0 4px 30px rgba(121, 150, 186, 0.2);
 }
 
 .about-name-tag {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .about-name-lead {
-  color: var(--color-pink);
-  font-weight: 600;
+  color: var(--color-muted-blue);
 }
 
 .about-name-text {
   color: var(--color-starlight);
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 600;
 }
 
+/* Narrative Paragraphs */
 .about-body-narrative {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.6rem, 1.2vh, 0.95rem);
-  margin-bottom: clamp(0.85rem, 1.8vh, 1.5rem);
+  gap: 1rem;
+  margin-bottom: clamp(1.25rem, 2.5vh, 2rem);
 }
 
 .about-narrative-p {
   font-family: var(--font-sans);
-  font-size: clamp(0.92rem, 1.1vw, 1.04rem);
-  line-height: 1.65;
-  color: rgba(230, 230, 245, 0.92);
+  font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+  line-height: 1.7;
+  color: rgba(216, 228, 244, 0.88);
   margin: 0;
 }
 
-/* Unboxed Editorial Quote with Negative Space */
+/* Unboxed Editorial Quote with Vertical Starlight Hairline */
 .about-closing-quote {
   margin: 0;
-  padding: 0 0 0 1.25rem;
-  border-left: 2px solid var(--color-pink);
-  background: transparent;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  border-left: 2px solid var(--color-muted-blue);
 }
 
-.about-closing-quote .quote-text {
+.quote-text {
   font-family: var(--font-serif);
-  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
   font-style: italic;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
   line-height: 1.5;
-  color: #ffffff;
+  color: var(--color-starlight);
   margin: 0;
-  letter-spacing: -0.01em;
-  text-shadow: 0 0 20px rgba(242, 169, 200, 0.25);
+  letter-spacing: 0.01em;
 }
 
-/* Right Column: Orion Constellation Visual Art */
+/* Right Column: Orion Constellation in Deep Space */
 .about-constellation-column {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 100%;
-  max-height: 520px;
 }
 
-/* Open Editorial Telemetry Strip (No Card Box) */
+/* Bottom Telemetry HUD Strip (Cardless Hairline Frame) */
 .horizon-editorial-telemetry {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: clamp(1rem, 2vh, 1.5rem);
+  border-top: 1px solid rgba(121, 150, 186, 0.16);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   flex-wrap: wrap;
-  gap: 1.25rem;
-  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
-  border-top: 1px solid rgba(200, 185, 240, 0.14);
 }
 
 .telemetry-item {
@@ -242,48 +177,40 @@
 }
 
 .telemetry-label {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
+  color: var(--color-muted-blue);
+  font-size: 0.65rem;
   letter-spacing: 0.16em;
-  color: var(--color-muted);
-  opacity: 0.8;
-  text-transform: uppercase;
 }
 
 .telemetry-value {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
   color: var(--color-starlight);
-  letter-spacing: 0.06em;
+  font-weight: 500;
 }
 
 .telemetry-separator {
-  color: var(--color-violet);
-  opacity: 0.4;
+  color: var(--color-stellar-blue);
+  opacity: 0.6;
 }
 
-/* ==============================================================
-   RESPONSIVE DESIGN (TABLET & MOBILE)
-   ============================================================== */
+/* ==========================================================================
+   RESPONSIVE (TABLET & MOBILE)
+   ========================================================================== */
 @media (max-width: 960px) {
-  .horizon-scene {
-    padding: calc(var(--nav-height) + 1.25rem) 1.5rem 3rem 1.5rem;
-    min-height: auto;
-  }
-
   .about-stage-grid {
     grid-template-columns: 1fr;
-    gap: 2.25rem;
+    gap: 2.5rem;
   }
 
   .about-constellation-column {
-    max-width: 320px;
-    margin: 0 auto;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .horizon-editorial-telemetry {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
 
   .telemetry-separator {
@@ -291,25 +218,16 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
+  .horizon-scene {
+    padding: calc(var(--nav-height) + 1.25rem) 1.25rem 2.5rem 1.25rem;
+  }
+
   .horizon-title {
-    font-size: 2.1rem;
+    font-size: 2.2rem;
   }
 
-  .about-constellation-column {
-    max-width: 260px;
-  }
-
-  .about-closing-quote .quote-text {
-    font-size: 1rem;
-  }
-}
-
-/* ==============================================================
-   ACCESSIBILITY: PREFERS-REDUCED-MOTION
-   ============================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .horizon-glow-pulse {
-    animation: none !important;
+  .about-narrative-p {
+    font-size: 0.95rem;
   }
 }

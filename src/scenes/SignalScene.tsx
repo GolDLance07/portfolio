@@ -232,10 +232,10 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
                 />
 
                 {/* Antenna Mast */}
-                <circle cx="80" cy="40" r="4.5" fill="var(--color-pink)" />
+                <circle cx="80" cy="40" r="4.5" fill="var(--color-starlight)" />
                 <line x1="80" y1="40" x2="80" y2="120" stroke="var(--color-moonlight)" strokeWidth="2" />
-                <line x1="68" y1="65" x2="92" y2="65" stroke="var(--color-violet)" strokeWidth="1.5" />
-                <line x1="60" y1="90" x2="100" y2="90" stroke="var(--color-violet)" strokeWidth="1.5" />
+                <line x1="68" y1="65" x2="92" y2="65" stroke="var(--color-stellar-blue)" strokeWidth="1.5" />
+                <line x1="60" y1="90" x2="100" y2="90" stroke="var(--color-stellar-blue)" strokeWidth="1.5" />
                 {/* Base */}
                 <line x1="50" y1="120" x2="110" y2="120" stroke="var(--color-muted)" strokeWidth="3" />
               </svg>
@@ -279,7 +279,7 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
                         title="Copy email to clipboard"
                         style={{ padding: '0.4rem', borderRadius: '4px' }}
                       >
-                        {copiedEmail ? <Check size={16} color="var(--color-pink)" /> : <Copy size={16} />}
+                        {copiedEmail ? <Check size={16} color="var(--color-starlight)" /> : <Copy size={16} />}
                       </button>
                     ) : method.id === 'github' ? (
                       <a
@@ -326,7 +326,7 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
 
             {status === 'success' ? (
               <div className="form-status-box" role="status" aria-live="polite">
-                <CheckCircle2 size={44} color="var(--color-pink)" className="status-success-icon" aria-hidden="true" />
+                <CheckCircle2 size={44} color="var(--color-starlight)" className="status-success-icon" aria-hidden="true" />
                 <h3 className="form-status-title">Signal Transmitted</h3>
                 <p className="form-status-desc">
                   {statusMessage || 'Signal received. Your message is on its way.'}

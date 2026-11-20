@@ -52,7 +52,7 @@ button {
 
 /* Keyboard accessibility & focus states */
 :focus-visible {
-  outline: 2px solid var(--color-pink);
+  outline: 2px solid var(--color-starlight);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -71,8 +71,7 @@ button {
 }
 
 /* ==========================================================================
-   PROGRESSIVE CONTENT REVEAL ENGINE
-   Restrained, elegant opacity & micro-translation reveals driven by scroll
+   PROGRESSIVE CONTENT REVEAL & CINEMATIC CLIP-MASK ENGINE
    ========================================================================== */
 .reveal-init {
   opacity: 0;
@@ -89,6 +88,33 @@ button {
 .reveal-delay-2 { transition-delay: 0.16s; }
 .reveal-delay-3 { transition-delay: 0.24s; }
 .reveal-delay-4 { transition-delay: 0.32s; }
+
+/* Clip-Path Mask Reveals for Titles and Headings */
+.clip-mask-wrap {
+  overflow: hidden;
+  display: block;
+}
+
+.clip-mask-reveal {
+  opacity: 0;
+  transform: translateY(100%);
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 0.7s var(--ease-cinematic), transform 0.9s var(--ease-cinematic), clip-path 0.9s var(--ease-cinematic);
+  will-change: transform, clip-path, opacity;
+}
+
+.clip-mask-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Graceful Scene Exit Spatial Receding */
+.scene-spatial-exit {
+  opacity: 0;
+  transform: scale(0.95) translateY(-35px);
+  transition: opacity 0.8s var(--ease-out-cubic), transform 0.8s var(--ease-out-cubic);
+}
 
 /* Prefers reduced motion overrides */
 @media (prefers-reduced-motion: reduce) {

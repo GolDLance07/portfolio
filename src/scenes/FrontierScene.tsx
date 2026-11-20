@@ -196,7 +196,7 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
                   <ul className="trajectory-item-list">
                     {activeTrajectory.keyMilestones.map((milestone) => (
                       <li key={milestone} className="trajectory-item-entry">
-                        <CheckCircle2 size={13} color="var(--color-pink)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                        <CheckCircle2 size={13} color="var(--color-starlight)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
                         <span>{milestone}</span>
                       </li>
                     ))}
@@ -243,7 +243,7 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
                   <ul className="expedition-deliv-list">
                     {exp.deliverables.map((item) => (
                       <li key={item} className="expedition-deliv-item">
-                        <Radio size={11} color="var(--color-pink)" aria-hidden="true" />
+                        <Radio size={11} color="var(--color-starlight)" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}

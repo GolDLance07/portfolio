@@ -36,7 +36,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     celestialType: 'Retention Intelligence Engine',
     coordinates: 'RA 19h 50m • DEC +08° 52′',
     artifactShape: 'pulsar',
-    accentColor: '#F2A9C8',
+    accentColor: '#D8E4F4',
   },
   {
     id: 'ttula',
@@ -53,7 +53,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     celestialType: 'Security Reconnaissance Workspace',
     coordinates: 'RA 04h 35m • DEC +16° 30′',
     artifactShape: 'ringed-satellite',
-    accentColor: '#C8B9F0',
+    accentColor: '#7996BA',
   },
   {
     id: 'featureforge',
@@ -70,7 +70,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     celestialType: 'Preprocessing Pipeline Engine',
     coordinates: 'RA 12h 28m • DEC +31° 28′',
     artifactShape: 'crystalline-probe',
-    accentColor: '#7774C8',
+    accentColor: '#A3BFE3',
   },
 ];
 

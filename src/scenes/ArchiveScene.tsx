@@ -239,7 +239,7 @@ export const ArchiveScene: React.FC<ArchiveSceneProps> = ({ hideSky = false }) =
                   color: 'var(--color-muted)',
                 }}
               >
-                <Radio size={13} style={{ color: 'var(--color-pink)' }} aria-hidden="true" />
+                <Radio size={13} style={{ color: 'var(--color-starlight)' }} aria-hidden="true" />
                 <span>{activeProject.celestialType}</span>
               </div>
             </div>

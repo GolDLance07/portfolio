@@ -1,4 +1,5 @@
-import React, { useId } from 'react';
+import React, { useId, useEffect, useRef } from 'react';
+import { motionController, MotionState } from '../services/motionController';
 import '../styles/orion.css';
 
 interface OrionConstellationProps {
@@ -10,8 +11,27 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
   className = '',
   showLabels = true,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const rawId = useId();
   const cleanId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const unsubscribe = motionController.subscribe((state: MotionState) => {
+      if (state.prefersReducedMotion || !state.pointer.active || state.isTouch) {
+        container.style.transform = 'none';
+        return;
+      }
+      // Subtle 3D perspective parallax tilt tied to pointer
+      const tiltX = -state.pointer.y * 3.5;
+      const tiltY = state.pointer.x * 4.5;
+      container.style.transform = `perspective(900px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const lineGlowId = `orion-line-glow-${cleanId}`;
   const betelgeuseCoronaId = `betelgeuse-corona-${cleanId}`;
@@ -25,6 +45,7 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
 
   return (
     <div
+      ref={containerRef}
       className={`orion-constellation-container ${className}`}
       aria-label="Orion the Hunter Constellation & Celestial Silhouette"
     >
@@ -56,9 +77,9 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
           {/* Rigel Brilliant Blue-White Corona */}
           <radialGradient id={rigelCoronaId} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-            <stop offset="22%" stopColor="#BAE6FD" stopOpacity="0.9" />
-            <stop offset="55%" stopColor="#38BDF8" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#0284C7" stopOpacity="0" />
+            <stop offset="22%" stopColor="#D8E4F4" stopOpacity="0.9" />
+            <stop offset="55%" stopColor="#7996BA" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#152D50" stopOpacity="0" />
           </radialGradient>
 
           {/* Alnilam Center Belt Corona */}
@@ -85,12 +106,12 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
             <stop offset="100%" stopColor="#78350F" stopOpacity="0" />
           </radialGradient>
 
-          {/* M42 Great Orion Nebula diffuse cloud */}
+          {/* M42 Great Orion Nebula diffuse cloud (Restrained Astronomical Palette) */}
           <radialGradient id={m42NebulaId} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F472B6" stopOpacity="0.55" />
-            <stop offset="45%" stopColor="#A855F7" stopOpacity="0.25" />
-            <stop offset="80%" stopColor="#6366F1" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#0B0F19" stopOpacity="0" />
+            <stop offset="0%" stopColor="#D8E4F4" stopOpacity="0.45" />
+            <stop offset="45%" stopColor="#7996BA" stopOpacity="0.22" />
+            <stop offset="80%" stopColor="#152D50" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#020611" stopOpacity="0" />
           </radialGradient>
 
           {/* Shield Concave Shading Gradient */}
@@ -105,7 +126,7 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
           <linearGradient id={bladeGradId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#E2E8F0" stopOpacity="0.9" />
             <stop offset="60%" stopColor="#94A3B8" stopOpacity="0.75" />
-            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#7996BA" stopOpacity="0.4" />
           </linearGradient>
         </defs>
 
@@ -527,27 +548,27 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
         {/* ============================================================== */}
         <g className="orion-constellation-lines" filter={`url(#${lineGlowId})`} aria-hidden="true">
           {/* Torso & Shoulder Hexagon/Hourglass */}
-          <line x1="124" y1="209" x2="203" y2="193" className="orion-astro-line" />
-          <line x1="124" y1="209" x2="205" y2="268" className="orion-astro-line" />
-          <line x1="203" y1="193" x2="205" y2="268" className="orion-astro-line" />
+          <line x1="124" y1="209" x2="203" y2="193" className="orion-astro-line" pathLength="100" />
+          <line x1="124" y1="209" x2="205" y2="268" className="orion-astro-line" pathLength="100" />
+          <line x1="203" y1="193" x2="205" y2="268" className="orion-astro-line" pathLength="100" />
 
           {/* The Belt of Orion (Alnitak -> Alnilam -> Mintaka) */}
-          <line x1="187" y1="275" x2="205" y2="268" className="orion-belt-line" />
-          <line x1="205" y1="268" x2="218" y2="260" className="orion-belt-line" />
+          <line x1="187" y1="275" x2="205" y2="268" className="orion-belt-line" pathLength="100" />
+          <line x1="205" y1="268" x2="218" y2="260" className="orion-belt-line" pathLength="100" />
 
           {/* Lower Body (Belt to Knees) */}
-          <line x1="205" y1="268" x2="201" y2="384" className="orion-astro-line" />
-          <line x1="205" y1="268" x2="280" y2="332" className="orion-astro-line" />
-          <line x1="201" y1="384" x2="280" y2="332" className="orion-astro-line" />
+          <line x1="205" y1="268" x2="201" y2="384" className="orion-astro-line" pathLength="100" />
+          <line x1="205" y1="268" x2="280" y2="332" className="orion-astro-line" pathLength="100" />
+          <line x1="201" y1="384" x2="280" y2="332" className="orion-astro-line" pathLength="100" />
 
           {/* Raised Arm & Sword Lines */}
-          <line x1="124" y1="209" x2="63" y2="142" className="orion-astro-line" />
-          <line x1="63" y1="142" x2="52" y2="79" className="orion-astro-line" />
-          <line x1="124" y1="209" x2="74" y2="168" className="orion-astro-line" opacity="0.5" />
-          <line x1="56" y1="75" x2="208" y2="42" className="orion-sword-astro-line" opacity="0.65" />
+          <line x1="124" y1="209" x2="63" y2="142" className="orion-astro-line" pathLength="100" />
+          <line x1="63" y1="142" x2="52" y2="79" className="orion-astro-line" pathLength="100" />
+          <line x1="124" y1="209" x2="74" y2="168" className="orion-astro-line" pathLength="100" opacity="0.5" />
+          <line x1="56" y1="75" x2="208" y2="42" className="orion-sword-astro-line" pathLength="100" opacity="0.65" />
 
           {/* Shield Arm Line */}
-          <line x1="203" y1="193" x2="291" y2="153" className="orion-astro-line" />
+          <line x1="203" y1="193" x2="291" y2="153" className="orion-astro-line" pathLength="100" />
         </g>
 
         {/* ============================================================== */}
@@ -593,60 +614,67 @@ export const OrionConstellation: React.FC<OrionConstellationProps> = ({
         {/* 7. CONSTELLATION STARS & HALOS                                 */}
         {/* ============================================================== */}
         <g className="orion-stars" aria-hidden="true">
-          {/* Betelgeuse (Alpha Orionis) */}
+          {/* Betelgeuse (Alpha Orionis) - Step 2 */}
           <g className="orion-star-betelgeuse">
             <circle cx="124" cy="209" r="16" fill={`url(#${betelgeuseCoronaId})`} className="orion-supergiant-glow" />
             <circle cx="124" cy="209" r="4.2" fill="#F59E0B" />
             <circle cx="124" cy="209" r="2.2" fill="#FFF7ED" className="orion-supergiant-core" />
           </g>
 
-          {/* Bellatrix (Gamma Orionis) */}
-          <g className="orion-star-bellatrix">
-            <circle cx="203" cy="193" r="10" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
-            <circle cx="203" cy="193" r="3.2" fill="#BAE6FD" />
-            <circle cx="203" cy="193" r="1.8" fill="#FFFFFF" />
-          </g>
-
-          {/* The Belt Stars */}
-          {/* Alnitak (Zeta Orionis) */}
-          <g className="orion-star-alnitak">
-            <circle cx="187" cy="275" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
-            <circle cx="187" cy="275" r="2.8" fill="#CBD5E1" />
-            <circle cx="187" cy="275" r="1.6" fill="#FFFFFF" />
-          </g>
-
-          {/* Alnilam (Epsilon Orionis) */}
-          <g className="orion-star-alnilam">
-            <circle cx="205" cy="268" r="12" fill={`url(#${alnilamCoronaId})`} className="orion-supergiant-glow" />
-            <circle cx="205" cy="268" r="3.4" fill="#BFDBFE" />
-            <circle cx="205" cy="268" r="2.0" fill="#FFFFFF" />
-          </g>
-
-          {/* Mintaka (Delta Orionis) */}
-          <g className="orion-star-mintaka">
-            <circle cx="218" cy="260" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
-            <circle cx="218" cy="260" r="2.8" fill="#CBD5E1" />
-            <circle cx="218" cy="260" r="1.6" fill="#FFFFFF" />
-          </g>
-
-          {/* Saiph (Kappa Orionis) */}
-          <g className="orion-star-saiph">
-            <circle cx="201" cy="384" r="11" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
-            <circle cx="201" cy="384" r="3.2" fill="#BAE6FD" />
-            <circle cx="201" cy="384" r="1.8" fill="#FFFFFF" />
-          </g>
-
-          {/* Rigel (Beta Orionis) */}
+          {/* Rigel (Beta Orionis) - Step 3 */}
           <g className="orion-star-rigel">
             <circle cx="280" cy="332" r="18" fill={`url(#${rigelCoronaId})`} className="orion-supergiant-glow" />
-            <circle cx="280" cy="332" r="4.6" fill="#38BDF8" />
+            <circle cx="280" cy="332" r="4.6" fill="#D8E4F4" />
             <circle cx="280" cy="332" r="2.4" fill="#FFFFFF" className="orion-supergiant-core" />
           </g>
 
-          {/* Weapon / Limb Anchor Stars */}
-          <circle cx="52" cy="79" r="2.2" fill="#E2E8F0" opacity="0.9" />
-          <circle cx="63" cy="142" r="2.0" fill="#CBD5E1" opacity="0.8" />
-          <circle cx="291" cy="153" r="2.2" fill="#E2E8F0" opacity="0.9" />
+          {/* The Belt Stars - Step 4 */}
+          <g className="orion-belt-stars">
+            {/* Alnitak (Zeta Orionis) */}
+            <g className="orion-star-alnitak">
+              <circle cx="187" cy="275" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
+              <circle cx="187" cy="275" r="2.8" fill="#CBD5E1" />
+              <circle cx="187" cy="275" r="1.6" fill="#FFFFFF" />
+            </g>
+
+            {/* Alnilam (Epsilon Orionis) */}
+            <g className="orion-star-alnilam">
+              <circle cx="205" cy="268" r="12" fill={`url(#${alnilamCoronaId})`} className="orion-supergiant-glow" />
+              <circle cx="205" cy="268" r="3.4" fill="#BFDBFE" />
+              <circle cx="205" cy="268" r="2.0" fill="#FFFFFF" />
+            </g>
+
+            {/* Mintaka (Delta Orionis) */}
+            <g className="orion-star-mintaka">
+              <circle cx="218" cy="260" r="7" fill={`url(#${blueStarCoronaId})`} opacity="0.65" />
+              <circle cx="218" cy="260" r="2.8" fill="#CBD5E1" />
+              <circle cx="218" cy="260" r="1.6" fill="#FFFFFF" />
+            </g>
+          </g>
+
+          {/* Bellatrix and Saiph - Step 6 */}
+          <g className="orion-stars-bellatrix-saiph">
+            {/* Bellatrix (Gamma Orionis) */}
+            <g className="orion-star-bellatrix">
+              <circle cx="203" cy="193" r="10" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
+              <circle cx="203" cy="193" r="3.2" fill="#BAE6FD" />
+              <circle cx="203" cy="193" r="1.8" fill="#FFFFFF" />
+            </g>
+
+            {/* Saiph (Kappa Orionis) */}
+            <g className="orion-star-saiph">
+              <circle cx="201" cy="384" r="11" fill={`url(#${blueStarCoronaId})`} opacity="0.8" />
+              <circle cx="201" cy="384" r="3.2" fill="#BAE6FD" />
+              <circle cx="201" cy="384" r="1.8" fill="#FFFFFF" />
+            </g>
+          </g>
+
+          {/* Secondary Limb Anchor Stars - Step 7 */}
+          <g className="orion-secondary-features">
+            <circle cx="52" cy="79" r="2.2" fill="#E2E8F0" opacity="0.9" />
+            <circle cx="63" cy="142" r="2.0" fill="#CBD5E1" opacity="0.8" />
+            <circle cx="291" cy="153" r="2.2" fill="#E2E8F0" opacity="0.9" />
+          </g>
         </g>
 
         {/* ============================================================== */}

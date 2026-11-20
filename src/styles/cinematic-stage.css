@@ -50,7 +50,8 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  padding: clamp(5.5rem, 11vh, 8.5rem) 2rem clamp(6rem, 12vh, 9rem) 2rem;
+  padding: clamp(5rem, 9vh, 7.5rem) 2rem clamp(5rem, 10vh, 8rem) 2rem;
+  scroll-margin-top: calc(var(--nav-height) + 0.5rem);
   overflow: visible;
 }
 

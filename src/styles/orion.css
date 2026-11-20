@@ -14,6 +14,8 @@
   align-items: center;
   justify-content: center;
   user-select: none;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .orion-svg {
@@ -48,6 +50,8 @@
   stroke-width: 1px;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
   fill: none;
   filter: drop-shadow(0 0 2px rgba(224, 242, 254, 0.6));
 }
@@ -57,6 +61,8 @@
   stroke-width: 1.25px;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
   fill: none;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
 }
@@ -66,6 +72,8 @@
   stroke-width: 0.9px;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
   fill: none;
 }
 
@@ -164,6 +172,61 @@
   text-transform: uppercase;
 }
 
+/* Individual star glow characteristics & subtle astronomical breathing */
+.orion-star-betelgeuse {
+  animation: orion-betelgeuse-breathe 4.8s ease-in-out infinite;
+  transform-origin: 124px 209px;
+}
+
+.orion-star-rigel {
+  animation: orion-rigel-breathe 4.2s ease-in-out infinite;
+  transform-origin: 280px 332px;
+}
+
+.orion-belt-stars {
+  animation: orion-belt-twinkle 3.8s ease-in-out infinite;
+}
+
+.orion-stars-bellatrix-saiph {
+  animation: orion-subtle-twinkle 4.5s ease-in-out infinite;
+}
+
+@keyframes orion-betelgeuse-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.65));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.95));
+  }
+}
+
+@keyframes orion-rigel-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 7px rgba(216, 228, 244, 0.7));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(216, 228, 244, 1.0));
+  }
+}
+
+@keyframes orion-belt-twinkle {
+  0%, 100% {
+    opacity: 0.88;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes orion-subtle-twinkle {
+  0%, 100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 0.98;
+  }
+}
+
 /* ==============================================================
    6. CELESTIAL PULSE & BREATHE ANIMATIONS
    ============================================================== */
@@ -205,7 +268,8 @@
 
 @media (max-width: 640px) {
   .orion-constellation-container {
-    max-width: 330px;
+    max-width: 260px;
+    margin-bottom: 1.5rem;
   }
 
   .orion-title-label {
@@ -222,6 +286,7 @@
     align-items: center;
     text-align: center;
     padding: 0.35rem 0.6rem;
+    max-width: 260px;
   }
 
   .orion-telemetry-item {

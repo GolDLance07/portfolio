@@ -1,30 +1,35 @@
 :root {
   /* ==========================================================================
-     REALISTIC MIDNIGHT SKY PALETTE
-     Deep space, natural night sky illumination and crisp starlight
+     EXPERIENCE 3.0: REAL MIDNIGHT ASTRONOMICAL PALETTE
+     Pure deep space illumination, zero green/teal/cyan and zero purple/magenta
      ========================================================================== */
-  --color-cosmic-black: #050B18;
-  --color-midnight: #09172B;
-  --color-deep-blue: #102B49;
-  --color-stellar-blue: #426C91;
-  --color-cold-highlight: #A7C5DF;
-  --color-starlight: #E5EAF2;
+  --color-void-black: #020611;
+  --color-midnight: #071225;
+  --color-deep-navy: #0B1B35;
+  --color-stellar-blue: #152D50;
+  --color-muted-blue: #7996BA;
+  --color-starlight: #D8E4F4;
 
-  /* Restrained accents */
-  --color-violet: #7774C8;
-  --color-pink: #F2A9C8;
-  --color-muted: #8EADC7;
+  /* Legacy mappings mapped strictly to midnight astronomical tones */
+  --color-cosmic-black: #020611;
+  --color-deep-blue: #0B1B35;
+  --color-cold-highlight: #7996BA;
+  --color-muted: #7996BA;
+
+  /* Legacy alias mappings mapped strictly to midnight astronomical tokens */
+  --color-violet: var(--color-stellar-blue);
+  --color-pink: var(--color-muted-blue);
+  --color-moonlight: #D8E4F4;
+  --color-nebula: #0B1B35;
 
   /* Atmospheric surface tokens */
-  --color-twilight: #09172B;
-  --color-twilight-deep: #050B18;
-  --color-twilight-haze: #102B49;
-  --color-moonlight: #A7C5DF;
-  --color-nebula: #102B49;
+  --color-twilight: #071225;
+  --color-twilight-deep: #020611;
+  --color-twilight-haze: #0B1B35;
 
-  --color-panel-bg: rgba(9, 23, 43, 0.55);
-  --color-panel-border: rgba(167, 197, 223, 0.18);
-  --color-panel-border-hover: rgba(242, 169, 200, 0.4);
+  --color-panel-bg: rgba(7, 18, 37, 0.65);
+  --color-panel-border: rgba(121, 150, 186, 0.18);
+  --color-panel-border-hover: rgba(216, 228, 244, 0.45);
 
   /* Typography System */
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -37,8 +42,9 @@
   --max-content-width: 1280px;
   --nav-height: 72px;
 
-  /* Transitions */
+  /* Transitions & Easings */
   --ease-out-quad: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
 }
 

@@ -75,7 +75,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Stream-oriented data pipelining',
       ],
       orbitRadius: 38,
-      accentColor: '#F2A9C8',
+      accentColor: '#7996BA',
     },
     {
       id: 'system-design',
@@ -98,7 +98,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Consistent hashing & partition balancing',
       ],
       orbitRadius: 58,
-      accentColor: '#C8B9F0',
+      accentColor: '#D8E4F4',
     },
     {
       id: 'data-science-ml',
@@ -121,7 +121,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Calibrated prediction thresholds',
       ],
       orbitRadius: 78,
-      accentColor: '#9D8DF1',
+      accentColor: '#A3BFE3',
     },
     {
       id: 'ai-integration',
@@ -144,7 +144,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Dynamic tool resolution protocols',
       ],
       orbitRadius: 96,
-      accentColor: '#7774C8',
+      accentColor: '#536399',
     },
   ],
   expeditions: [
@@ -163,7 +163,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Checksum-verified payload delivery',
         'Dockerized reproducible deployment',
       ],
-      accentColor: '#F2A9C8',
+      accentColor: '#7996BA',
     },
     {
       id: 'exp-agent-runtime',
@@ -180,7 +180,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Deterministic execution trace logger',
         'Terminal dashboard for inspection',
       ],
-      accentColor: '#C8B9F0',
+      accentColor: '#D8E4F4',
     },
     {
       id: 'exp-visionguard-plus',
@@ -198,7 +198,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
         'Authenticated mesh network telemetry',
       ],
       githubUrl: 'https://github.com/GolDLance07/VisionGuard',
-      accentColor: '#7774C8',
+      accentColor: '#536399',
     },
   ],
 };

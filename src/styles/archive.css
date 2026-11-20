@@ -42,7 +42,7 @@
   font-size: 0.74rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-pink);
+  color: var(--color-muted-blue);
   margin-bottom: 0.5rem;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .archive-meta-divider {
-  color: var(--color-violet);
+  color: var(--color-stellar-blue);
   opacity: 0.6;
 }
 
@@ -94,7 +94,7 @@
   padding: clamp(0.75rem, 1.5vh, 1.1rem) 0.5rem;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
+  border-bottom: 1px solid rgba(121, 150, 186, 0.12);
   border-radius: 0;
   cursor: pointer;
   text-align: left;
@@ -106,14 +106,14 @@
 }
 
 .celestial-object-card:hover {
-  background: rgba(200, 185, 240, 0.04);
-  border-bottom-color: rgba(242, 169, 200, 0.4);
+  background: rgba(121, 150, 186, 0.04);
+  border-bottom-color: rgba(216, 228, 244, 0.4);
   transform: translateX(4px);
 }
 
 .celestial-object-card.is-active {
-  background: rgba(242, 169, 200, 0.06);
-  border-bottom-color: var(--color-pink);
+  background: rgba(216, 228, 244, 0.06);
+  border-bottom-color: var(--color-muted-blue);
   box-shadow: none;
   transform: translateX(6px);
 }
@@ -125,7 +125,7 @@
   top: 25%;
   height: 50%;
   width: 3px;
-  background: var(--color-pink);
+  background: var(--color-muted-blue);
   border-radius: 2px;
 }
 
@@ -152,7 +152,7 @@
 .celestial-tag {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: var(--color-pink);
+  color: var(--color-muted-blue);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 0.2rem;
@@ -201,7 +201,7 @@
   text-transform: uppercase;
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
+  border-bottom: 1px solid rgba(121, 150, 186, 0.12);
 }
 
 .detail-project-name {
@@ -216,7 +216,7 @@
 .detail-project-tagline {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--color-pink);
+  color: var(--color-muted-blue);
   margin-bottom: clamp(0.75rem, 1.5vh, 1.1rem);
   letter-spacing: 0.04em;
   line-height: 1.5;
@@ -252,8 +252,8 @@
 
 .tech-chip {
   padding: 0.25rem 0.65rem;
-  background: rgba(200, 185, 240, 0.08);
-  border: 1px solid rgba(200, 185, 240, 0.18);
+  background: rgba(121, 150, 186, 0.08);
+  border: 1px solid rgba(121, 150, 186, 0.18);
   border-radius: 9999px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -268,7 +268,7 @@
   align-items: center;
   gap: 1.25rem;
   padding-top: clamp(0.75rem, 1.5vh, 1.1rem);
-  border-top: 1px solid rgba(200, 185, 240, 0.12);
+  border-top: 1px solid rgba(121, 150, 186, 0.12);
 }
 
 .detail-action-btn {
@@ -286,23 +286,23 @@
 }
 
 .detail-action-btn.is-primary {
-  background: rgba(242, 169, 200, 0.16);
-  border: 1px solid rgba(242, 169, 200, 0.45);
+  background: rgba(216, 228, 244, 0.16);
+  border: 1px solid rgba(216, 228, 244, 0.45);
   color: #ffffff;
   font-weight: 500;
 }
 
 .detail-action-btn.is-primary:hover {
-  background: var(--color-pink);
-  border-color: var(--color-pink);
+  background: var(--color-muted-blue);
+  border-color: var(--color-muted-blue);
   color: #0c0919;
-  box-shadow: 0 0 20px rgba(242, 169, 200, 0.4);
+  box-shadow: 0 0 20px rgba(216, 228, 244, 0.4);
   transform: translateY(-2px);
 }
 
 .detail-action-btn.is-secondary {
   background: transparent;
-  border: 1px solid rgba(200, 185, 240, 0.25);
+  border: 1px solid rgba(121, 150, 186, 0.25);
   color: var(--color-moonlight);
 }
 
