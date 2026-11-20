@@ -39,10 +39,10 @@ export const SKILL_CATEGORIES: ConstellationCategory[] = [
     id: 'development',
     name: 'Development',
     astronomicalName: 'VECTIS',
-    designation: 'STATION 03 &bull; DEV-ALPHA',
+    designation: 'STATION 03 • DEV-ALPHA',
     description:
       'Core programming languages and computational foundations used to build robust software systems.',
-    coordinates: 'RA 19h 50m &bull; DEC +08° 52′',
+    coordinates: 'RA 19h 50m • DEC +08° 52′',
     skills: [
       { id: 'python', name: 'Python', focus: 'Backend Systems, Data Processing, Scripting' },
       { id: 'cpp', name: 'C++', focus: 'System Programming, Memory Management, Algorithms' },
@@ -119,10 +119,10 @@ export const SKILL_CATEGORIES: ConstellationCategory[] = [
     id: 'backend',
     name: 'Backend & Systems',
     astronomicalName: 'CORONA',
-    designation: 'STATION 03 &bull; SYS-BETA',
+    designation: 'STATION 03 • SYS-BETA',
     description:
       'Server architecture, relational and document persistence layers, and reliable communication protocols.',
-    coordinates: 'RA 15h 35m &bull; DEC +26° 42′',
+    coordinates: 'RA 15h 35m • DEC +26° 42′',
     skills: [
       { id: 'fastapi', name: 'FastAPI', focus: 'High-performance Asynchronous Web Services' },
       { id: 'rest', name: 'REST APIs', focus: 'Contract Design, Middleware, Rate Limiting' },
@@ -187,10 +187,10 @@ export const SKILL_CATEGORIES: ConstellationCategory[] = [
     id: 'data-ai',
     name: 'Data & AI',
     astronomicalName: 'CYGNUS',
-    designation: 'STATION 03 &bull; ML-GAMMA',
+    designation: 'STATION 03 • ML-GAMMA',
     description:
       'Data transformation workflows, statistical feature discovery, and applying machine learning pipelines.',
-    coordinates: 'RA 21h 18m &bull; DEC +45° 16′',
+    coordinates: 'RA 21h 18m • DEC +45° 16′',
     skills: [
       { id: 'datascience', name: 'Data Science', focus: 'Exploratory Analysis, Numerical Computing' },
       { id: 'ml', name: 'Machine Learning', focus: 'Supervised Learning, Model Evaluation' },
@@ -267,9 +267,9 @@ export const SKILL_CATEGORIES: ConstellationCategory[] = [
     id: 'tools-infra',
     name: 'Tools & Infrastructure',
     astronomicalName: 'ANCHOR',
-    designation: 'STATION 03 &bull; OPS-DELTA',
+    designation: 'STATION 03 • OPS-DELTA',
     description: 'Containerization, version control discipline, and unix environment administration.',
-    coordinates: 'RA 06h 24m &bull; DEC -52° 18′',
+    coordinates: 'RA 06h 24m • DEC -52° 18′',
     skills: [
       { id: 'git', name: 'Git', focus: 'Version Control, Branching, Collaborative Workflows' },
       { id: 'docker', name: 'Docker', focus: 'Reproducible Container Images, Multi-stage Builds' },

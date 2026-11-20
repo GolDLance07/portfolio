@@ -1,6 +1,6 @@
 import React, { useState, useId } from 'react';
 import { SKILL_CATEGORIES } from '../data/skills';
-import { Sparkles, Compass } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import '../styles/constellations.css';
 
 interface ConstellationsSceneProps {
@@ -40,13 +40,14 @@ export const ConstellationsScene: React.FC<ConstellationsSceneProps> = ({ hideSk
         {/* Header */}
         <header className="constellations-header">
           <div className="constellations-eyebrow">
-            <Compass size={14} aria-hidden="true" />
-            <span>SECTOR 03 &bull; THE CONSTELLATIONS</span>
+            <span className="constellations-meta-station">SECTOR 03 // 06</span>
+            <span className="constellations-meta-divider" aria-hidden="true">&bull;</span>
+            <span>THE CONSTELLATIONS &bull; TECHNICAL CAPABILITIES</span>
           </div>
           <h2 className="constellations-title">Technical Constellations</h2>
           <p className="constellations-subtitle">
-            Patterns formed across systems, computational tools, and architectural domains. Select a
-            constellation to inspect its connected nodes.
+            Patterns formed across systems engineering, computational tools, and architectural domains.
+            Explore connected constellations and their technical nodes.
           </p>
         </header>
 

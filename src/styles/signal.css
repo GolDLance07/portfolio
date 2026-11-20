@@ -1,6 +1,6 @@
 /* ==========================================================================
    SCENE 06: THE SIGNAL / CONTACT
-   Deep-space communications terminal with functional EmailJS console
+   Architectural communication terminal with luminous borderless inputs
    ========================================================================== */
 
 .signal-scene {
@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--nav-height) + 2rem) 2rem 4rem 2rem;
+  padding: calc(var(--nav-height) + 1.25rem) 2rem 2.5rem 2rem;
   color: var(--color-starlight);
   box-sizing: border-box;
 }
@@ -30,66 +30,77 @@
 
 /* Header */
 .signal-header {
-  margin-bottom: 2.25rem;
+  margin-bottom: clamp(1rem, 2vh, 1.75rem);
   max-width: 720px;
 }
 
 .signal-eyebrow {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-pink);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.signal-meta-station {
+  font-weight: 600;
+}
+
+.signal-meta-divider {
+  color: var(--color-violet);
+  opacity: 0.6;
 }
 
 .signal-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  line-height: 1.1;
-  color: var(--color-starlight);
-  margin-bottom: 0.75rem;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.02em;
 }
 
 .signal-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
   color: var(--color-muted);
   line-height: 1.6;
+  margin: 0;
 }
 
-/* Two-column Layout: Telemetry Antenna Card (Left) & Transmission Form (Right) */
+/* Two-column Layout: Telemetry Antenna (Left) & Transmission Console (Right) */
 .signal-main-stage {
   display: grid;
-  grid-template-columns: 1fr 1.18fr;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(2rem, 4vw, 4.5rem);
   align-items: start;
 }
 
-/* Left: Telemetry Station Info Card */
+/* Left: Telemetry Station Info (Cardless Editorial Layout) */
 .signal-station-card {
-  background: rgba(18, 14, 38, 0.65);
-  border: 1px solid rgba(200, 185, 240, 0.16);
-  border-radius: 18px;
-  padding: 2rem;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Antenna Graphic Frame */
 .signal-antenna-frame {
   width: 100%;
-  height: 140px;
+  height: clamp(90px, 14vh, 120px);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 
@@ -116,103 +127,114 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.35rem 0.75rem;
-  background: rgba(119, 116, 200, 0.16);
+  padding: 0.25rem 0.65rem;
+  background: rgba(242, 169, 200, 0.08);
   border: 1px solid rgba(242, 169, 200, 0.25);
-  border-radius: 20px;
+  border-radius: 9999px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--color-pink);
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
 }
 
 .status-dot-pulse {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #39e58c;
-  box-shadow: 0 0 8px #39e58c;
+  box-shadow: 0 0 6px #39e58c;
 }
 
 .station-meta-coords {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--color-moonlight);
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
+  padding-bottom: 0.75rem;
 }
 
-/* Channels List */
+/* Direct Channels List (Cardless Editorial Items) */
 .signal-channels-list {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0;
 }
 
 .signal-channel-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.85rem 1rem;
-  background: rgba(30, 26, 56, 0.4);
-  border: 1px solid rgba(200, 185, 240, 0.12);
-  border-radius: 10px;
+  padding: 0.75rem 0.25rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 185, 240, 0.1);
+  border-radius: 0;
   text-decoration: none;
-  transition: all 0.25s var(--ease-out-quad);
+  transition: all 0.22s var(--ease-out-quad);
 }
 
 .signal-channel-item:hover {
-  background: rgba(48, 43, 89, 0.55);
-  border-color: rgba(242, 169, 200, 0.35);
+  background: rgba(200, 185, 240, 0.04);
+  border-bottom-color: var(--color-pink);
   transform: translateX(4px);
 }
 
 .channel-info {
   display: flex;
   flex-direction: column;
+  gap: 0.15rem;
 }
 
 .channel-label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--color-pink);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .channel-value {
   font-family: var(--font-sans);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-starlight);
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .channel-icon {
   color: var(--color-moonlight);
   background: transparent;
-  border: none;
+  border: 1px solid rgba(200, 185, 240, 0.2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .channel-icon:hover {
-  color: var(--color-pink);
-  transform: scale(1.1);
+  color: #ffffff;
+  border-color: var(--color-pink);
+  background: rgba(242, 169, 200, 0.15);
+  transform: scale(1.08);
 }
 
-/* Right: Transmission Form Card */
+/* Right: Transmission Terminal (Architectural & Cardless) */
 .transmission-form-card {
-  background: rgba(18, 14, 38, 0.72);
-  border: 1px solid rgba(200, 185, 240, 0.18);
-  border-radius: 18px;
-  padding: 2.25rem;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 .form-header-meta {
@@ -222,10 +244,11 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--color-moonlight);
-  letter-spacing: 0.12em;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px dashed rgba(200, 185, 240, 0.16);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
 }
 
 /* Error Alert Banner */
@@ -233,8 +256,8 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  padding: 0.85rem 1rem;
-  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
   margin-bottom: 1rem;
 }
 
@@ -275,20 +298,20 @@
 .transmission-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: clamp(0.85rem, 1.8vh, 1.25rem);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.3rem;
 }
 
 .form-label {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: var(--color-starlight);
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  color: var(--color-moonlight);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -300,86 +323,158 @@
   font-weight: bold;
 }
 
+/* Sleek Minimal Borderless Inputs with Luminous Underline */
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.85rem 1rem;
-  background: rgba(10, 8, 22, 0.72);
-  border: 1px solid rgba(200, 185, 240, 0.2);
-  border-radius: 8px;
+  padding: 0.65rem 0.25rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 185, 240, 0.22);
+  border-radius: 0;
   font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   color: #ffffff;
-  transition: all 0.25s ease;
+  transition: all 0.22s ease;
   box-sizing: border-box;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(200, 185, 240, 0.35);
+  font-size: 0.88rem;
 }
 
 .form-input:focus,
 .form-textarea:focus {
-  border-color: var(--color-pink);
+  border-bottom-color: var(--color-pink);
   outline: none;
-  box-shadow: 0 0 14px rgba(242, 169, 200, 0.28);
-  background: rgba(20, 16, 42, 0.88);
+  box-shadow: 0 2px 8px rgba(242, 169, 200, 0.3);
+  background: rgba(242, 169, 200, 0.03);
 }
 
 .form-input.is-invalid,
 .form-textarea.is-invalid {
-  border-color: #ef4444;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
-  background: rgba(26, 12, 20, 0.8);
+  border-bottom-color: #ef4444;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
 }
 
 .form-input:disabled,
 .form-textarea:disabled {
-  opacity: 0.65;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 110px;
+  min-height: 80px;
 }
 
 .form-error-msg {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #fca5a5;
   letter-spacing: 0.03em;
 }
 
-/* Submit Button */
+/* Submit Action Button */
 .form-submit-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  padding: 0.9rem 1.75rem;
-  background: var(--color-pink);
-  border: none;
-  border-radius: 8px;
+  gap: 0.6rem;
+  padding: 0.75rem 1.75rem;
+  background: rgba(242, 169, 200, 0.16);
+  border: 1px solid rgba(242, 169, 200, 0.45);
+  border-radius: 9999px;
   font-family: var(--font-mono);
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #0b091a;
-  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.25s var(--ease-out-quad);
   margin-top: 0.5rem;
+  align-self: flex-start;
 }
 
 .form-submit-btn:hover:not(:disabled) {
-  background: #ffffff;
-  box-shadow: 0 0 22px rgba(255, 255, 255, 0.55);
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+  color: #0c0919;
+  box-shadow: 0 0 24px rgba(242, 169, 200, 0.45);
   transform: translateY(-2px);
 }
 
-.form-submit-btn:disabled,
-.form-submit-btn.is-submitting {
-  opacity: 0.75;
-  cursor: wait;
-  transform: none;
+.form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
+/* Success Receipt Box */
+.form-status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(242, 169, 200, 0.3);
+  border-bottom: 1px solid rgba(242, 169, 200, 0.3);
+}
+
+.status-success-icon {
+  margin-bottom: 0.75rem;
+}
+
+.form-status-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.form-status-desc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: rgba(230, 230, 245, 0.9);
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.status-receipt-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-pink);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+
+.form-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid rgba(200, 185, 240, 0.3);
+  color: var(--color-starlight);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-reset-btn:hover {
+  border-color: var(--color-pink);
+  color: #ffffff;
+}
+
+
+/* Spinner */
 .btn-spinner {
   animation: spinLoader 1s linear infinite;
 }
@@ -397,8 +492,8 @@
 .transmission-fallback-row {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.65rem;
+  align-items: flex-start;
+  gap: 0.5rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(200, 185, 240, 0.1);
@@ -409,98 +504,24 @@
   font-size: 0.65rem;
   letter-spacing: 0.16em;
   color: var(--color-muted);
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .fallback-mailto-link {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
   color: var(--color-moonlight);
   text-decoration: none;
-  padding: 0.35rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.35rem 0;
   transition: all 0.2s ease;
-  background: rgba(119, 116, 200, 0.08);
-  border: 1px solid rgba(200, 185, 240, 0.14);
 }
 
 .fallback-mailto-link:hover {
   color: #ffffff;
-  border-color: var(--color-pink);
-  background: rgba(242, 169, 200, 0.12);
-  transform: translateY(-1px);
-}
-
-/* Success Confirmation State */
-.form-status-box {
-  padding: 2.25rem 1.75rem;
-  border-radius: 14px;
-  background: rgba(30, 26, 56, 0.65);
-  border: 1px solid rgba(242, 169, 200, 0.45);
-  box-shadow: 0 0 35px rgba(242, 169, 200, 0.15);
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  text-align: center;
-  align-items: center;
-}
-
-.status-success-icon {
-  filter: drop-shadow(0 0 10px rgba(242, 169, 200, 0.5));
-}
-
-.form-status-title {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  color: #ffffff;
-  margin: 0;
-}
-
-.form-status-desc {
-  font-size: 0.95rem;
-  color: var(--color-starlight);
-  line-height: 1.6;
-  max-width: 440px;
-  margin: 0;
-}
-
-.status-receipt-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding: 0.75rem 1.25rem;
-  margin: 0.5rem 0;
-  background: rgba(14, 11, 30, 0.7);
-  border: 1px solid rgba(200, 185, 240, 0.15);
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-}
-
-.form-reset-btn {
-  padding: 0.65rem 1.4rem;
-  background: rgba(119, 116, 200, 0.25);
-  border: 1px solid rgba(200, 185, 240, 0.35);
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--color-starlight);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 0.5rem;
-}
-
-.form-reset-btn:hover {
-  border-color: var(--color-pink);
-  color: #ffffff;
-  background: rgba(242, 169, 200, 0.2);
 }
 
 /* ==========================================================================
@@ -508,6 +529,11 @@
    ========================================================================== */
 
 @media (max-width: 960px) {
+  .signal-scene {
+    min-height: auto;
+    padding: calc(var(--nav-height) + 1.25rem) 1.5rem 3rem 1.5rem;
+  }
+
   .signal-main-stage {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -516,11 +542,14 @@
 
 @media (max-width: 640px) {
   .signal-scene {
-    padding: calc(var(--nav-height) + 1rem) 1rem 3rem 1rem;
+    padding: calc(var(--nav-height) + 1rem) 1rem 2.5rem 1rem;
   }
 
-  .transmission-form-card,
-  .signal-station-card {
-    padding: 1.5rem;
+  .signal-title {
+    font-size: 2.1rem;
+  }
+
+  .form-submit-btn {
+    width: 100%;
   }
 }

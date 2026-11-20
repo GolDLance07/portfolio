@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PROJECTS_DATA, ProjectItem } from '../data/projects';
-import { FolderGit2, ExternalLink, Radio } from 'lucide-react';
+import { ExternalLink, Radio } from 'lucide-react';
 import '../styles/archive.css';
 
 interface ArchiveSceneProps {
@@ -126,13 +126,14 @@ export const ArchiveScene: React.FC<ArchiveSceneProps> = ({ hideSky = false }) =
         {/* Header */}
         <header className="archive-header">
           <div className="archive-eyebrow">
-            <FolderGit2 size={14} aria-hidden="true" />
-            <span>SECTOR 04 &bull; CELESTIAL ARCHIVE</span>
+            <span className="archive-meta-station">SECTOR 04 // 06</span>
+            <span className="archive-meta-divider" aria-hidden="true">&bull;</span>
+            <span>CELESTIAL ARCHIVE &bull; ENGINEERING PROJECTS</span>
           </div>
           <h2 className="archive-title">Project Artifacts</h2>
           <p className="archive-subtitle">
-            Explorations in software engineering, intelligent pipelines, and network systems. Select
-            an artifact to inspect technical blueprints and repository sources.
+            Explorations in software engineering, intelligent pipelines, and distributed network architectures.
+            Select an artifact to examine technical specifications and source repositories.
           </p>
         </header>
 

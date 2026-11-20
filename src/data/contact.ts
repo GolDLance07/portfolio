@@ -25,9 +25,9 @@ export interface ContactConfig {
 
 export const CONTACT_CONFIG: ContactConfig = {
   heading: 'Send a Signal',
-  subheading: 'TRANSMISSION BUFFER &bull; STATION 06',
+  subheading: 'TRANSMISSION BUFFER • STATION 06',
   stationTag: 'DEEP-SPACE COMMUNICATIONS ARRAY',
-  coordinates: 'AZIMUTH 214° &bull; ELEVATION 48°',
+  coordinates: 'AZIMUTH 214° • ELEVATION 48°',
   frequency: '1420.405 MHz (HYDROGEN LINE)',
   leadParagraph:
     "Have an idea, a project, or just want to talk? I'd love to hear from you. Transmissions sent here are monitored continuously.",

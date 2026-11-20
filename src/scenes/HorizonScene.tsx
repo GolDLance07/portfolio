@@ -1,5 +1,4 @@
 import React, { useId } from 'react';
-import { Compass, Sparkles } from 'lucide-react';
 import { OrionConstellation } from '../components/OrionConstellation';
 import '../styles/horizon.css';
 
@@ -191,10 +190,10 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
       <div className="horizon-content-container">
         {/* Intro Eyebrow & Station Metadata */}
         <div className="horizon-eyebrow-row">
-          <span className="horizon-station-badge">
-            <Compass size={13} className="badge-icon" aria-hidden="true" />
-            <span>SCENE 02 &bull; THE HORIZON</span>
-          </span>
+          <span className="horizon-meta-station">SCENE 02 // 06</span>
+          <span className="horizon-meta-divider" aria-hidden="true">&bull;</span>
+          <span className="horizon-meta-sector">THE HORIZON &bull; PERSONAL PROFILE</span>
+          <span className="horizon-meta-divider" aria-hidden="true">&bull;</span>
           <span className="horizon-coordinates">AZIMUTH 142&deg; // CELESTIAL LOG</span>
         </div>
 
@@ -202,15 +201,15 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
         <div className="about-stage-grid">
           {/* Left Column: Personal Introduction & Philosophy */}
           <div className="about-editorial-column">
-            {/* Heading */}
-            <h2 className="horizon-title">
-              Beyond the Horizon
-            </h2>
-
-            {/* Name Identifier */}
-            <div className="about-name-tag">
-              <Sparkles size={13} className="about-name-sparkle" aria-hidden="true" />
-              <span>Aarush Rahul Patel</span>
+            {/* Header Group */}
+            <div className="about-header-group">
+              <h2 className="horizon-title">
+                Beyond the Horizon
+              </h2>
+              <div className="about-name-tag">
+                <span className="about-name-lead">IDENTITY //</span>
+                <span className="about-name-text">Aarush Rahul Patel</span>
+              </div>
             </div>
 
             {/* Main Introduction Paragraphs */}
@@ -239,20 +238,22 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
               </p>
             </div>
 
-            {/* Closing Line */}
-            <blockquote className="about-closing-line">
-              &ldquo;Still exploring. Still building. Always looking beyond the horizon.&rdquo;
+            {/* Unboxed Editorial Quote */}
+            <blockquote className="about-closing-quote">
+              <p className="quote-text">
+                &ldquo;Still exploring. Still building. Always looking beyond the horizon.&rdquo;
+              </p>
             </blockquote>
           </div>
 
           {/* Right Column: Orion Constellation Accurate Visualization */}
-          <div className="about-constellation-column">
+          <div className="about-constellation-column" aria-label="Orion the Hunter celestial illustration">
             <OrionConstellation />
           </div>
         </div>
 
-        {/* Telemetry / Journey Marker */}
-        <div className="horizon-telemetry-bar" role="note" aria-label="Journey Coordinates">
+        {/* Open Editorial Telemetry Strip (Cardless) */}
+        <div className="horizon-editorial-telemetry" role="note" aria-label="Journey Coordinates">
           <div className="telemetry-item">
             <span className="telemetry-label">CURRENT VECTOR</span>
             <span className="telemetry-value">System Architecture &bull; Intelligent Systems</span>
@@ -264,7 +265,7 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
           </div>
           <div className="telemetry-separator" aria-hidden="true">&bull;</div>
           <div className="telemetry-item">
-            <span className="telemetry-label">NEXT EXPEDITION</span>
+            <span className="telemetry-label">NEXT SECTOR</span>
             <span className="telemetry-value">03 Constellations (Skills)</span>
           </div>
         </div>

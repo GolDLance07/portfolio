@@ -1,6 +1,6 @@
 /* ==========================================================================
    SCENE 02: THE HORIZON (ABOUT) STYLES
-   Quiet, expansive twilight landscape with two-column editorial & Orion
+   Editorial split composition with typography-led hierarchy & Orion artwork
    ========================================================================== */
 
 .horizon-scene {
@@ -8,7 +8,7 @@
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-  padding: calc(var(--nav-height) + 2.5rem) 2rem 4.5rem 2rem;
+  padding: calc(var(--nav-height) + 1.25rem) 2rem 2.25rem 2rem;
   box-sizing: border-box;
   background-color: var(--color-twilight-deep);
   color: var(--color-starlight);
@@ -80,7 +80,7 @@
 }
 
 /* ==============================================================
-   CONTENT LAYOUT & TWO-COLUMN EDITORIAL COMPOSITION
+   CONTENT LAYOUT & EDITORIAL TWO-COLUMN COMPOSITION
    ============================================================== */
 .horizon-content-container {
   position: relative;
@@ -98,162 +98,168 @@
 .horizon-eyebrow-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: clamp(0.75rem, 1.8vh, 1.25rem);
   flex-wrap: wrap;
-}
-
-.horizon-station-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--color-pink);
-  background: rgba(242, 169, 200, 0.12);
-  border: 1px solid rgba(242, 169, 200, 0.3);
-  padding: 0.3rem 0.75rem;
-  border-radius: 9999px;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.horizon-station-badge .badge-icon {
+.horizon-meta-station {
   color: var(--color-pink);
+  font-weight: 600;
+}
+
+.horizon-meta-divider {
+  color: var(--color-violet);
+  opacity: 0.6;
+}
+
+.horizon-meta-sector {
+  color: var(--color-moonlight);
+  opacity: 0.9;
 }
 
 .horizon-coordinates {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
   color: var(--color-moonlight);
-  opacity: 0.85;
-  text-transform: uppercase;
+  opacity: 0.7;
 }
 
 /* Two-Column Stage Grid */
 .about-stage-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
+  gap: clamp(2rem, 4vw, 4.5rem);
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1rem, 2vh, 1.75rem);
 }
 
 /* Left Column: Editorial & Narrative */
 .about-editorial-column {
   display: flex;
   flex-direction: column;
-  max-width: 680px;
+  max-width: 660px;
+}
+
+.about-header-group {
+  margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
+  border-bottom: 1px solid rgba(200, 185, 240, 0.14);
+  padding-bottom: clamp(0.6rem, 1.2vh, 1rem);
 }
 
 .horizon-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   font-weight: 400;
-  letter-spacing: -0.015em;
-  line-height: 1.1;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   color: #ffffff;
-  margin: 0 0 0.85rem 0;
+  margin: 0 0 0.5rem 0;
   text-shadow: 0 4px 28px rgba(119, 116, 200, 0.22);
 }
 
 .about-name-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.84rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 1.75rem;
 }
 
-.about-name-sparkle {
+.about-name-lead {
   color: var(--color-pink);
+  font-weight: 600;
+}
+
+.about-name-text {
+  color: var(--color-starlight);
+  font-weight: 500;
+  letter-spacing: 0.18em;
 }
 
 .about-body-narrative {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin-bottom: 1.75rem;
+  gap: clamp(0.6rem, 1.2vh, 0.95rem);
+  margin-bottom: clamp(0.85rem, 1.8vh, 1.5rem);
 }
 
 .about-narrative-p {
   font-family: var(--font-sans);
-  font-size: clamp(0.96rem, 1.2vw, 1.06rem);
-  line-height: 1.75;
+  font-size: clamp(0.92rem, 1.1vw, 1.04rem);
+  line-height: 1.65;
   color: rgba(230, 230, 245, 0.92);
   margin: 0;
 }
 
-.about-closing-line {
+/* Unboxed Editorial Quote with Negative Space */
+.about-closing-quote {
   margin: 0;
-  padding: 1.1rem 1.4rem;
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 1.5vw, 1.28rem);
-  font-style: italic;
-  line-height: 1.55;
-  color: #ffffff;
-  background: rgba(23, 21, 47, 0.45);
+  padding: 0 0 0 1.25rem;
   border-left: 2px solid var(--color-pink);
-  border-radius: 0 8px 8px 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  text-shadow: 0 0 24px rgba(242, 169, 200, 0.22);
+  background: transparent;
 }
 
-/* Right Column: Orion Constellation */
+.about-closing-quote .quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 20px rgba(242, 169, 200, 0.25);
+}
+
+/* Right Column: Orion Constellation Visual Art */
 .about-constellation-column {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-height: 520px;
 }
 
-/* Telemetry Bar / Horizon Marker */
-.horizon-telemetry-bar {
+/* Open Editorial Telemetry Strip (No Card Box) */
+.horizon-editorial-telemetry {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.25rem;
-  padding: 1.1rem 1.6rem;
-  border-radius: 8px;
-  background: rgba(18, 14, 38, 0.65);
-  border: 1px solid rgba(200, 185, 240, 0.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  border-top: 1px solid rgba(200, 185, 240, 0.14);
 }
 
 .telemetry-item {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 
 .telemetry-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   letter-spacing: 0.16em;
   color: var(--color-muted);
-  opacity: 0.75;
+  opacity: 0.8;
+  text-transform: uppercase;
 }
 
 .telemetry-value {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--color-starlight);
   letter-spacing: 0.06em;
 }
 
 .telemetry-separator {
   color: var(--color-violet);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 /* ==============================================================
@@ -261,20 +267,21 @@
    ============================================================== */
 @media (max-width: 960px) {
   .horizon-scene {
-    padding: calc(var(--nav-height) + 1.5rem) 1.5rem 3.5rem 1.5rem;
+    padding: calc(var(--nav-height) + 1.25rem) 1.5rem 3rem 1.5rem;
+    min-height: auto;
   }
 
   .about-stage-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2.25rem;
   }
 
   .about-constellation-column {
-    max-width: 360px;
+    max-width: 320px;
     margin: 0 auto;
   }
 
-  .horizon-telemetry-bar {
+  .horizon-editorial-telemetry {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -286,16 +293,15 @@
 
 @media (max-width: 600px) {
   .horizon-title {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
   }
 
   .about-constellation-column {
-    max-width: 300px;
+    max-width: 260px;
   }
 
-  .about-closing-line {
-    padding: 0.85rem 1rem;
-    font-size: 1.05rem;
+  .about-closing-quote .quote-text {
+    font-size: 1rem;
   }
 }
 

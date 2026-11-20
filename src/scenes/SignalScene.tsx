@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { CONTACT_CONFIG } from '../data/contact';
 import {
-  Radio,
   Send,
   CheckCircle2,
   Copy,
@@ -200,8 +199,9 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
         {/* Header */}
         <header className="signal-header">
           <div className="signal-eyebrow">
-            <Radio size={14} aria-hidden="true" />
-            <span>STATION 06 &bull; THE SIGNAL</span>
+            <span className="signal-meta-station">SECTOR 06 // 06</span>
+            <span className="signal-meta-divider" aria-hidden="true">&bull;</span>
+            <span>STATION 06 &bull; THE SIGNAL &bull; TRANSMISSION RELAY</span>
           </div>
           <h2 className="signal-title">{CONTACT_CONFIG.heading}</h2>
           <p className="signal-subtitle">{CONTACT_CONFIG.leadParagraph}</p>

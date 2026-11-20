@@ -48,9 +48,9 @@ export interface FrontierConfig {
 export const FRONTIER_CONFIG: FrontierConfig = {
   heading: 'The Next Frontier',
   subtitle: 'Currently Exploring',
-  eyebrow: 'SECTOR 05 &bull; THE NEXT FRONTIER',
+  eyebrow: 'SECTOR 05 • THE NEXT FRONTIER',
   stationTag: 'DEEP-SURVEY ORBITAL PROJECTION',
-  coordinates: 'RA 18h 36m &bull; DEC +38° 47′ (LYRA VECTOR)',
+  coordinates: 'RA 18h 36m • DEC +38° 47′ (LYRA VECTOR)',
   leadParagraph:
     'An evolving celestial map of current engineering pursuits, active learning trajectories, and upcoming computational expeditions.',
   trajectories: [
@@ -60,7 +60,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
       domain: 'Systems & Core Services',
       status: 'In Progress',
       progressPercent: 78,
-      coordinates: 'ORBIT ALPHA &bull; RA 18h 22m',
+      coordinates: 'ORBIT ALPHA • RA 18h 22m',
       description:
         'Hardening asynchronous server runtimes, connection multiplexing, message streaming, and distributed cache invalidation strategies.',
       focusAreas: [
@@ -83,7 +83,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
       domain: 'Scalability & Fault Tolerance',
       status: 'Deepening Knowledge',
       progressPercent: 65,
-      coordinates: 'ORBIT BETA &bull; RA 18h 45m',
+      coordinates: 'ORBIT BETA • RA 18h 45m',
       description:
         'Deepening practical knowledge of horizontal scaling, consensus mechanics, multi-node replication, and resilient fault-tolerant distributed architectures.',
       focusAreas: [
@@ -106,7 +106,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
       domain: 'Predictive Intelligence',
       status: 'In Progress',
       progressPercent: 82,
-      coordinates: 'ORBIT GAMMA &bull; RA 19h 10m',
+      coordinates: 'ORBIT GAMMA • RA 19h 10m',
       description:
         'Advancing machine learning lifecycle pipelines, gradient boosting architectures, feature interaction analysis, and model explainability standards.',
       focusAreas: [
@@ -129,7 +129,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
       domain: 'Autonomous Tool Orchestration',
       status: 'Exploring',
       progressPercent: 50,
-      coordinates: 'ORBIT DELTA &bull; RA 19h 35m',
+      coordinates: 'ORBIT DELTA • RA 19h 35m',
       description:
         'Investigating agentic tool-calling protocols, Model Context Protocol (MCP) integrations, structured execution boundaries, and context optimization.',
       focusAreas: [
@@ -151,9 +151,9 @@ export const FRONTIER_CONFIG: FrontierConfig = {
     {
       id: 'exp-telemetry-pipe',
       name: 'High-Throughput Telemetry Pipeline',
-      codename: 'EXPEDITION 01 &bull; PROJECT PULSAR',
+      codename: 'EXPEDITION 01 • PROJECT PULSAR',
       status: 'In Development',
-      coordinates: 'AZ 084° &bull; ALT +32°',
+      coordinates: 'AZ 084° • ALT +32°',
       phase: 'Prototyping & Buffer Benchmarking',
       summary:
         'A lightweight asynchronous streaming service designed to ingest, validate, and batch high-frequency application events into storage tiers with zero event loss.',
@@ -168,9 +168,9 @@ export const FRONTIER_CONFIG: FrontierConfig = {
     {
       id: 'exp-agent-runtime',
       name: 'Agentic Tool Orchestration Harness',
-      codename: 'EXPEDITION 02 &bull; PROJECT AEGIS',
+      codename: 'EXPEDITION 02 • PROJECT AEGIS',
       status: 'Planned',
-      coordinates: 'AZ 142° &bull; ALT +55°',
+      coordinates: 'AZ 142° • ALT +55°',
       phase: 'Specification & Protocol Design',
       summary:
         'A developer-centric execution environment for autonomous agents, implementing standardized MCP tool protocols and human-in-the-loop intervention gates.',
@@ -185,9 +185,9 @@ export const FRONTIER_CONFIG: FrontierConfig = {
     {
       id: 'exp-visionguard-plus',
       name: 'VisionGuard Enhancement',
-      codename: 'EXPEDITION 03 &bull; PROJECT HORIZON',
+      codename: 'EXPEDITION 03 • PROJECT HORIZON',
       status: 'Active Exploration',
-      coordinates: 'AZ 210° &bull; ALT +64°',
+      coordinates: 'AZ 210° • ALT +64°',
       phase: 'Refining Real-Time Feeds',
       summary:
         'Upgrading computer vision monitoring capabilities with low-latency browser feeds, automated anomaly classification, and incident telemetry logs.',

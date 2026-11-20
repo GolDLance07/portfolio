@@ -1,5 +1,6 @@
 /* ==========================================================================
    SCENE 04: CELESTIAL ARCHIVE / PROJECTS
+   Typography-driven, open artifact presentations without generic cards
    ========================================================================== */
 
 .archive-scene {
@@ -10,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--nav-height) + 2rem) 2rem 4rem 2rem;
+  padding: calc(var(--nav-height) + 1.25rem) 2rem 2.5rem 2rem;
   color: var(--color-starlight);
   box-sizing: border-box;
 }
@@ -29,83 +30,108 @@
 
 /* Header */
 .archive-header {
-  margin-bottom: 2.25rem;
+  margin-bottom: clamp(1rem, 2vh, 1.75rem);
   max-width: 720px;
 }
 
 .archive-eyebrow {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-pink);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.archive-meta-station {
+  font-weight: 600;
+}
+
+.archive-meta-divider {
+  color: var(--color-violet);
+  opacity: 0.6;
 }
 
 .archive-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  line-height: 1.1;
-  color: var(--color-starlight);
-  margin-bottom: 0.75rem;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
 }
 
 .archive-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-size: clamp(0.92rem, 1.1vw, 1.04rem);
   color: var(--color-muted);
   line-height: 1.6;
+  margin: 0;
 }
 
-/* Two-column layout: Celestial Objects Orbiter (Left) & Featured Project Panel (Right) */
+/* Two-column layout: Celestial Objects Deck (Left) & Featured Project Panel (Right) */
 .archive-main-stage {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 2.5rem;
-  align-items: center;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: start;
 }
 
-/* Celestial Objects Selector / Array */
+/* Celestial Objects Selector / Open Editorial List (Cardless) */
 .celestial-objects-deck {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0;
 }
 
 .celestial-object-card {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  padding: 1.1rem 1.25rem;
-  background: rgba(23, 21, 47, 0.55);
-  border: 1px solid rgba(200, 185, 240, 0.15);
-  border-radius: 14px;
+  padding: clamp(0.75rem, 1.5vh, 1.1rem) 0.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
+  border-radius: 0;
   cursor: pointer;
   text-align: left;
-  transition: all 0.3s var(--ease-out-quad);
+  transition: all 0.22s var(--ease-out-quad);
   outline: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: relative;
 }
 
 .celestial-object-card:hover {
-  background: rgba(48, 43, 89, 0.45);
-  border-color: rgba(200, 185, 240, 0.35);
+  background: rgba(200, 185, 240, 0.04);
+  border-bottom-color: rgba(242, 169, 200, 0.4);
   transform: translateX(4px);
 }
 
 .celestial-object-card.is-active {
-  background: rgba(56, 44, 96, 0.65);
-  border-color: var(--color-pink);
-  box-shadow: 0 0 24px rgba(242, 169, 200, 0.2);
+  background: rgba(242, 169, 200, 0.06);
+  border-bottom-color: var(--color-pink);
+  box-shadow: none;
   transform: translateX(6px);
 }
 
+.celestial-object-card.is-active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 25%;
+  height: 50%;
+  width: 3px;
+  background: var(--color-pink);
+  border-radius: 2px;
+}
+
 .celestial-icon-frame {
-  width: 58px;
-  height: 58px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -127,15 +153,17 @@
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--color-pink);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   margin-bottom: 0.2rem;
 }
 
 .celestial-name {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
   color: #ffffff;
   margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
 }
 
 .celestial-desc-brief {
@@ -145,27 +173,21 @@
   line-height: 1.4;
 }
 
-/* Featured Project Detail Panel */
+/* Featured Project Detail: Open Editorial Presentation (Cardless) */
 .project-detail-panel {
-  background: rgba(18, 14, 38, 0.75);
-  border: 1px solid rgba(200, 185, 240, 0.18);
-  border-radius: 18px;
-  padding: 2.25rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .detail-panel-glow {
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(242, 169, 200, 0.15) 0%, rgba(119, 116, 200, 0) 70%);
-  pointer-events: none;
+  display: none;
 }
 
 .detail-header-meta {
@@ -175,47 +197,51 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--color-moonlight);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px dashed rgba(200, 185, 240, 0.14);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(200, 185, 240, 0.12);
 }
 
 .detail-project-name {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  line-height: 1.1;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
 }
 
 .detail-project-tagline {
-  font-family: var(--font-sans);
-  font-size: 0.98rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--color-pink);
-  margin-bottom: 1.25rem;
+  margin-bottom: clamp(0.75rem, 1.5vh, 1.1rem);
+  letter-spacing: 0.04em;
   line-height: 1.5;
 }
 
 .detail-narrative {
   font-family: var(--font-sans);
-  font-size: 0.94rem;
-  color: var(--color-muted);
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  color: rgba(230, 230, 245, 0.9);
   line-height: 1.65;
-  margin-bottom: 1.75rem;
+  margin: 0 0 clamp(1rem, 2vh, 1.5rem) 0;
 }
 
-/* Tech Stack Chips */
+/* Tech Stack Chips (Minimal Borderless Badges) */
 .detail-tech-section {
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
 }
 
 .detail-tech-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  color: var(--color-starlight);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.65rem;
+  color: var(--color-moonlight);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
 }
 
 .detail-tech-chips {
@@ -225,22 +251,23 @@
 }
 
 .tech-chip {
-  padding: 0.35rem 0.75rem;
-  background: rgba(48, 43, 89, 0.45);
-  border: 1px solid rgba(200, 185, 240, 0.16);
-  border-radius: 6px;
+  padding: 0.25rem 0.65rem;
+  background: rgba(200, 185, 240, 0.08);
+  border: 1px solid rgba(200, 185, 240, 0.18);
+  border-radius: 9999px;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: var(--color-moonlight);
+  font-size: 0.72rem;
+  color: var(--color-starlight);
   letter-spacing: 0.04em;
 }
 
-/* Detail Actions */
+/* Detail Actions (Refined Editorial Links) */
 .detail-actions-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-top: 1.25rem;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: clamp(0.75rem, 1.5vh, 1.1rem);
   border-top: 1px solid rgba(200, 185, 240, 0.12);
 }
 
@@ -248,35 +275,41 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.2rem;
-  border-radius: 8px;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  transition: all 0.25s var(--ease-out-quad);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.22s var(--ease-out-quad);
   text-decoration: none;
 }
 
 .detail-action-btn.is-primary {
-  background: var(--color-pink);
-  color: #0b091a;
-  font-weight: 600;
+  background: rgba(242, 169, 200, 0.16);
+  border: 1px solid rgba(242, 169, 200, 0.45);
+  color: #ffffff;
+  font-weight: 500;
 }
 
 .detail-action-btn.is-primary:hover {
-  background: #ffffff;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+  color: #0c0919;
+  box-shadow: 0 0 20px rgba(242, 169, 200, 0.4);
+  transform: translateY(-2px);
 }
 
 .detail-action-btn.is-secondary {
-  background: rgba(48, 43, 89, 0.5);
+  background: transparent;
   border: 1px solid rgba(200, 185, 240, 0.25);
-  color: var(--color-starlight);
+  color: var(--color-moonlight);
 }
 
 .detail-action-btn.is-secondary:hover {
-  background: rgba(119, 116, 200, 0.3);
-  border-color: var(--color-pink);
+  border-color: var(--color-moonlight);
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -284,35 +317,42 @@
    ========================================================================== */
 
 @media (max-width: 960px) {
+  .archive-scene {
+    min-height: auto;
+    padding: calc(var(--nav-height) + 1.25rem) 1.5rem 3rem 1.5rem;
+  }
+
   .archive-main-stage {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
   .celestial-objects-deck {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 0.75rem;
+    flex-direction: column;
+    /* ZERO overflow-x: auto - wraps cleanly */
+    overflow-x: visible;
   }
 
   .celestial-object-card {
-    min-width: 250px;
-    flex-shrink: 0;
+    min-width: 0;
   }
 }
 
 @media (max-width: 640px) {
   .archive-scene {
-    padding: calc(var(--nav-height) + 1rem) 1rem 3rem 1rem;
-  }
-
-  .project-detail-panel {
-    padding: 1.5rem;
+    padding: calc(var(--nav-height) + 1rem) 1rem 2.5rem 1rem;
   }
 
   .celestial-object-card {
-    min-width: 220px;
-    padding: 0.85rem;
+    padding: 0.65rem 0.25rem;
+  }
+
+  .detail-project-name {
+    font-size: 1.85rem;
+  }
+
+  .detail-actions-bar {
+    gap: 0.75rem;
   }
 }
 

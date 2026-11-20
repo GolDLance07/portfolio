@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FRONTIER_CONFIG } from '../data/frontier';
-import { Compass, Sparkles, Rocket, Radio, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Rocket, Radio, CheckCircle2 } from 'lucide-react';
 import '../styles/frontier.css';
 
 interface FrontierSceneProps {
@@ -58,8 +58,9 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
         {/* Header */}
         <header className="frontier-header">
           <div className="frontier-eyebrow">
-            <Compass size={14} aria-hidden="true" />
-            <span>{FRONTIER_CONFIG.eyebrow}</span>
+            <span className="frontier-meta-station">SECTOR 05 // 06</span>
+            <span className="frontier-meta-divider" aria-hidden="true">&bull;</span>
+            <span>{FRONTIER_CONFIG.eyebrow} &bull; ONGOING RESEARCH</span>
           </div>
           <h2 className="frontier-title">{FRONTIER_CONFIG.heading}</h2>
           <div className="frontier-subtitle">{FRONTIER_CONFIG.subtitle}</div>

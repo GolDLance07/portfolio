@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useId } from 'react';
 import anime from 'animejs';
-import { ArrowDown, Compass, FolderGit2, Sparkles } from 'lucide-react';
+import { ArrowDown, Compass, FolderGit2 } from 'lucide-react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { CosmicSky } from '../components/CosmicSky';
 import { smoothScrollTo } from '../utils/smoothScroll';
@@ -433,57 +433,64 @@ export const ObservatoryScene: React.FC<ObservatorySceneProps> = ({ hideSky = fa
       {/* LAYER 5: HERO EDITORIAL CONTENT (ACCESSIBLE SEMANTIC HTML)     */}
       {/* ============================================================== */}
       <div className="hero-content-container">
-        <div className="hero-content">
+        <div className="hero-editorial-composition">
           {/* Eyebrow & Station Metadata */}
           <div className="hero-eyebrow-row hero-stagger-item">
-            <span className="hero-badge">
-              <Sparkles size={13} className="badge-sparkle" aria-hidden="true" />
-              <span>STATION 01 &bull; GROUND TRANSMISSION</span>
-            </span>
-            <span className="hero-eyebrow-text">HELLO, I&apos;M</span>
+            <span className="hero-meta-station">STATION 01 // 06</span>
+            <span className="hero-meta-divider" aria-hidden="true">&bull;</span>
+            <span className="hero-meta-vector">GROUND TRANSMISSION &bull; OBSERVATORY DOME</span>
           </div>
 
-          {/* Name */}
-          <h1 className="hero-name hero-stagger-item">
-            AARUSH
-          </h1>
+          {/* Massive Display Name */}
+          <div className="hero-name-wrap hero-stagger-item">
+            <h1 className="hero-name">
+              AARUSH
+            </h1>
+            <span className="hero-name-tagline" aria-hidden="true">PATEL</span>
+          </div>
 
-          {/* Headline */}
-          <h2 className="hero-headline hero-stagger-item">
-            Building systems. Exploring intelligence.
-          </h2>
+          {/* Editorial Asymmetric Narrative Row */}
+          <div className="hero-editorial-row">
+            <div className="hero-editorial-lead hero-stagger-item">
+              <h2 className="hero-statement">
+                Building systems.<br />
+                <span className="statement-accent">Exploring intelligence.</span>
+              </h2>
+            </div>
 
-          {/* Intro Description */}
-          <p className="hero-intro hero-stagger-item">
-            I&apos;m a developer interested in backend engineering, system design, and building
-            intelligent applications.
-          </p>
+            <div className="hero-editorial-detail hero-stagger-item">
+              <p className="hero-intro">
+                Developer focused on backend engineering, system architecture, and building
+                intelligent computational applications.
+              </p>
+              <p className="hero-credo">
+                Turning ideas into systems worth exploring.
+              </p>
 
-          {/* Supporting Line */}
-          <p className="hero-supporting hero-stagger-item">
-            I turn ideas into systems worth exploring.
-          </p>
-
-          {/* Call-to-Action Buttons */}
-          <div className="hero-actions hero-stagger-item">
-            <a
-              href="#projects"
-              className="btn btn-primary"
-              onClick={(e) => handleCtaClick(e, 'Projects Archive', 'projects')}
-              aria-label="Explore my work (Navigate to Projects)"
-            >
-              <FolderGit2 size={16} aria-hidden="true" />
-              <span>Explore my work</span>
-            </a>
-            <a
-              href="#about"
-              className="btn btn-secondary"
-              onClick={(e) => handleCtaClick(e, 'About Aarush', 'about')}
-              aria-label="About Aarush (Navigate to About)"
-            >
-              <Compass size={16} aria-hidden="true" />
-              <span>About me</span>
-            </a>
+              {/* Minimal Editorial Links */}
+              <div className="hero-actions-row">
+                <a
+                  href="#projects"
+                  className="hero-editorial-link is-primary"
+                  onClick={(e) => handleCtaClick(e, 'Projects Archive', 'projects')}
+                  aria-label="Explore my work (Navigate to Projects)"
+                >
+                  <FolderGit2 size={15} aria-hidden="true" />
+                  <span>Explore Work</span>
+                  <span className="link-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+                <a
+                  href="#about"
+                  className="hero-editorial-link is-secondary"
+                  onClick={(e) => handleCtaClick(e, 'About Aarush', 'about')}
+                  aria-label="About Aarush (Navigate to About)"
+                >
+                  <Compass size={15} aria-hidden="true" />
+                  <span>About me</span>
+                  <span className="link-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Dynamic feedback message when navigating */}
