@@ -198,19 +198,19 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
       <div className="signal-container">
         {/* Header */}
         <header className="signal-header">
-          <div className="signal-eyebrow">
+          <div className="signal-eyebrow reveal-init">
             <span className="signal-meta-station">SECTOR 06 // 06</span>
             <span className="signal-meta-divider" aria-hidden="true">&bull;</span>
             <span>STATION 06 &bull; THE SIGNAL &bull; TRANSMISSION RELAY</span>
           </div>
-          <h2 className="signal-title">{CONTACT_CONFIG.heading}</h2>
-          <p className="signal-subtitle">{CONTACT_CONFIG.leadParagraph}</p>
+          <h2 className="signal-title reveal-init reveal-delay-1">{CONTACT_CONFIG.heading}</h2>
+          <p className="signal-subtitle reveal-init reveal-delay-2">{CONTACT_CONFIG.leadParagraph}</p>
         </header>
 
         {/* Main Stage */}
         <div className="signal-main-stage">
           {/* Left: Telemetry Antenna Card */}
-          <div className="signal-station-card">
+          <div className="signal-station-card reveal-init reveal-delay-2">
             {/* Visual Antenna Beacon */}
             <div className="signal-antenna-frame" aria-hidden="true">
               <svg viewBox="0 0 160 140" style={{ width: '100%', height: '100%' }}>
@@ -309,7 +309,7 @@ export const SignalScene: React.FC<SignalSceneProps> = ({ hideSky = false }) => 
           </div>
 
           {/* Right: Functional Transmission Console */}
-          <div className="transmission-form-card">
+          <div className="transmission-form-card reveal-init reveal-delay-3">
             <div className="form-header-meta">
               <span>OUTBOUND TRANSMISSION CONSOLE</span>
               <span>

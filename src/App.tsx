@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { SceneNavigation } from './components/SceneNavigation';
 import { CinematicStage } from './components/CinematicStage';
-import { CometCursor } from './components/CometCursor';
 import { ObservatoryScene } from './scenes/ObservatoryScene';
 import { HorizonScene } from './scenes/HorizonScene';
 import { ConstellationsScene } from './scenes/ConstellationsScene';
@@ -14,9 +13,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="observatory-app">
-      {/* Small Glowing Comet Cursor with Trailing Particle Tail */}
-      <CometCursor />
-
       {/* Persistent Scene Navigation */}
       <SceneNavigation
         activeScene={activeScene}
@@ -41,8 +37,8 @@ export const App: React.FC = () => {
       {/* Accessible Terminal Footer */}
       <footer
         style={{
-          borderTop: '1px solid rgba(200, 185, 240, 0.08)',
-          background: '#070512',
+          borderTop: '1px solid rgba(167, 197, 223, 0.12)',
+          background: 'var(--color-cosmic-black)',
           padding: '2.5rem 2rem',
           textAlign: 'center',
           fontFamily: 'var(--font-mono)',

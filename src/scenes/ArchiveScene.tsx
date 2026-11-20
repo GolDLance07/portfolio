@@ -125,13 +125,13 @@ export const ArchiveScene: React.FC<ArchiveSceneProps> = ({ hideSky = false }) =
       <div className="archive-container">
         {/* Header */}
         <header className="archive-header">
-          <div className="archive-eyebrow">
+          <div className="archive-eyebrow reveal-init">
             <span className="archive-meta-station">SECTOR 04 // 06</span>
             <span className="archive-meta-divider" aria-hidden="true">&bull;</span>
             <span>CELESTIAL ARCHIVE &bull; ENGINEERING PROJECTS</span>
           </div>
-          <h2 className="archive-title">Project Artifacts</h2>
-          <p className="archive-subtitle">
+          <h2 className="archive-title reveal-init reveal-delay-1">Project Artifacts</h2>
+          <p className="archive-subtitle reveal-init reveal-delay-2">
             Explorations in software engineering, intelligent pipelines, and distributed network architectures.
             Select an artifact to examine technical specifications and source repositories.
           </p>
@@ -141,7 +141,7 @@ export const ArchiveScene: React.FC<ArchiveSceneProps> = ({ hideSky = false }) =
         <div className="archive-main-stage">
           {/* Left: Celestial Objects Selector */}
           <div
-            className="celestial-objects-deck"
+            className="celestial-objects-deck reveal-init reveal-delay-2"
             role="tablist"
             aria-label="Selectable project celestial artifacts"
           >
@@ -175,7 +175,7 @@ export const ArchiveScene: React.FC<ArchiveSceneProps> = ({ hideSky = false }) =
             id={`project-panel-${activeProject.id}`}
             role="tabpanel"
             aria-labelledby={`project-tab-${activeProject.id}`}
-            className="project-detail-panel"
+            className="project-detail-panel reveal-init reveal-delay-3"
           >
             <div className="detail-panel-glow" aria-hidden="true" />
 

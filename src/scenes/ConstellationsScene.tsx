@@ -39,13 +39,13 @@ export const ConstellationsScene: React.FC<ConstellationsSceneProps> = ({ hideSk
       <div className="constellations-container">
         {/* Header */}
         <header className="constellations-header">
-          <div className="constellations-eyebrow">
+          <div className="constellations-eyebrow reveal-init">
             <span className="constellations-meta-station">SECTOR 03 // 06</span>
             <span className="constellations-meta-divider" aria-hidden="true">&bull;</span>
             <span>THE CONSTELLATIONS &bull; TECHNICAL CAPABILITIES</span>
           </div>
-          <h2 className="constellations-title">Technical Constellations</h2>
-          <p className="constellations-subtitle">
+          <h2 className="constellations-title reveal-init reveal-delay-1">Technical Constellations</h2>
+          <p className="constellations-subtitle reveal-init reveal-delay-2">
             Patterns formed across systems engineering, computational tools, and architectural domains.
             Explore connected constellations and their technical nodes.
           </p>
@@ -55,7 +55,7 @@ export const ConstellationsScene: React.FC<ConstellationsSceneProps> = ({ hideSk
         <div
           role="tablist"
           aria-label="Skill constellation categories"
-          className="constellation-tabs-bar"
+          className="constellation-tabs-bar reveal-init reveal-delay-2"
         >
           {SKILL_CATEGORIES.map((category, index) => {
             const isActive = category.id === activeCategoryId;
@@ -85,7 +85,7 @@ export const ConstellationsScene: React.FC<ConstellationsSceneProps> = ({ hideSk
           id={`constellation-panel-${activeCategory.id}`}
           role="tabpanel"
           aria-labelledby={`constellation-tab-${activeCategory.id}`}
-          className="constellation-main-stage"
+          className="constellation-main-stage reveal-init reveal-delay-3"
         >
           {/* Left: Constellation Celestial Map */}
           <div className="constellation-sky-card" aria-label={`${activeCategory.name} constellation map`}>

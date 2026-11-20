@@ -52,7 +52,7 @@ export const FRONTIER_CONFIG: FrontierConfig = {
   stationTag: 'DEEP-SURVEY ORBITAL PROJECTION',
   coordinates: 'RA 18h 36m • DEC +38° 47′ (LYRA VECTOR)',
   leadParagraph:
-    'An evolving celestial map of current engineering pursuits, active learning trajectories, and upcoming computational expeditions.',
+    'Engineering systems, machine learning, and intelligent software.',
   trajectories: [
     {
       id: 'backend-engineering',

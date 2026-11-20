@@ -189,7 +189,7 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
       {/* ============================================================== */}
       <div className="horizon-content-container">
         {/* Intro Eyebrow & Station Metadata */}
-        <div className="horizon-eyebrow-row">
+        <div className="horizon-eyebrow-row reveal-init">
           <span className="horizon-meta-station">SCENE 02 // 06</span>
           <span className="horizon-meta-divider" aria-hidden="true">&bull;</span>
           <span className="horizon-meta-sector">THE HORIZON &bull; PERSONAL PROFILE</span>
@@ -202,7 +202,7 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
           {/* Left Column: Personal Introduction & Philosophy */}
           <div className="about-editorial-column">
             {/* Header Group */}
-            <div className="about-header-group">
+            <div className="about-header-group reveal-init reveal-delay-1">
               <h2 className="horizon-title">
                 Beyond the Horizon
               </h2>
@@ -212,34 +212,26 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
               </div>
             </div>
 
-            {/* Main Introduction Paragraphs */}
-            <div className="about-body-narrative">
+            {/* Main Introduction Paragraphs (Concise & Impactful) */}
+            <div className="about-body-narrative reveal-init reveal-delay-2">
               <p className="about-narrative-p">
-                I&apos;m a developer driven by curiosity &mdash; the kind that makes me want to
-                understand not just how something works, but what&apos;s happening beneath the surface.
+                I&apos;m a developer focused on backend engineering, distributed architecture, and
+                machine learning systems.
               </p>
 
               <p className="about-narrative-p">
-                My journey into technology has been about exploring ideas, experimenting with code,
-                and turning concepts into things people can actually use. From building software
-                projects to exploring machine learning and backend systems, I enjoy the process of
-                figuring things out and bringing them to life.
+                Driven by curiosity about what happens beneath the surface &mdash; how data flows
+                across networks, how algorithms generalize, and how complex systems scale reliably.
               </p>
 
               <p className="about-narrative-p">
-                I&apos;m particularly interested in the engineering behind software: how systems are
-                designed, how data moves, and how intelligent capabilities can be integrated into
-                practical applications.
-              </p>
-
-              <p className="about-narrative-p">
-                For me, every project is an opportunity to learn something new, challenge an
-                assumption, and build something a little better than before.
+                Every project is an exploration in turning ideas into durable, production-ready
+                software.
               </p>
             </div>
 
             {/* Unboxed Editorial Quote */}
-            <blockquote className="about-closing-quote">
+            <blockquote className="about-closing-quote reveal-init reveal-delay-3">
               <p className="quote-text">
                 &ldquo;Still exploring. Still building. Always looking beyond the horizon.&rdquo;
               </p>
@@ -247,13 +239,13 @@ export const HorizonScene: React.FC<HorizonSceneProps> = ({ hideSky = false }) =
           </div>
 
           {/* Right Column: Orion Constellation Accurate Visualization */}
-          <div className="about-constellation-column" aria-label="Orion the Hunter celestial illustration">
+          <div className="about-constellation-column reveal-init reveal-delay-2" aria-label="Orion the Hunter celestial illustration">
             <OrionConstellation />
           </div>
         </div>
 
         {/* Open Editorial Telemetry Strip (Cardless) */}
-        <div className="horizon-editorial-telemetry" role="note" aria-label="Journey Coordinates">
+        <div className="horizon-editorial-telemetry reveal-init reveal-delay-3" role="note" aria-label="Journey Coordinates">
           <div className="telemetry-item">
             <span className="telemetry-label">CURRENT VECTOR</span>
             <span className="telemetry-value">System Architecture &bull; Intelligent Systems</span>

@@ -447,19 +447,24 @@
   .observatory-hero {
     height: auto;
     min-height: 100svh;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
   }
 
   .hero-content-container {
-    padding: calc(var(--nav-height) + 2rem) 1.5rem 3rem 1.5rem;
+    padding: calc(var(--nav-height) + 1.5rem) 1.5rem 2rem 1.5rem;
+  }
+
+  .hero-editorial-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .layer-text-scrim {
     background: radial-gradient(
       circle at 50% 40%,
-      rgba(5, 3, 14, 0.95) 0%,
-      rgba(10, 8, 24, 0.9) 60%,
-      rgba(16, 13, 34, 0.65) 100%
+      rgba(5, 11, 24, 0.95) 0%,
+      rgba(9, 23, 43, 0.9) 60%,
+      rgba(16, 43, 73, 0.65) 100%
     );
   }
 
@@ -471,18 +476,25 @@
     font-size: clamp(1.3rem, 5vw, 1.7rem);
   }
 
-  .hero-actions {
+  .hero-actions-row {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+    gap: 0.75rem;
   }
 
-  .btn {
+  .hero-editorial-link {
     justify-content: center;
   }
 
   .hero-scroll-cue {
-    bottom: 1.25rem;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
   }
 }
 

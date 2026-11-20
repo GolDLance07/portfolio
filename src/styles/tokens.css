@@ -1,21 +1,32 @@
 :root {
-  /* Core Design Tokens from DESIGN.md */
-  --color-twilight: #17152F;
-  --color-nebula: #302B59;
+  /* ==========================================================================
+     REALISTIC MIDNIGHT SKY PALETTE
+     Deep space, natural night sky illumination and crisp starlight
+     ========================================================================== */
+  --color-cosmic-black: #050B18;
+  --color-midnight: #09172B;
+  --color-deep-blue: #102B49;
+  --color-stellar-blue: #426C91;
+  --color-cold-highlight: #A7C5DF;
+  --color-starlight: #E5EAF2;
+
+  /* Restrained accents */
   --color-violet: #7774C8;
-  --color-moonlight: #C8B9F0;
-  --color-starlight: #E9E4F5;
   --color-pink: #F2A9C8;
-  --color-muted: #AAA5C7;
+  --color-muted: #8EADC7;
 
-  /* Supplemental depth & surface tokens */
-  --color-twilight-deep: #0B091A;
-  --color-twilight-haze: #231C42;
-  --color-panel-bg: rgba(48, 43, 89, 0.42);
-  --color-panel-border: rgba(200, 185, 240, 0.16);
-  --color-panel-border-hover: rgba(242, 169, 200, 0.35);
+  /* Atmospheric surface tokens */
+  --color-twilight: #09172B;
+  --color-twilight-deep: #050B18;
+  --color-twilight-haze: #102B49;
+  --color-moonlight: #A7C5DF;
+  --color-nebula: #102B49;
 
-  /* Space-Inspired Typography System */
+  --color-panel-bg: rgba(9, 23, 43, 0.55);
+  --color-panel-border: rgba(167, 197, 223, 0.18);
+  --color-panel-border-hover: rgba(242, 169, 200, 0.4);
+
+  /* Typography System */
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

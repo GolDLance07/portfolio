@@ -57,19 +57,19 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
       <div className="frontier-container">
         {/* Header */}
         <header className="frontier-header">
-          <div className="frontier-eyebrow">
+          <div className="frontier-eyebrow reveal-init">
             <span className="frontier-meta-station">SECTOR 05 // 06</span>
             <span className="frontier-meta-divider" aria-hidden="true">&bull;</span>
             <span>{FRONTIER_CONFIG.eyebrow} &bull; ONGOING RESEARCH</span>
           </div>
-          <h2 className="frontier-title">{FRONTIER_CONFIG.heading}</h2>
-          <div className="frontier-subtitle">{FRONTIER_CONFIG.subtitle}</div>
-          <p className="frontier-lead">{FRONTIER_CONFIG.leadParagraph}</p>
+          <h2 className="frontier-title reveal-init reveal-delay-1">{FRONTIER_CONFIG.heading}</h2>
+          <div className="frontier-subtitle reveal-init reveal-delay-2">{FRONTIER_CONFIG.subtitle}</div>
+          <p className="frontier-lead reveal-init reveal-delay-2">{FRONTIER_CONFIG.leadParagraph}</p>
         </header>
 
         {/* Section Switcher (Section A: Learning vs Section B: Expeditions) */}
         <div
-          className="frontier-mode-switcher"
+          className="frontier-mode-switcher reveal-init reveal-delay-2"
           role="tablist"
           aria-label="Frontier exploration categories"
         >
@@ -107,7 +107,7 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
             id="trajectories-panel"
             role="tabpanel"
             aria-labelledby="tab-trajectories"
-            className="trajectory-grid"
+            className="trajectory-grid reveal-init reveal-delay-3"
           >
             {/* Left Deck: Selectable Trajectory Cards */}
             <div
@@ -215,7 +215,7 @@ export const FrontierScene: React.FC<FrontierSceneProps> = ({ hideSky = false })
             id="expeditions-panel"
             role="tabpanel"
             aria-labelledby="tab-expeditions"
-            className="expeditions-grid"
+            className="expeditions-grid reveal-init reveal-delay-3"
           >
             {FRONTIER_CONFIG.expeditions.map((exp) => (
               <div key={exp.id} className="expedition-card">

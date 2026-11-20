@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useMemo } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface CelestialDomeProps {
-  scrollProgress?: number;
   scrollProgressRef?: React.RefObject<number>;
 }
 
@@ -17,20 +16,25 @@ function createPrng(seed: number) {
   };
 }
 
-// Precomputed spectral colors (Hex and RGB)
-const SPECTRAL_COLORS = [
-  { hex: '#AFC5FF', r: 175, g: 197, b: 255 }, // Hot blue (Class O/B)
-  { hex: '#D7E6FF', r: 215, g: 230, b: 255 }, // Blue-white (Class A)
-  { hex: '#FFFAFA', r: 255, g: 250, b: 245 }, // Pure white
-  { hex: '#FFEBD2', r: 255, g: 235, b: 210 }, // Warm yellow (Class G)
-  { hex: '#F5D2EB', r: 245, g: 210, b: 235 }, // Soft starlight pink
-  { hex: '#DCC8FA', r: 220, g: 200, b: 250 }, // Starlight violet
+// Real astronomical spectral colors (Midnight / Deep-Space palette)
+// Prioritizing cold highlights (#A7C5DF), pure starlight (#E5EAF2), and stellar blue (#426C91)
+const MIDNIGHT_SPECTRAL_COLORS = [
+  { hex: '#A7C5DF', r: 167, g: 197, b: 223 }, // Cold highlight (Class B/A)
+  { hex: '#D7E6FF', r: 215, g: 230, b: 255 }, // Pale ice blue
+  { hex: '#E5EAF2', r: 229, g: 234, b: 242 }, // Pure crisp starlight
+  { hex: '#FFFFFF', r: 255, g: 255, b: 255 }, // Brilliant stellar white
+  { hex: '#FFF4E0', r: 255, g: 244, b: 224 }, // Pale warm starlight (Class G/F)
+  { hex: '#5B86AB', r: 91, g: 134, b: 171 },  // Stellar blue depth
+  { hex: '#8F8CD4', r: 143, g: 140, b: 212 }, // Restrained subtle violet accent
 ];
+
+type StarPopulation = 'distant' | 'midground' | 'foreground';
 
 interface DomeStar {
   x0: number;
   y0: number;
   z0: number;
+  population: StarPopulation;
   radius: number;
   baseOpacity: number;
   colorIndex: number;
@@ -38,26 +42,24 @@ interface DomeStar {
   twinkleSpeed: number;
   twinklePhase: number;
   isTwinkling: boolean;
+  driftSpeedX: number;
+  driftSpeedY: number;
+  driftPhase: number;
   glowRadius?: number;
   hasSpike?: boolean;
 }
 
 interface RotationMatrix {
-  r00: number;
-  r01: number;
-  r02: number;
-  r10: number;
-  r11: number;
-  r12: number;
-  r20: number;
-  r21: number;
-  r22: number;
+  r00: number; r01: number; r02: number;
+  r10: number; r11: number; r12: number;
+  r20: number; r21: number; r22: number;
 }
 
 function updateRotationMatrix(mat: RotationMatrix, p: number): void {
-  const pitch = p * 0.82;
-  const yaw = p * 0.44;
-  const roll = p * 0.22;
+  // Enhanced spatial travel feel across continuous document scroll
+  const pitch = p * 1.35;
+  const yaw = p * 0.72;
+  const roll = p * 0.35;
 
   const cosP = Math.cos(pitch);
   const sinP = Math.sin(pitch);
@@ -79,33 +81,33 @@ function updateRotationMatrix(mat: RotationMatrix, p: number): void {
   mat.r22 = cosP * cosY;
 }
 
-export const CelestialDome: React.FC<CelestialDomeProps> = ({
-  scrollProgress = 0,
-  scrollProgressRef,
-}) => {
+export const CelestialDome: React.FC<CelestialDomeProps> = ({ scrollProgressRef }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const animFrameIdRef = useRef<number | null>(null);
 
   // Performance-critical animation state refs
-  const internalProgressRef = useRef<number>(scrollProgress);
-  const smoothedProgressRef = useRef<number>(scrollProgress);
-  const prevProgressRef = useRef<number>(scrollProgress);
+  const smoothedProgressRef = useRef<number>(0);
+  const prevProgressRef = useRef<number>(0);
   const smoothedVelocityRef = useRef<number>(0);
   const lastTimeRef = useRef<number>(0);
 
-  // Sync prop changes if not using ref
-  useEffect(() => {
-    if (!scrollProgressRef) {
-      internalProgressRef.current = scrollProgress;
-    }
-  }, [scrollProgress, scrollProgressRef]);
+  // Pointer state for Gravitational Lens Star Effect
+  const pointerRef = useRef<{ x: number; y: number; active: boolean }>({
+    x: -9999,
+    y: -9999,
+    active: false,
+  });
+  const isTouchDeviceRef = useRef<boolean>(false);
 
-  // Generate 1,800 stars with immutable precomputed coordinates and colors
-  const { stars, bgBuckets, prominentStars } = useMemo(() => {
-    const prng = createPrng(987654321);
-    const starList: DomeStar[] = [];
-    const TOTAL_STARS = 1800;
+  // Generate 1,750 stars organized into three distinct depth populations
+  const { distantBuckets, midgroundStars, foregroundStars } = useMemo(() => {
+    const prng = createPrng(48271039);
+    const TOTAL_STARS = 1750;
+
+    const distant: DomeStar[][] = Array.from({ length: MIDNIGHT_SPECTRAL_COLORS.length }, () => []);
+    const midground: DomeStar[] = [];
+    const foreground: DomeStar[] = [];
 
     const phi = (1 + Math.sqrt(5)) / 2;
     for (let i = 0; i < TOTAL_STARS; i++) {
@@ -117,71 +119,81 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       const z0 = Math.sin(theta) * radiusAtY;
 
       const tier = prng();
+      let population: StarPopulation;
       let radius: number;
       let baseOpacity: number;
       let glowRadius: number | undefined;
       let hasSpike = false;
       let isTwinkling = false;
 
-      if (tier < 0.65) {
-        // Background stars (faint, small, static)
-        radius = 0.55 + prng() * 0.4;
-        baseOpacity = 0.22 + prng() * 0.42;
-      } else if (tier < 0.93) {
-        // Midground stars
+      // 60% Distant Stars: subtle, micro-twinkle, minimal parallax, unaffected by pointer
+      if (tier < 0.60) {
+        population = 'distant';
+        radius = 0.5 + prng() * 0.45;
+        baseOpacity = 0.22 + prng() * 0.38;
+        isTwinkling = prng() < 0.15;
+      }
+      // 30% Midground Stars: gentle drift, subtle twinkling, moderate depth response
+      else if (tier < 0.90) {
+        population = 'midground';
         radius = 0.95 + prng() * 0.65;
-        baseOpacity = 0.6 + prng() * 0.32;
-        isTwinkling = prng() < 0.28;
-      } else {
-        // Hero stars (prominent, glowing, diffraction spikes)
-        radius = 1.6 + prng() * 0.95;
+        baseOpacity = 0.55 + prng() * 0.35;
+        isTwinkling = prng() < 0.35;
+      }
+      // 10% Foreground Stars: prominent starlight, strong parallax, responsive to pointer gravitational lens
+      else {
+        population = 'foreground';
+        radius = 1.7 + prng() * 1.1;
         baseOpacity = 0.88 + prng() * 0.12;
-        glowRadius = radius * (2.8 + prng() * 2.0);
-        isTwinkling = prng() < 0.4;
-        hasSpike = prng() < 0.3;
+        glowRadius = radius * (2.6 + prng() * 1.8);
+        isTwinkling = prng() < 0.45;
+        hasSpike = prng() < 0.35;
       }
 
-      const colorIndex = Math.floor(prng() * SPECTRAL_COLORS.length);
-      const colorHex = SPECTRAL_COLORS[colorIndex].hex;
+      const colorIndex = Math.floor(prng() * MIDNIGHT_SPECTRAL_COLORS.length);
+      const colorHex = MIDNIGHT_SPECTRAL_COLORS[colorIndex].hex;
 
-      starList.push({
+      const star: DomeStar = {
         x0,
         y0,
         z0,
+        population,
         radius,
         baseOpacity,
         colorIndex,
         colorHex,
-        twinkleSpeed: 0.0015 + prng() * 0.0025,
+        twinkleSpeed: 0.0012 + prng() * 0.0022,
         twinklePhase: prng() * Math.PI * 2,
         isTwinkling,
+        driftSpeedX: (prng() - 0.5) * 0.0003,
+        driftSpeedY: (prng() - 0.5) * 0.0003,
+        driftPhase: prng() * Math.PI * 2,
         glowRadius,
         hasSpike,
-      });
+      };
+
+      if (population === 'distant') {
+        distant[colorIndex].push(star);
+      } else if (population === 'midground') {
+        midground.push(star);
+      } else {
+        foreground.push(star);
+      }
     }
 
-    // Partition stars for batched rendering:
-    // Background stars: no glow, no spikes, no twinkling -> grouped into 6 color buckets
-    const buckets: DomeStar[][] = Array.from({ length: SPECTRAL_COLORS.length }, () => []);
-    const prom: DomeStar[] = [];
-
-    starList.forEach((s) => {
-      if (s.glowRadius || s.hasSpike || s.isTwinkling || s.radius > 1.1) {
-        prom.push(s);
-      } else {
-        buckets[s.colorIndex].push(s);
-      }
-    });
-
-    return { stars: starList, bgBuckets: buckets, prominentStars: prom };
+    return {
+      distantBuckets: distant,
+      midgroundStars: midground,
+      foregroundStars: foreground,
+    };
   }, []);
 
-  // Pre-render soft glow sprites to off-screen canvases once
+  // Pre-render soft glow sprites in the midnight spectral palette
   const glowSprites = useMemo(() => {
     if (typeof document === 'undefined') return [];
-    return SPECTRAL_COLORS.map((color) => {
+    return MIDNIGHT_SPECTRAL_COLORS.map((color) => {
       const sprite = document.createElement('canvas');
-      const size = 36;
+      const size = 40;
       sprite.width = size;
       sprite.height = size;
       const sCtx = sprite.getContext('2d');
@@ -190,7 +202,7 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       const half = size / 2;
       const grad = sCtx.createRadialGradient(half, half, 0, half, half, half);
       grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      grad.addColorStop(0.35, `rgba(${color.r}, ${color.g}, ${color.b}, 0.7)`);
+      grad.addColorStop(0.35, `rgba(${color.r}, ${color.g}, ${color.b}, 0.72)`);
       grad.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
 
       sCtx.fillStyle = grad;
@@ -199,7 +211,7 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
     });
   }, []);
 
-  // Pre-render nebula texture to off-screen canvas (eliminates runtime radial gradients)
+  // Pre-render restrained deep-blue and midnight nebula formations (zero heavy purples)
   const nebulaSprite = useMemo(() => {
     if (typeof document === 'undefined') return null;
     const sprite = document.createElement('canvas');
@@ -210,59 +222,61 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
     if (!sCtx) return sprite;
 
     const half = size / 2;
-    // Violet nebula cloud
-    const gradViolet = sCtx.createRadialGradient(half, half, 0, half, half, half);
-    gradViolet.addColorStop(0, 'rgba(108, 62, 156, 0.32)');
-    gradViolet.addColorStop(0.45, 'rgba(79, 43, 117, 0.16)');
-    gradViolet.addColorStop(1, 'rgba(24, 12, 40, 0)');
-    sCtx.fillStyle = gradViolet;
+    // Deep midnight gas cloud (#102B49)
+    const gradBlue = sCtx.createRadialGradient(half, half, 0, half, half, half);
+    gradBlue.addColorStop(0, 'rgba(16, 43, 73, 0.28)');
+    gradBlue.addColorStop(0.45, 'rgba(9, 23, 43, 0.16)');
+    gradBlue.addColorStop(1, 'rgba(5, 11, 24, 0)');
+    sCtx.fillStyle = gradBlue;
     sCtx.beginPath();
     sCtx.arc(half, half, half, 0, Math.PI * 2);
     sCtx.fill();
 
-    // Muted pink nebula core
-    const pinkCenterX = half + 40;
-    const pinkCenterY = half - 20;
-    const pinkRadius = half * 0.65;
-    const gradPink = sCtx.createRadialGradient(
-      pinkCenterX,
-      pinkCenterY,
-      0,
-      pinkCenterX,
-      pinkCenterY,
-      pinkRadius
-    );
-    gradPink.addColorStop(0, 'rgba(226, 123, 174, 0.28)');
-    gradPink.addColorStop(0.5, 'rgba(180, 81, 131, 0.12)');
-    gradPink.addColorStop(1, 'rgba(48, 15, 34, 0)');
-    sCtx.fillStyle = gradPink;
+    // Subtle cold stellar highlight core (#426C91)
+    const coreX = half + 35;
+    const coreY = half - 25;
+    const coreR = half * 0.6;
+    const gradCore = sCtx.createRadialGradient(coreX, coreY, 0, coreX, coreY, coreR);
+    gradCore.addColorStop(0, 'rgba(66, 108, 145, 0.22)');
+    gradCore.addColorStop(0.4, 'rgba(16, 43, 73, 0.10)');
+    gradCore.addColorStop(1, 'rgba(5, 11, 24, 0)');
+    sCtx.fillStyle = gradCore;
     sCtx.beginPath();
-    sCtx.arc(pinkCenterX, pinkCenterY, pinkRadius, 0, Math.PI * 2);
+    sCtx.arc(coreX, coreY, coreR, 0, Math.PI * 2);
     sCtx.fill();
 
     return sprite;
   }, []);
 
-  // Pre-render horizon bottom glow to off-screen canvas
-  const horizonGlowSprite = useMemo(() => {
-    if (typeof document === 'undefined') return null;
-    const sprite = document.createElement('canvas');
-    const w = 512;
-    const h = 256;
-    sprite.width = w;
-    sprite.height = h;
-    const sCtx = sprite.getContext('2d');
-    if (!sCtx) return sprite;
+  // Setup pointer tracking for the Gravitational Lens Star Effect
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
 
-    const grad = sCtx.createRadialGradient(w / 2, h, 0, w / 2, h, w * 0.55);
-    grad.addColorStop(0, 'rgba(242, 169, 200, 1.0)');
-    grad.addColorStop(0.35, 'rgba(200, 185, 240, 0.65)');
-    grad.addColorStop(0.7, 'rgba(119, 116, 200, 0.25)');
-    grad.addColorStop(1, 'rgba(23, 21, 47, 0)');
+    // Check for touch-only devices
+    isTouchDeviceRef.current =
+      window.matchMedia('(hover: none)').matches || 'ontouchstart' in window;
 
-    sCtx.fillStyle = grad;
-    sCtx.fillRect(0, 0, w, h);
-    return sprite;
+    if (isTouchDeviceRef.current) return;
+
+    const handlePointerMove = (e: MouseEvent) => {
+      pointerRef.current.x = e.clientX;
+      pointerRef.current.y = e.clientY;
+      pointerRef.current.active = true;
+    };
+
+    const handlePointerLeave = () => {
+      pointerRef.current.active = false;
+    };
+
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+    window.addEventListener('mouseleave', handlePointerLeave, { passive: true });
+    window.addEventListener('blur', handlePointerLeave, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('mouseleave', handlePointerLeave);
+      window.removeEventListener('blur', handlePointerLeave);
+    };
   }, []);
 
   // Main Canvas Rendering Engine
@@ -283,12 +297,10 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       width = Math.max(rect.width, 320);
       height = Math.max(rect.height, 480);
       centerX = width * 0.5;
-      centerY = height * 0.42;
-      fov = Math.max(width, height) * 0.85;
+      centerY = height * 0.45;
+      fov = Math.max(width, height) * 0.95;
 
-      // Cap devicePixelRatio at 1.5 to slash GPU fillrate overhead on high-res displays
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -298,7 +310,7 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
     handleResize();
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // Pre-allocated rotation matrix objects (reused across all frames)
+    // Pre-allocated rotation matrices
     const headMat: RotationMatrix = {
       r00: 1, r01: 0, r02: 0,
       r10: 0, r11: 1, r12: 0,
@@ -311,32 +323,34 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
     };
 
     let cachedSkyGrad: CanvasGradient | null = null;
-    let lastGradP = -999;
     let lastGradH = 0;
 
-    // Render a single frame with zero dynamic allocations
     const renderFrame = (timestamp: number) => {
       const lastTime = lastTimeRef.current || timestamp;
       const dt = Math.max(1, Math.min(50, timestamp - lastTime));
       lastTimeRef.current = timestamp;
 
-      // Read target progress from ref
-      const targetP = scrollProgressRef
-        ? scrollProgressRef.current
-        : internalProgressRef.current;
+      // Calculate continuous native document scroll progress
+      let targetP = 0;
+      if (scrollProgressRef && scrollProgressRef.current !== undefined) {
+        targetP = scrollProgressRef.current;
+      } else if (typeof window !== 'undefined') {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        targetP = docH > 0 ? window.scrollY / docH : 0;
+      }
       const safeTargetP = prefersReducedMotion ? 0 : Math.max(0, Math.min(1, targetP));
 
       // Damped smooth progress interpolation
       let currentP = smoothedProgressRef.current;
       const pDiff = safeTargetP - currentP;
       if (Math.abs(pDiff) > 0.0001) {
-        currentP += pDiff * 0.22;
+        currentP += pDiff * 0.18;
       } else {
         currentP = safeTargetP;
       }
       smoothedProgressRef.current = currentP;
 
-      // Calculate smooth velocity from interpolated progress
+      // Calculate smooth velocity for star streaking
       const prevP = prevProgressRef.current;
       const deltaP = currentP - prevP;
       prevProgressRef.current = currentP;
@@ -347,9 +361,9 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       if (!prefersReducedMotion) {
         const instantVelocity = (deltaP / dt) * 1000;
         if (Math.abs(instantVelocity) > 0.0001) {
-          smoothedVel += (instantVelocity - smoothedVel) * 0.35;
+          smoothedVel += (instantVelocity - smoothedVel) * 0.32;
         } else {
-          smoothedVel *= 0.88; // Exponential velocity decay on rest
+          smoothedVel *= 0.88;
         }
         if (Math.abs(smoothedVel) < 0.0001) {
           smoothedVel = 0;
@@ -360,28 +374,16 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       smoothedVelocityRef.current = smoothedVel;
 
       // ==============================================================
-      // 1. ATMOSPHERIC SKY GRADIENT (CACHED WHEN RESTING)
+      // 1. REALISTIC MIDNIGHT SKY GRADIENT
+      // Palette: Cosmic Black (#050B18) -> Midnight Blue (#09172B) -> Deep Blue (#102B49)
       // ==============================================================
-      if (Math.abs(currentP - lastGradP) > 0.002 || height !== lastGradH || !cachedSkyGrad) {
-        lastGradP = currentP;
+      if (height !== lastGradH || !cachedSkyGrad) {
         lastGradH = height;
-
-        const zenithR = Math.round(5 + currentP * 3);
-        const zenithG = Math.round(3 + currentP * 3);
-        const zenithB = Math.round(14 + currentP * 8);
-
-        const midR = Math.round(18 + currentP * 11);
-        const midG = Math.round(14 + currentP * 8);
-        const midB = Math.round(44 + currentP * 19);
-
-        const horizonR = Math.round(37 + currentP * 62);
-        const horizonG = Math.round(26 + currentP * 24);
-        const horizonB = Math.round(64 + currentP * 43);
-
         const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
-        skyGrad.addColorStop(0, `rgb(${zenithR},${zenithG},${zenithB})`);
-        skyGrad.addColorStop(0.55, `rgb(${midR},${midG},${midB})`);
-        skyGrad.addColorStop(1, `rgb(${horizonR},${horizonG},${horizonB})`);
+        skyGrad.addColorStop(0, '#050B18');   // Cosmic black at zenith
+        skyGrad.addColorStop(0.45, '#09172B'); // Midnight blue
+        skyGrad.addColorStop(0.85, '#102B49'); // Deep blue horizon
+        skyGrad.addColorStop(1, '#0B1E34');    // Soft stellar horizon haze
         cachedSkyGrad = skyGrad;
       }
 
@@ -393,26 +395,25 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       // ==============================================================
       updateRotationMatrix(headMat, currentP);
 
-      // Scale factor tuned for the extended 16,000px+ cosmic journey
-      const streakScaleFactor = isMobile ? 0.042 : 0.062;
-      const maxStreakOffset = isMobile ? 0.040 : 0.058;
+      const streakScaleFactor = isMobile ? 0.035 : 0.052;
+      const maxStreakOffset = isMobile ? 0.038 : 0.055;
       const streakOffset = Math.max(
         -maxStreakOffset,
         Math.min(maxStreakOffset, smoothedVel * streakScaleFactor)
       );
 
-      const isStreakingActive = Math.abs(streakOffset) > 0.0006 && !prefersReducedMotion;
+      const isStreakingActive = Math.abs(streakOffset) > 0.0008 && !prefersReducedMotion;
       if (isStreakingActive) {
         updateRotationMatrix(trailMat, currentP - streakOffset);
       }
 
       // ==============================================================
-      // 3. NEBULA GLOWS (GPU SPRITE BLIT)
+      // 3. RESTRAINED MIDNIGHT NEBULA CLOUD
       // ==============================================================
       if (nebulaSprite) {
-        const nebX0 = 0.58;
-        const nebY0 = 0.52;
-        const nebZ0 = 0.62;
+        const nebX0 = 0.52;
+        const nebY0 = 0.48;
+        const nebZ0 = 0.65;
 
         const nebX = headMat.r00 * nebX0 + headMat.r01 * nebY0 + headMat.r02 * nebZ0;
         const nebY = headMat.r10 * nebX0 + headMat.r11 * nebY0 + headMat.r12 * nebZ0;
@@ -422,7 +423,7 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
         if (domeDepth > 0.15) {
           const nebScreenX = centerX + (nebX / domeDepth) * fov;
           const nebScreenY = centerY - (nebY / domeDepth) * fov;
-          const nebRadius = Math.min(width, height) * 0.48;
+          const nebRadius = Math.min(width, height) * 0.45;
 
           ctx.drawImage(
             nebulaSprite,
@@ -434,75 +435,30 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
         }
       }
 
+      // Gravitational Lens Cursor State
+      const pointer = pointerRef.current;
+      const isLensActive = pointer.active && !isTouchDeviceRef.current && !prefersReducedMotion;
+      const lensX = pointer.x;
+      const lensY = pointer.y;
+      const lensRadius = 160;
+      const lensRadiusSq = lensRadius * lensRadius;
+      const lensSigmaSq2 = 2 * 56 * 56;
+
       // ==============================================================
-      // 4. STAR RENDERING & VELOCITY STREAKING (BATCHED)
+      // 4A. POPULATION 1: DISTANT STARS (60% — Subtle, Static, Efficient)
+      // Fast single-pass batching by spectral color
       // ==============================================================
-      const maxScreenStreakLength = isMobile ? 32 : 52;
+      for (let b = 0; b < distantBuckets.length; b++) {
+        const bucket = distantBuckets[b];
+        const bCount = bucket.length;
+        if (bCount === 0) continue;
 
-      if (isStreakingActive) {
-        // --- 4A. BATCHED BACKGROUND STREAKS (Partitioned by color) ---
-        ctx.lineCap = 'round';
-        ctx.lineWidth = 0.85;
+        ctx.fillStyle = MIDNIGHT_SPECTRAL_COLORS[b].hex;
+        ctx.globalAlpha = 0.40;
+        ctx.beginPath();
 
-        for (let b = 0; b < bgBuckets.length; b++) {
-          const bucket = bgBuckets[b];
-          const bCount = bucket.length;
-          if (bCount === 0) continue;
-
-          ctx.strokeStyle = SPECTRAL_COLORS[b].hex;
-          ctx.globalAlpha = 0.45;
-          ctx.beginPath();
-
-          for (let i = 0; i < bCount; i++) {
-            const star = bucket[i];
-
-            const xRot = headMat.r00 * star.x0 + headMat.r01 * star.y0 + headMat.r02 * star.z0;
-            const yRot = headMat.r10 * star.x0 + headMat.r11 * star.y0 + headMat.r12 * star.z0;
-            const zRot = headMat.r20 * star.x0 + headMat.r21 * star.y0 + headMat.r22 * star.z0;
-
-            const zDepth = zRot + 1.25;
-            if (zDepth <= 0.2) continue;
-
-            const screenX = centerX + (xRot / zDepth) * fov;
-            const screenY = centerY - (yRot / zDepth) * fov;
-
-            if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) {
-              continue;
-            }
-
-            const xTrail = trailMat.r00 * star.x0 + trailMat.r01 * star.y0 + trailMat.r02 * star.z0;
-            const yTrail = trailMat.r10 * star.x0 + trailMat.r11 * star.y0 + trailMat.r12 * star.z0;
-            const zTrail = trailMat.r20 * star.x0 + trailMat.r21 * star.y0 + trailMat.r22 * star.z0;
-
-            const zDepthTrail = zTrail + 1.25;
-            let tailX = screenX;
-            let tailY = screenY;
-
-            if (zDepthTrail > 0.2) {
-              tailX = centerX + (xTrail / zDepthTrail) * fov;
-              tailY = centerY - (yTrail / zDepthTrail) * fov;
-
-              const dx = tailX - screenX;
-              const dy = tailY - screenY;
-              const streakLen = Math.hypot(dx, dy);
-
-              if (streakLen > maxScreenStreakLength) {
-                const scale = maxScreenStreakLength / streakLen;
-                tailX = screenX + dx * scale;
-                tailY = screenY + dy * scale;
-              }
-            }
-
-            ctx.moveTo(tailX, tailY);
-            ctx.lineTo(screenX, screenY);
-          }
-          ctx.stroke();
-        }
-
-        // --- 4B. PROMINENT / HERO STARS (Individual high-fidelity streaks) ---
-        const promCount = prominentStars.length;
-        for (let i = 0; i < promCount; i++) {
-          const star = prominentStars[i];
+        for (let i = 0; i < bCount; i++) {
+          const star = bucket[i];
 
           const xRot = headMat.r00 * star.x0 + headMat.r01 * star.y0 + headMat.r02 * star.z0;
           const yRot = headMat.r10 * star.x0 + headMat.r11 * star.y0 + headMat.r12 * star.z0;
@@ -514,175 +470,161 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
           const screenX = centerX + (xRot / zDepth) * fov;
           const screenY = centerY - (yRot / zDepth) * fov;
 
-          if (screenX < -70 || screenX > width + 70 || screenY < -70 || screenY > height + 70) {
+          if (screenX < -15 || screenX > width + 15 || screenY < -15 || screenY > height + 15) {
             continue;
           }
 
-          const domePerspectiveFactor = Math.max(0.2, (zRot + 0.8) / 1.8);
-          const opacity = star.baseOpacity * domePerspectiveFactor;
-          const radius = star.radius * (0.8 + 0.25 * domePerspectiveFactor);
+          ctx.rect(screenX - 0.55, screenY - 0.55, 1.1, 1.1);
+        }
+        ctx.fill();
+      }
 
-          const xTrail = trailMat.r00 * star.x0 + trailMat.r01 * star.y0 + trailMat.r02 * star.z0;
-          const yTrail = trailMat.r10 * star.x0 + trailMat.r11 * star.y0 + trailMat.r12 * star.z0;
-          const zTrail = trailMat.r20 * star.x0 + trailMat.r21 * star.y0 + trailMat.r22 * star.z0;
+      // ==============================================================
+      // 4B. POPULATION 2: MIDGROUND STARS (30% — Gentle drift, Twinkling)
+      // ==============================================================
+      const midCount = midgroundStars.length;
+      for (let i = 0; i < midCount; i++) {
+        const star = midgroundStars[i];
 
-          const zDepthTrail = zTrail + 1.25;
-          let tailX = screenX;
-          let tailY = screenY;
+        // Micro-drift calculation
+        const driftX = Math.sin(timestamp * 0.0004 + star.driftPhase) * 0.008;
+        const driftY = Math.cos(timestamp * 0.0003 + star.driftPhase) * 0.008;
 
-          if (zDepthTrail > 0.2) {
-            tailX = centerX + (xTrail / zDepthTrail) * fov;
-            tailY = centerY - (yTrail / zDepthTrail) * fov;
+        const xRot = headMat.r00 * (star.x0 + driftX) + headMat.r01 * (star.y0 + driftY) + headMat.r02 * star.z0;
+        const yRot = headMat.r10 * (star.x0 + driftX) + headMat.r11 * (star.y0 + driftY) + headMat.r12 * star.z0;
+        const zRot = headMat.r20 * star.x0 + headMat.r21 * star.y0 + headMat.r22 * star.z0;
 
-            const dx = tailX - screenX;
-            const dy = tailY - screenY;
-            const streakLen = Math.hypot(dx, dy);
+        const zDepth = zRot + 1.25;
+        if (zDepth <= 0.2) continue;
 
-            if (streakLen > maxScreenStreakLength) {
-              const scale = maxScreenStreakLength / streakLen;
-              tailX = screenX + dx * scale;
-              tailY = screenY + dy * scale;
-            }
+        let screenX = centerX + (xRot / zDepth) * fov;
+        let screenY = centerY - (yRot / zDepth) * fov;
+
+        // Subtle Gravitational Lens Deflection on Midground Stars
+        if (isLensActive) {
+          const dx = screenX - lensX;
+          const dy = screenY - lensY;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < lensRadiusSq && distSq > 0.5) {
+            const r = Math.sqrt(distSq);
+            const influence = Math.exp(-distSq / lensSigmaSq2);
+            const ux = dx / r;
+            const uy = dy / r;
+            const tx = -uy;
+            const ty = ux;
+            // Subtle 6px repulsion + 3px tangential deflection
+            screenX += (ux * 6.0 + tx * 3.0) * influence;
+            screenY += (uy * 6.0 + ty * 3.0) * influence;
           }
+        }
 
-          ctx.globalAlpha = Math.min(1.0, opacity);
+        if (screenX < -25 || screenX > width + 25 || screenY < -25 || screenY > height + 25) {
+          continue;
+        }
+
+        const domePerspective = Math.max(0.25, (zRot + 0.8) / 1.8);
+        let opacity = star.baseOpacity * domePerspective;
+
+        if (star.isTwinkling && !prefersReducedMotion) {
+          const delta = Math.sin(timestamp * star.twinkleSpeed + star.twinklePhase) * 0.18;
+          opacity = Math.max(0.18, Math.min(1.0, opacity + delta));
+        }
+
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = star.colorHex;
+        ctx.beginPath();
+        ctx.arc(screenX, screenY, star.radius * 0.85, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // ==============================================================
+      // 4C. POPULATION 3: FOREGROUND STARS (10% — Prominent, Spikes, Lens)
+      // Highest depth responsiveness and full gravitational lensing effect
+      // ==============================================================
+      const foreCount = foregroundStars.length;
+      for (let i = 0; i < foreCount; i++) {
+        const star = foregroundStars[i];
+
+        const xRot = headMat.r00 * star.x0 + headMat.r01 * star.y0 + headMat.r02 * star.z0;
+        const yRot = headMat.r10 * star.x0 + headMat.r11 * star.y0 + headMat.r12 * star.z0;
+        const zRot = headMat.r20 * star.x0 + headMat.r21 * star.y0 + headMat.r22 * star.z0;
+
+        const zDepth = zRot + 1.25;
+        if (zDepth <= 0.2) continue;
+
+        let screenX = centerX + (xRot / zDepth) * fov;
+        let screenY = centerY - (yRot / zDepth) * fov;
+
+        // Full Gravitational Lens Displacement on Foreground Stars
+        if (isLensActive) {
+          const dx = screenX - lensX;
+          const dy = screenY - lensY;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < lensRadiusSq && distSq > 0.5) {
+            const r = Math.sqrt(distSq);
+            const influence = Math.exp(-distSq / lensSigmaSq2);
+            const ux = dx / r;
+            const uy = dy / r;
+            const tx = -uy;
+            const ty = ux;
+            // 15px repulsion + 7.5px tangential bending around cursor
+            screenX += (ux * 15.0 + tx * 7.5) * influence;
+            screenY += (uy * 15.0 + ty * 7.5) * influence;
+          }
+        }
+
+        if (screenX < -60 || screenX > width + 60 || screenY < -60 || screenY > height + 60) {
+          continue;
+        }
+
+        const domePerspective = Math.max(0.3, (zRot + 0.8) / 1.8);
+        let opacity = star.baseOpacity * domePerspective;
+
+        if (star.isTwinkling && !prefersReducedMotion) {
+          const delta = Math.sin(timestamp * star.twinkleSpeed + star.twinklePhase) * 0.25;
+          opacity = Math.max(0.25, Math.min(1.0, opacity + delta));
+        }
+
+        const radius = star.radius * (0.85 + 0.25 * domePerspective);
+
+        // Pre-rendered soft glow sprite
+        if (star.glowRadius && glowSprites[star.colorIndex]) {
+          const curGlow = star.glowRadius * domePerspective;
+          ctx.globalAlpha = opacity * 0.65;
+          ctx.drawImage(
+            glowSprites[star.colorIndex],
+            screenX - curGlow,
+            screenY - curGlow,
+            curGlow * 2,
+            curGlow * 2
+          );
+        }
+
+        // Diffraction Spikes on Hero Stars
+        if (star.hasSpike && opacity > 0.35) {
+          const spikeLen = radius * 7.2;
+          ctx.globalAlpha = opacity * 0.85;
           ctx.strokeStyle = star.colorHex;
-          ctx.lineWidth = Math.max(0.9, radius * 1.35);
-
+          ctx.lineWidth = 0.85;
           ctx.beginPath();
-          ctx.moveTo(tailX, tailY);
-          ctx.lineTo(screenX, screenY);
+          ctx.moveTo(screenX - spikeLen, screenY);
+          ctx.lineTo(screenX + spikeLen, screenY);
+          ctx.moveTo(screenX, screenY - spikeLen);
+          ctx.lineTo(screenX, screenY + spikeLen);
           ctx.stroke();
-
-          // Star Core
-          ctx.fillStyle = star.colorHex;
-          ctx.beginPath();
-          ctx.arc(screenX, screenY, radius * 0.9, 0, Math.PI * 2);
-          ctx.fill();
         }
 
-        ctx.globalAlpha = 1.0;
-      } else {
-        // --- 4C. AT REST: BATCHED BACKGROUND STARS (Ultra-fast single-pass fill) ---
-        for (let b = 0; b < bgBuckets.length; b++) {
-          const bucket = bgBuckets[b];
-          const bCount = bucket.length;
-          if (bCount === 0) continue;
-
-          ctx.fillStyle = SPECTRAL_COLORS[b].hex;
-          ctx.globalAlpha = 0.42;
-          ctx.beginPath();
-
-          for (let i = 0; i < bCount; i++) {
-            const star = bucket[i];
-
-            const xRot = headMat.r00 * star.x0 + headMat.r01 * star.y0 + headMat.r02 * star.z0;
-            const yRot = headMat.r10 * star.x0 + headMat.r11 * star.y0 + headMat.r12 * star.z0;
-            const zRot = headMat.r20 * star.x0 + headMat.r21 * star.y0 + headMat.r22 * star.z0;
-
-            const zDepth = zRot + 1.25;
-            if (zDepth <= 0.2) continue;
-
-            const screenX = centerX + (xRot / zDepth) * fov;
-            const screenY = centerY - (yRot / zDepth) * fov;
-
-            if (screenX < -20 || screenX > width + 20 || screenY < -20 || screenY > height + 20) {
-              continue;
-            }
-
-            // High-speed rect blit for tiny background starlight dots
-            ctx.rect(screenX - 0.65, screenY - 0.65, 1.3, 1.3);
-          }
-          ctx.fill();
-        }
-
-        // --- 4D. AT REST: PROMINENT STARS (Twinkling, Glow Sprites, Spikes) ---
-        const promCount = prominentStars.length;
-        for (let i = 0; i < promCount; i++) {
-          const star = prominentStars[i];
-
-          const xRot = headMat.r00 * star.x0 + headMat.r01 * star.y0 + headMat.r02 * star.z0;
-          const yRot = headMat.r10 * star.x0 + headMat.r11 * star.y0 + headMat.r12 * star.z0;
-          const zRot = headMat.r20 * star.x0 + headMat.r21 * star.y0 + headMat.r22 * star.z0;
-
-          const zDepth = zRot + 1.25;
-          if (zDepth <= 0.2) continue;
-
-          const screenX = centerX + (xRot / zDepth) * fov;
-          const screenY = centerY - (yRot / zDepth) * fov;
-
-          if (screenX < -30 || screenX > width + 30 || screenY < -30 || screenY > height + 30) {
-            continue;
-          }
-
-          const domePerspectiveFactor = Math.max(0.2, (zRot + 0.8) / 1.8);
-          let opacity = star.baseOpacity * domePerspectiveFactor;
-
-          if (star.isTwinkling && !prefersReducedMotion) {
-            const delta = Math.sin(timestamp * star.twinkleSpeed + star.twinklePhase) * 0.2;
-            opacity = Math.max(0.12, Math.min(1.0, opacity + delta));
-          }
-
-          const radius = star.radius * (0.8 + 0.25 * domePerspectiveFactor);
-
-          // Fast GPU blit using pre-rendered glow sprite
-          if (star.glowRadius && glowSprites[star.colorIndex]) {
-            const curGlow = star.glowRadius * domePerspectiveFactor;
-            ctx.globalAlpha = opacity * 0.55;
-            ctx.drawImage(
-              glowSprites[star.colorIndex],
-              screenX - curGlow,
-              screenY - curGlow,
-              curGlow * 2,
-              curGlow * 2
-            );
-          }
-
-          // Optical Diffraction Spikes on Hero Stars
-          if (star.hasSpike && opacity > 0.4) {
-            const spikeLen = radius * 7.5;
-            ctx.globalAlpha = opacity * 0.85;
-            ctx.strokeStyle = star.colorHex;
-            ctx.lineWidth = 0.85;
-            ctx.beginPath();
-            ctx.moveTo(screenX - spikeLen, screenY);
-            ctx.lineTo(screenX + spikeLen, screenY);
-            ctx.moveTo(screenX, screenY - spikeLen);
-            ctx.lineTo(screenX, screenY + spikeLen);
-            ctx.stroke();
-          }
-
-          // Star Core
-          ctx.globalAlpha = Math.min(1.0, opacity);
-          ctx.fillStyle = star.colorHex;
-          ctx.beginPath();
-          ctx.arc(screenX, screenY, radius, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        ctx.globalAlpha = 1.0;
+        // Star Core
+        ctx.globalAlpha = Math.min(1.0, opacity);
+        ctx.fillStyle = star.colorHex;
+        ctx.beginPath();
+        ctx.arc(screenX, screenY, radius, 0, Math.PI * 2);
+        ctx.fill();
       }
 
-      // ==============================================================
-      // 5. HORIZON GLOW BEAM (PRE-RENDERED SPRITE BLIT)
-      // ==============================================================
-      if (horizonGlowSprite) {
-        const horizonGlowOpacity = 0.18 + currentP * 0.22;
-        const horizonGlowHeight = height * (0.32 + currentP * 0.15);
-
-        ctx.globalAlpha = horizonGlowOpacity;
-        ctx.drawImage(
-          horizonGlowSprite,
-          0,
-          height - horizonGlowHeight,
-          width,
-          horizonGlowHeight
-        );
-        ctx.globalAlpha = 1.0;
-      }
+      ctx.globalAlpha = 1.0;
     };
 
-    // Unified 60fps RAF loop
     const animate = (timestamp: number) => {
       renderFrame(timestamp);
       animFrameIdRef.current = requestAnimationFrame(animate);
@@ -697,12 +639,11 @@ export const CelestialDome: React.FC<CelestialDomeProps> = ({
       }
     };
   }, [
-    stars,
-    bgBuckets,
-    prominentStars,
+    distantBuckets,
+    midgroundStars,
+    foregroundStars,
     glowSprites,
     nebulaSprite,
-    horizonGlowSprite,
     prefersReducedMotion,
     scrollProgressRef,
   ]);
